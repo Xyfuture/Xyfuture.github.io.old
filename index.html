@@ -258,6 +258,215 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/29/%E8%AE%A1%E7%BD%91-%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyfuture">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2020/02/28/cAKbXSfZYIC9mF8.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xyfuture's home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/02/29/%E8%AE%A1%E7%BD%91-%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/" itemprop="url">计网-通信原理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-29T20:18:29+08:00">
+                2020-02-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%BD%91/" itemprop="url" rel="index">
+                    <span itemprop="name">计网</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>这学期计网开幕暴击,通信原理是信息学院的课,涉及到大量的数学知识和物理知识,然而我连傅立叶变换都算不太好,深入的理解是不奢求了.但是总还是要理解一部分的,因此记录一下目前知道的信息</p>
+</blockquote>
+<blockquote>
+<p>参考: <a href="https://www.sohu.com/a/219750202_464086" target="_blank" rel="noopener">奈奎斯特定理</a>  <a href="https://baijiahao.baidu.com/s?id=1636833728798493906" target="_blank" rel="noopener">傅立叶变换</a> <a href="https://www.zhihu.com/question/23115645" target="_blank" rel="noopener">带宽</a></p>
+</blockquote>
+<h1 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h1><ul>
+<li>信道: 相当物理介质,比如网线,一台网线就是一个信道,或者大气  通信的通道，是信号传输的媒介</li>
+</ul>
+<h1 id="比特率-波特率"><a href="#比特率-波特率" class="headerlink" title="比特率 波特率"></a>比特率 波特率</h1><h2 id="波特率"><a href="#波特率" class="headerlink" title="波特率"></a>波特率</h2><p>波特率（也称信息传送速率、码元速率、符号速率、或传码率），其定义为每秒钟传送码元的数目，码元速率的单位为 “波特”，常用符号“Baud” 表示，简写为“B”。</p>
+<p>一个数字脉冲就是一个码元，我们用码元速率表示单位时间内信号波形的变换次数，即单位时间内通过信道传输的码元个数。若信号码元宽度为 T 秒，则码元速率 B 为：</p>
+<p><img src="https://i.loli.net/2020/02/29/NkbdEcUmyojteRJ.png" alt=""></p>
+<p>说简单一点就是码元的速度,每秒能传送多少个码元,一个码元就是最基本的单位</p>
+<h2 id="比特率"><a href="#比特率" class="headerlink" title="比特率"></a>比特率</h2><p>比特率是实际的数据传输速率,即每秒传输多少个bit的数据,计算也非常简单,首先我们要知道一个码元对着几个bit, $log_2(k)$ 其中k为一个码元中状态的数量,比如一个码元可能有4中状态则其bit位为2.比特率是波特率乘上码元代表的比特位.</p>
+<p><img src="https://i.loli.net/2020/02/29/B2pUkP9zx8REVd4.jpg" alt=""></p>
+<p>比特率的单位是bit/s</p>
+<h1 id="带宽-傅立叶变化-频域"><a href="#带宽-傅立叶变化-频域" class="headerlink" title="带宽 傅立叶变化 频域"></a>带宽 傅立叶变化 频域</h1><h2 id="傅立叶变换"><a href="#傅立叶变换" class="headerlink" title="傅立叶变换"></a>傅立叶变换</h2><p>这里就不多写了,简单的想成每个周期函数(波形)都能用多个正弦波和余弦波相加表达出来</p>
+<p><img src="https://i.loli.net/2020/02/29/NcL1WqbVjYSrP28.png" alt=""></p>
+<p><img src="https://i.loli.net/2020/02/29/MnWIwauCKyHVh4P.png" alt=""></p>
+<p>这里的正弦函数,余弦函数都是最简单的形式,初相为0</p>
+<h2 id="频域"><a href="#频域" class="headerlink" title="频域"></a>频域</h2><p>电磁波都有一定的频率,注意这里说的频率是正弦或者余弦波的频率(<strong>存疑</strong>),也就是任意一个波经过傅立叶变换后的正弦或者余弦的频率,当然一个普通波经过傅立叶变换后会占据多个频率</p>
+<p><img src="https://i.loli.net/2020/02/29/wcNDJmy4gI3Ura1.png" alt="##"></p>
+<h2 id="带宽"><a href="#带宽" class="headerlink" title="带宽"></a>带宽</h2><blockquote>
+<p>带宽的概念有一定的歧义,我把课本和我认为的都写出来</p>
+</blockquote>
+<p><img src="https://i.loli.net/2020/02/29/UiCVSjuX73rGe1H.png" alt=""></p>
+<p>我的理解(和网上的介绍差不多):</p>
+<p>一般信道都有一个最高的信号频率（注意不是波特率哦，频率是指每秒钟的周期数，而每个周期都会有几次电平变化。。恩，看到区别了吧）和最低的信号频率，只有在这两个频率之间的信号才能通过这个信道，这两个频率的差值就叫做这个信道的带宽，单位是Hz</p>
+<p>带宽这个值和频域是有关系,一个波的带宽可以简单理解为把这个波用傅立叶变换分解后正弦余弦的频率的范围.</p>
+<p>有一个误解说带宽指的是速率(比如100m的带宽),但这不是真正得带宽,这说的是比特率,真正得带宽是频率的范围.</p>
+<h1 id="奈奎斯特定律-香农定律"><a href="#奈奎斯特定律-香农定律" class="headerlink" title="奈奎斯特定律 香农定律"></a>奈奎斯特定律 香农定律</h1><h2 id="奈奎斯特定律"><a href="#奈奎斯特定律" class="headerlink" title="奈奎斯特定律"></a>奈奎斯特定律</h2><blockquote>
+<p>注意奈奎斯特提出过好多定律,这里说的是有关传输速率的,不是奈奎斯特采样定律</p>
+</blockquote>
+<p>1924年，奈奎斯特（Nyquist）就推导出在理想低通信道下的最高码元传输速率的公式：</p>
+<p><img src="https://i.loli.net/2020/02/29/6NwhUqk32W4OnJg.png" alt=""></p>
+<p>其中W是理想低通信道的带宽，单位为赫兹；K是一个码元可能取值的个数,C是比特率</p>
+<p>这么看这个式子是有点别扭的,我们可以这么看,假设我们设计好了比特率,也设计好了码元,这样就能推出占用的带宽了.</p>
+<p><strong>根据奈奎斯特准则我们可以推断出：</strong><br>（1）给定了信道的带宽，则该信道的极限波特率就确定了，不可能超过这个极限波特率传输码元，除非改善该信道的带宽；<br>（2）要想增加信道的比特传送率有两条途径，一方面可以增加该信道的带宽，另一方面可以选择更高的编码方式。</p>
+<h2 id="香农定理"><a href="#香农定理" class="headerlink" title="香农定理"></a>香农定理</h2><p>奈奎斯特假设的是理想的情况,但是实际上由许多的噪声,因此香农提出了香农定理,解决了噪声状态下的带宽问题.</p>
+<p>香农定理指出，在噪声与信号独立的高斯白噪信道中，假设信号的功率为S，噪声功率为N，信道通频带宽为W(Hz)，则该信道的信道容量C有:</p>
+<p><img src="https://i.loli.net/2020/02/29/bNr1CfasT6dRnPH.png" alt=""></p>
+<p>这里不具体讨论香农定理了.</p>
+<h1 id="调制"><a href="#调制" class="headerlink" title="调制"></a>调制</h1><h2 id="基带-通带"><a href="#基带-通带" class="headerlink" title="基带 通带"></a>基带 通带</h2><h3 id="基带-baseband"><a href="#基带-baseband" class="headerlink" title="基带 (baseband)"></a>基带 (baseband)</h3><blockquote>
+<p>以下的内容不不够严谨,是我个人的理解</p>
+</blockquote>
+<p><strong>基带</strong>简单的说就是用一定0和1(GND和VCC)直接表示计算机中的0和1</p>
+<p>基带有多种编码方式,这里只介绍NRZ</p>
+<img src="https://i.loli.net/2020/02/29/fMNngV7yATi1zcH.png" style="zoom:50%;" />
+
+<p>(这个图对应有点问题,上移一行)<br>NRZ就不多说了,直接对应,Manchester是上升沿为0,下降沿为1</p>
+<h4 id="一个问题"><a href="#一个问题" class="headerlink" title="一个问题"></a>一个问题</h4><p><img src="C:%5CUsers%5CXYfuture%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200229220034807.png" alt="image-20200229220034807"></p>
+<p>课本上这里的定义说他是从0开始的,这是因为这样的方波经过傅立叶变换后频率是从零开始的一直增大到一定的数值</p>
+<p>基带也是符合奈奎斯特定理的,其带宽也可以算出来.</p>
+<h3 id="通带"><a href="#通带" class="headerlink" title="通带"></a>通带</h3><p> 基带有许多问题,因此我们提出了通带的方案</p>
+<p>通带最简单的理解就是首先我们有一个载波频率,这个波就是单纯的正弦波,不能传递信息,但是我们通过一些系列骚操作(针对 振幅,频率,相位),将信号调制到载波上使其能够传输信息.</p>
+<p>常见的调制方法(编码方法)</p>
+<ul>
+<li>幅移键控ASK(Amplitude Shift Keying) 不同的振幅表示0,1</li>
+<li>频移键控FSK(Frequency Shift Keying) 两个或更多的频率表示0,1</li>
+<li>相移键控PSK(Phase Shift Keying) 相邻的两个周期不同的相位+180表示0,1</li>
+</ul>
+<p><img src="https://i.loli.net/2020/02/29/MIjWg4wkYXhFJU9.png" alt=""></p>
+<p>这是三种最长常见的调制方式,这三种方式能组合形成更多的调制方式,使得一个码元能表达出更多的比特位</p>
+<h4 id="一个问题-1"><a href="#一个问题-1" class="headerlink" title="一个问题"></a>一个问题</h4><p>为什么看着载波都是一个频率却能拥有带宽</p>
+<p>这个问题其实和前面的差不多,经过调制后已经不是单纯的正弦波了,经过傅立叶变换能分出很多正弦波,然后这些波的频率以载波的频率为中心左右扩散,因此通带也是拥有带宽的</p>
+<h1 id="复用"><a href="#复用" class="headerlink" title="复用"></a>复用</h1><blockquote>
+<p>to be continued</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/23/vscode%20%E9%85%8D%E7%BD%AE%E8%B0%83%E8%AF%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1095,7 +1304,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1106,7 +1315,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1117,7 +1326,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
