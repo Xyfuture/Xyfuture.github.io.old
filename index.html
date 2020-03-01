@@ -353,8 +353,6 @@
           
             <blockquote>
 <p>这学期计网开幕暴击,通信原理是信息学院的课,涉及到大量的数学知识和物理知识,然而我连傅立叶变换都算不太好,深入的理解是不奢求了.但是总还是要理解一部分的,因此记录一下目前知道的信息</p>
-</blockquote>
-<blockquote>
 <p>参考: <a href="https://www.sohu.com/a/219750202_464086" target="_blank" rel="noopener">奈奎斯特定理</a>  <a href="https://baijiahao.baidu.com/s?id=1636833728798493906" target="_blank" rel="noopener">傅立叶变换</a> <a href="https://www.zhihu.com/question/23115645" target="_blank" rel="noopener">带宽</a></p>
 </blockquote>
 <h1 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h1><ul>
@@ -398,10 +396,9 @@
 </blockquote>
 <p><strong>基带</strong>简单的说就是用一定0和1(GND和VCC)直接表示计算机中的0和1</p>
 <p>基带有多种编码方式,这里只介绍NRZ</p>
-<img src="https://i.loli.net/2020/02/29/fMNngV7yATi1zcH.png" style="zoom:50%;" />
-
+<p><img src="https://i.loli.net/2020/02/29/fMNngV7yATi1zcH.png" style="zoom:50%;" /></p>
 <p>(这个图对应有点问题,上移一行)<br>NRZ就不多说了,直接对应,Manchester是上升沿为0,下降沿为1</p>
-<h4 id="一个问题"><a href="#一个问题" class="headerlink" title="一个问题"></a>一个问题</h4><p><img src="C:%5CUsers%5CXYfuture%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200229220034807.png" alt="image-20200229220034807"></p>
+<h4 id="一个问题"><a href="#一个问题" class="headerlink" title="一个问题"></a>一个问题</h4><p><img src="C:\Users\XYfuture\AppData\Roaming\Typora\typora-user-images\image-20200229220034807.png" alt="image-20200229220034807"></p>
 <p>课本上这里的定义说他是从0开始的,这是因为这样的方波经过傅立叶变换后频率是从零开始的一直增大到一定的数值</p>
 <p>基带也是符合奈奎斯特定理的,其带宽也可以算出来.</p>
 <h3 id="通带"><a href="#通带" class="headerlink" title="通带"></a>通带</h3><p> 基带有许多问题,因此我们提出了通带的方案</p>
@@ -568,9 +565,7 @@
 <h2 id="配置json"><a href="#配置json" class="headerlink" title="配置json"></a>配置json</h2><p>json配置两个文件，一个是编译的tasks，一个是调试的launch,放在.vscode文件夹中</p>
 <p>这里有两个模板</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//tasks.json</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"version"</span>: <span class="string">"2.0.0"</span>,</span><br><span class="line">    <span class="attr">"tasks"</span>: [&#123;</span><br><span class="line">            <span class="attr">"label"</span>: <span class="string">"compile"</span>,</span><br><span class="line">            <span class="attr">"command"</span>: <span class="string">"g++"</span>,</span><br><span class="line">            <span class="attr">"args"</span>: [</span><br><span class="line">                <span class="string">"-g"</span>,</span><br><span class="line">                <span class="string">"$&#123;file&#125;"</span>,</span><br><span class="line">                <span class="string">"-o"</span>,</span><br><span class="line">                <span class="string">"$&#123;fileDirname&#125;/$&#123;fileBasenameNoExtension&#125;.exe"</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="attr">"problemMatcher"</span>: &#123;</span><br><span class="line">                <span class="attr">"owner"</span>: <span class="string">"cpp"</span>,</span><br><span class="line">                <span class="attr">"fileLocation"</span>: [</span><br><span class="line">                    <span class="string">"relative"</span>,</span><br><span class="line">                    <span class="string">"$&#123;workspaceRoot&#125;"</span></span><br><span class="line">                ],</span><br><span class="line">                <span class="attr">"pattern"</span>: &#123;</span><br><span class="line">                    <span class="attr">"regexp"</span>: <span class="string">"^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$"</span>,</span><br><span class="line">                    <span class="attr">"file"</span>: <span class="number">1</span>,</span><br><span class="line">                    <span class="attr">"line"</span>: <span class="number">2</span>,</span><br><span class="line">                    <span class="attr">"column"</span>: <span class="number">3</span>,</span><br><span class="line">                    <span class="attr">"severity"</span>: <span class="number">4</span>,</span><br><span class="line">                    <span class="attr">"message"</span>: <span class="number">5</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">"group"</span>: &#123;</span><br><span class="line">                <span class="attr">"kind"</span>: <span class="string">"build"</span>,</span><br><span class="line">                <span class="attr">"isDefault"</span>: <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//launch.json</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"version"</span>: <span class="string">"0.2.0"</span>,</span><br><span class="line">    <span class="attr">"configurations"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>: <span class="string">"C/C++"</span>,</span><br><span class="line">            <span class="attr">"type"</span>: <span class="string">"cppdbg"</span>,</span><br><span class="line">            <span class="attr">"request"</span>: <span class="string">"launch"</span>,</span><br><span class="line">            <span class="attr">"program"</span>: <span class="string">"$&#123;fileDirname&#125;/$&#123;fileBasenameNoExtension&#125;.exe"</span>,</span><br><span class="line">            <span class="attr">"args"</span>: [],</span><br><span class="line">            <span class="attr">"stopAtEntry"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="attr">"cwd"</span>: <span class="string">"$&#123;workspaceFolder&#125;"</span>,</span><br><span class="line">            <span class="attr">"environment"</span>: [],</span><br><span class="line">            <span class="attr">"externalConsole"</span>: <span class="literal">true</span>,<span class="comment">//使用内部会出现问题</span></span><br><span class="line">            <span class="attr">"MIMode"</span>: <span class="string">"gdb"</span>,</span><br><span class="line">            <span class="attr">"miDebuggerPath"</span>: <span class="string">"C:/Program Files/mingw64/bin/gdb.exe"</span>,</span><br><span class="line">            <span class="attr">"preLaunchTask"</span>: <span class="string">"compile"</span>,<span class="comment">//要和tasks中的label一样</span></span><br><span class="line">            <span class="attr">"setupCommands"</span>: [</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="attr">"description"</span>: <span class="string">"Enable pretty-printing for gdb"</span>,</span><br><span class="line">                    <span class="attr">"text"</span>: <span class="string">"-enable-pretty-printing"</span>,</span><br><span class="line">                    <span class="attr">"ignoreFailures"</span>: <span class="literal">true</span></span><br><span class="line">                &#125;</span><br><span class="line">            ],</span><br><span class="line">        &#125;,</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>配置完后直接在调试界面点运行图标就行了，会自动打开一个新窗口，同dev cpp类似</p>
 <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>主要问题就是如果使用内置的powershell就会出现调试时无法输入的问题，暂时不知道原因，只要把launch.json中的externalConsole选项改成true就可以调用外部console解决这个问题</p>
 
@@ -733,6 +728,7 @@
 <p>负数： 1+真值</p>
 <p>原码其实只解决了正负的二进制表示，但是没法解决运算问题，因此不能在机内直接使用，下面介绍的补码可以直接使用</p>
 <p>原码存在+0，-0一言，因为原码只管符号位所以数值部分全为0，符号位为1 or 0 都表示真值的0</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -740,7 +736,8 @@
 <th>原码</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>+1001</td>
 <td>01001</td>
 </tr>
@@ -756,15 +753,17 @@
 <td>-0.1011</td>
 <td>1.1011</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h3 id="补码"><a href="#补码" class="headerlink" title="补码"></a>补码</h3><p>补码是非常重要的，补码采取了取模的方法使得正负之间能够通过加法进行运算，通常内存中的数都是用补码进行表达的。</p>
 <p>部分推导：</p>
 <p>首先我们要明白取模的概念（下面以10进制为例）</p>
 <p>我们要建立一个mod16的系统所有数都要模16，因此实际上就0-15这16个数字，其他的无论正数还是负数都可以转换为0-15(加减16即可得到)</p>
-<p>例如 -10 –&gt; -10+16 = 6     18–&gt;18-16 = 2</p>
+<p>例如 -10 —&gt; -10+16 = 6     18—&gt;18-16 = 2</p>
 <p>那么正数和负数之间的<strong>加法</strong>都可以用0-15进行</p>
 <p>例如 -2 + 3 = 1</p>
-<p>首先把所有数转换为0-15，-2–&gt;14,然后让这两个数相加得到的数继续mod16得到结果，（14+3）%16 =1，就是正确结果</p>
+<p>首先把所有数转换为0-15，-2—&gt;14,然后让这两个数相加得到的数继续mod16得到结果，（14+3）%16 =1，就是正确结果</p>
 <p>这是一个简单的原理，但是还有许多问题需要解决，比如溢出，范围，正负号等等，下面转为为char的表示</p>
 <p>char是8位的，表示-128-127范围之间的数据，最高位是符号位，数值部分用到了7位，能表达$2^7$个数，因此我们采取mod $2^7$的方案,因为mod$2^7$正好是$0\sim2^7-1$这$2^7$个数，正好能用数值部分的7位表达，这样的话我们把原码的正数和负数的数值部分都转换为mod$2^7$的数。</p>
 <p>因为我们只表示-128-127，因此正数直接不变，负数数值部分取反加一就行了，负数的取反加一是因为1000，0000 + x(负数) =  想要的数，x(数值部分取反)+x（数值） = 0111，1111 再+1就成了 1 000，0000了。</p>
@@ -778,6 +777,7 @@
 <p><strong>转换</strong></p>
 <p>正数： 和原码相同</p>
 <p>负数： 符号位为1 ，数值部分原码的数值部分取反加一</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -786,7 +786,8 @@
 <th>补码</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>+1001</td>
 <td>01001</td>
 <td>01001</td>
@@ -806,7 +807,9 @@
 <td>1.1011</td>
 <td>1.0101</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p><strong>补码没有正负0之分</strong>，只有0000，0000表示0，1000，0000表示-128，这是因为-128不mod值是0，能配上数值部分，1表示是负的，经过mod处理的，这个-128没法再原码和反码中表示的</p>
 <h3 id="反码"><a href="#反码" class="headerlink" title="反码"></a>反码</h3><p>反码平时用的比较少，转换也非常简单</p>
 <p>正数：同原码相同</p>
@@ -820,10 +823,11 @@
 <p>正数：原码，补码，反码完全相同</p>
 <p>负数：</p>
 <p><img src="https://i.loli.net/2020/02/24/TL6OAECehiZNkFr.png" alt=""></p>
-<h2 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h2><h3 id="朴素的数学表示"><a href="#朴素的数学表示" class="headerlink" title="朴素的数学表示"></a>朴素的数学表示</h3><p>浮点数是基于科学计数法的<br>$$<br>N = S*r^j<br>$$<br>N是实际的数，S是尾数，r是基数，j是阶数</p>
+<h2 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h2><h3 id="朴素的数学表示"><a href="#朴素的数学表示" class="headerlink" title="朴素的数学表示"></a>朴素的数学表示</h3><p>浮点数是基于科学计数法的</p>
+<script type="math/tex; mode=display">
+N = S*r^j</script><p>N是实际的数，S是尾数，r是基数，j是阶数</p>
 <p>大致就这样，因为阶数可以变动所以小数点是不定位置的所以叫浮点数</p>
-<h3 id="朴素的浮点数表示"><a href="#朴素的浮点数表示" class="headerlink" title="朴素的浮点数表示"></a>朴素的浮点数表示</h3><p>朴素的浮点数比较随意，前半部是阶数，后半部分是尾数，都用上面说的定点数表示</p>
-<p><img src="C:%5CUsers%5CXYfuture%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200224200903526.png" alt="image-20200224200903526"></p>
+<h3 id="朴素的浮点数表示"><a href="#朴素的浮点数表示" class="headerlink" title="朴素的浮点数表示"></a>朴素的浮点数表示</h3><p>朴素的浮点数比较随意，前半部是阶数，后半部分是尾数，都用上面说的定点数表示<img src="https://i.loli.net/2020/02/24/1RNCr4UjyMK9nx3.png" alt=""></p>
 <p>这里阶码和尾数可用原码，补码表示，比较乱，我盲猜机内统一用补码表示，不过现在应该没有这样的机器了，毕竟IEEE 754真香，一个注意的点是用补码范围会大一些，我们考试啥的用原码多</p>
 <h4 id="浮点数的范围"><a href="#浮点数的范围" class="headerlink" title="浮点数的范围"></a>浮点数的范围</h4><p><img src="https://i.loli.net/2020/02/24/DScrEFM8GZotk7x.png" alt=""></p>
 <p>看看就行</p>
@@ -833,14 +837,16 @@
 <p>操作所有数都加上一个统一的值，然后使所有负数都变成正数</p>
 <p>比如加上$2^{n-1}$, $2^{n-1}$有种简便方法，就是所有补码直接把符号位取反</p>
 <h4 id="标准"><a href="#标准" class="headerlink" title="标准"></a>标准</h4><blockquote>
-<p>参考：[百度百科]([<a href="https://baike.baidu.com/item/IEEE%20754/3869922]" target="_blank" rel="noopener">https://baike.baidu.com/item/IEEE%20754/3869922]</a>(<a href="https://baike.baidu.com/item/IEEE" target="_blank" rel="noopener">https://baike.baidu.com/item/IEEE</a> 754/3869922))</p>
+<p>参考：<a href="[https://baike.baidu.com/item/IEEE%20754/3869922](https://baike.baidu.com/item/IEEE 754/3869922">百度百科</a>)</p>
 </blockquote>
 <p>1位符号8位阶码23位尾数</p>
 <p>尾数要求1.xxxx，1要省略，<strong>尾数用原码表示</strong></p>
 <p>阶码是移码，要加127（$2^7-1$）</p>
 <p>除此之外还有一堆特殊值的规定可以参考百科</p>
 <p>IEEE 754是现在较为通用的浮点数表示标准，用这个就行了</p>
-<h2 id="算数位移"><a href="#算数位移" class="headerlink" title="算数位移"></a>算数位移</h2><h3 id="一点点数学知识"><a href="#一点点数学知识" class="headerlink" title="一点点数学知识"></a>一点点数学知识</h3><p>算不上数学知识就是正数的二进制转换<br>$$<br>110010=1<em>2^5+1</em>2^4+0<em>2^3+0</em>2^2+1<em>2^1+0</em>2^0<br>$$<br>基于这个一位就相当于乘或除2，如果移除了1，就会丢失精度</p>
+<h2 id="算数位移"><a href="#算数位移" class="headerlink" title="算数位移"></a>算数位移</h2><h3 id="一点点数学知识"><a href="#一点点数学知识" class="headerlink" title="一点点数学知识"></a>一点点数学知识</h3><p>算不上数学知识就是正数的二进制转换</p>
+<script type="math/tex; mode=display">
+110010=1*2^5+1*2^4+0*2^3+0*2^2+1*2^1+0*2^0</script><p>基于这个一位就相当于乘或除2，如果移除了1，就会丢失精度</p>
 <h3 id="移位操作"><a href="#移位操作" class="headerlink" title="移位操作"></a>移位操作</h3><p>算数位移是针对有符号的定点数的，一般是整数，算数位移可以理解为乘2和除2的操作，结合左右位移就能实现乘法和除法了</p>
 <p><img src="https://i.loli.net/2020/02/24/GtQd4cRBm1xWeH2.png" alt=""></p>
 <p>这张图写的很好，注意一个点 <strong>符号位不变</strong>，正数永远是正数，负数永远是负数</p>
@@ -997,47 +1003,35 @@
 <p>我一共安装过两次hexo,一次部署在本地的机器上,一次部署在阿里云的学生机上,自己的机器还好说,阿里云的安装确实麻烦,阿里云的linux镜像的软件太老了,得先升级</p>
 <p><strong>以下教程建议直接在root用户下进行,没有权限的烦扰</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo su</span><br></pre></td></tr></table></figure>
-
 <h2 id="1-npm与node准备"><a href="#1-npm与node准备" class="headerlink" title="1. npm与node准备"></a>1. npm与node准备</h2><p>hexo是基于 nodejs,因此可以使用npm包管理器进行下载.</p>
 <p>首先安装npm</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># sudo apt-get update</span></span><br><span class="line">sudo apt-get install npm</span><br></pre></td></tr></table></figure>
-
 <p>注意安装完成后需要检查一下版本,太低了就要升级(阿里云的ubuntu自带的是3.x,有root权限的bug会导致普通用户install麻烦)</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm -v <span class="comment">#检查版本</span></span><br><span class="line">n <span class="comment">#顺便检查node的版本,hexo要求8.10以上</span></span><br></pre></td></tr></table></figure>
-
 <p><strong>如果版本较低一定要更新</strong></p>
 <blockquote>
 <p>更新参考: <a href="https://segmentfault.com/a/1190000009025883" target="_blank" rel="noopener" title="segmentation fault">跟新npm和node</a></p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm -g install npm@next <span class="comment">#更新npm</span></span><br><span class="line"></span><br><span class="line">npm -g install n<span class="comment">#更新node</span></span><br><span class="line">n latest <span class="comment">#最新版</span></span><br><span class="line">n stable <span class="comment">#稳定版,也可自己制指定版本</span></span><br></pre></td></tr></table></figure>
-
 <p>node和npm的版本需要配合好(都是最新版就没问题了),否则npm会出现segmentation fault的错误</p>
 <h2 id="2-更换npm源或者安装cnpm"><a href="#2-更换npm源或者安装cnpm" class="headerlink" title="2. 更换npm源或者安装cnpm"></a>2. 更换npm源或者安装cnpm</h2><p>npm的源在国外,因此速度非常慢,我们需要更换源,这里采用淘宝的源</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org</span><br><span class="line">npm config list <span class="comment">#验证</span></span><br></pre></td></tr></table></figure>
-
 <p>阿里也提供代替npm的工具cnpm可以使用国内源代替npm功能</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-
 <p>以后直接使用cnpm安装就行了</p>
 <h2 id="3-安装hexo"><a href="#3-安装hexo" class="headerlink" title="3. 安装hexo"></a>3. 安装hexo</h2><p>hexo安装是最简单的问题</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cnpm install -g hexo-cli</span><br><span class="line"><span class="comment"># npm install -g hexo-cli</span></span><br></pre></td></tr></table></figure>
-
 <p>-g代表全局安装,所有用户都可以使用hexo,有可能出现权限问题</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cnpm install -g hexo-cli <span class="comment"># 解决权限</span></span><br></pre></td></tr></table></figure>
-
 <p>检查hexo是否安装成功</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo -v</span><br></pre></td></tr></table></figure>
-
 <h2 id="4-hexo使用"><a href="#4-hexo使用" class="headerlink" title="4. hexo使用"></a>4. hexo使用</h2><h3 id="1-hexo-init"><a href="#1-hexo-init" class="headerlink" title="1. hexo init"></a>1. hexo init</h3><p>hexo在一个文件夹中部署,首先我们创建一个文件夹,进入其中</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir blog</span><br><span class="line"><span class="built_in">cd</span> blog</span><br></pre></td></tr></table></figure>
-
 <p>初始化hexo</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
-
 <p>我们可以发现文件夹结构如下</p>
 <p><img src="https://s2.ax1x.com/2020/02/19/3ALsLF.png" alt="3ALsLF.png"></p>
 <h3 id="2-hexo-常用命令"><a href="#2-hexo-常用命令" class="headerlink" title="2. hexo 常用命令"></a>2. hexo 常用命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo clean <span class="comment">#清理</span></span><br><span class="line">hexo generate <span class="comment">#生成静态文件</span></span><br><span class="line">hexo start <span class="comment"># 本地调试 4000端口</span></span><br><span class="line">hexo deploy <span class="comment"># 部署到服务器,根据_config.yml执行</span></span><br></pre></td></tr></table></figure>
-
 <h3 id="3-hexo-部署"><a href="#3-hexo-部署" class="headerlink" title="3. hexo 部署"></a>3. hexo 部署</h3><p>hexo部署是用hexo的最后一步,将生成的静态文件上传至服务器</p>
 <p>hexo部署有很多种方案,这里介绍基于git的</p>
 <p>直接更改_config.yml(在hexo init的文件夹中)就行了</p>
@@ -1197,17 +1191,14 @@
 <h2 id="固件刷入"><a href="#固件刷入" class="headerlink" title="固件刷入"></a>固件刷入</h2><p>既然是python,那么输入的方式也必须python</p>
 <p>首先安装esptool</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install esptool</span><br></pre></td></tr></table></figure>
-
 <p>然后使用esptool提供的命令清空flash</p>
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">esptool --port COM6 erase_flash</span><br></pre></td></tr></table></figure>
-
 <p>port中填入实际的端口</p>
 <p>最后刷入新的固件</p>
 <p>固件下载地址: <a href="http://www.micropython.org/download#other" target="_blank" rel="noopener">micropython.org</a></p>
 <p>在这个网站中下载最新的stable的esp8266的固件(bin格式),下载后备用</p>
 <p>使用esptool提供的命令刷入esp8266</p>
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">esptool --port <span class="built_in">COM4</span> --baud <span class="number">460800</span> write_flash --flash_size=detect <span class="number">0</span> esp8266.bin#（这个改为具体固件的位置）</span><br></pre></td></tr></table></figure>
-
 <p>这样就能将固件刷入到esp8266中了</p>
 <h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>固件刷入后我们要进行测试,看看刷入是否成功,与esp8266的交互方式是串口,我们首先需要一个串口软件,这里暂时先用putty,不过这个软件有bug,因此不建议一直用这个软件.</p>
 <p>首先打开软件选择serial设置参数</p>
@@ -1546,6 +1537,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 

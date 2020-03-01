@@ -367,17 +367,14 @@
 <h2 id="固件刷入"><a href="#固件刷入" class="headerlink" title="固件刷入"></a>固件刷入</h2><p>既然是python,那么输入的方式也必须python</p>
 <p>首先安装esptool</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install esptool</span><br></pre></td></tr></table></figure>
-
 <p>然后使用esptool提供的命令清空flash</p>
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">esptool --port COM6 erase_flash</span><br></pre></td></tr></table></figure>
-
 <p>port中填入实际的端口</p>
 <p>最后刷入新的固件</p>
 <p>固件下载地址: <a href="http://www.micropython.org/download#other" target="_blank" rel="noopener">micropython.org</a></p>
 <p>在这个网站中下载最新的stable的esp8266的固件(bin格式),下载后备用</p>
 <p>使用esptool提供的命令刷入esp8266</p>
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">esptool --port <span class="built_in">COM4</span> --baud <span class="number">460800</span> write_flash --flash_size=detect <span class="number">0</span> esp8266.bin#（这个改为具体固件的位置）</span><br></pre></td></tr></table></figure>
-
 <p>这样就能将固件刷入到esp8266中了</p>
 <h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>固件刷入后我们要进行测试,看看刷入是否成功,与esp8266的交互方式是串口,我们首先需要一个串口软件,这里暂时先用putty,不过这个软件有bug,因此不建议一直用这个软件.</p>
 <p>首先打开软件选择serial设置参数</p>
@@ -772,6 +769,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 
