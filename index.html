@@ -258,6 +258,210 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/02/%E8%AE%A1%E7%BB%84-%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyfuture">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2020/02/28/cAKbXSfZYIC9mF8.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xyfuture's home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/02/%E8%AE%A1%E7%BB%84-%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97/" itemprop="url">计组 四则运算</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-02T14:16:35+08:00">
+                2020-03-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机组成原理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>​        最近学完了整数的加减乘除四则运算,本质上还是根据最基础的数学定理用计算机模仿人的运算步骤,但是因为数值表示的原因,初看起来还是有点难懂的,因此总结一下.</p>
+<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><p>​        准备工作主要指数据的编码,尤其是补码的原理,这个在上一篇中有讲,补码核心的内容就是把负数用mod的方法转换为了正数,然后因为加上了一个数因此在符号位特殊标记一下.借助这个规则我们可以实现四则运算同时解决溢出问题,因此必须对补码有一个较为深刻的认识,否者只能死记硬背了.</p>
+<h1 id="加法"><a href="#加法" class="headerlink" title="加法"></a>加法</h1><blockquote>
+<p>加法和减法都是通过补码实现的,借助补码两者可以同一</p>
+</blockquote>
+<p>加法其实没有什么好说的,按照正常的规则补码直接加,得到的结果也是补码</p>
+<p><img src="https://i.loli.net/2020/03/02/PdmACSpbwi6fIvU.png" alt=""></p>
+<p>就是按照满2进1的规则来就行,符号位也要算上去,没什么好说的.注意一点是最后的这个<strong>mod XX</strong>这个意思是为了保持位数,比如8位+8位我们不给出9位的答案,多的一位会被截断,这就引发了另一个问题就是<strong>溢出</strong>,8位的答案不能表达实际的答案,这个问题在减法中统一讨论.</p>
+<p><img src="https://i.loli.net/2020/03/02/lYnPb1FmO3qDSax.png" alt=""></p>
+<p><center>关于mod的解释</center></p>
+<h1 id="减法"><a href="#减法" class="headerlink" title="减法"></a><strong>减法</strong></h1><p>减法要转为加法进行处理 </p>
+<script type="math/tex; mode=display">
+A-B\ =\ A+(-B)</script><p>这个规则对于补码也是成立的</p>
+<script type="math/tex; mode=display">
+[A]_补-[B]_补\ =\ [A]_补+[-B]_补</script><p>因此我们将减数转换成他的相反数,规则在上一篇文章中也讲过,<strong>所有位(包括符号位)取反,再+1</strong>,之后执行正常的加法就行了.</p>
+<h2 id="溢出问题"><a href="#溢出问题" class="headerlink" title="溢出问题"></a>溢出问题</h2><p>溢出问题是非常重要和有趣的.<br>溢出的意思就是当前的数据位数没有办法表达当前的数据.<br>比如8位可以表示-128-127,但是当两个-128相加时得到的数(-256)就没法表示了,因此就溢出了,下面来说说溢出在补码上的表现</p>
+<p><strong>溢出只发生在正数加正数和负数加负数时</strong>,当两个符号位相同时相加得到了一个不同的符号位就发生了溢出</p>
+<p>负数加负数<br>  1000,0000<br>+1111,1111<br>1,0111,1111<br>可以看到第8位发生了变换了,因此负数溢出,原理就是原本符号位上的1表示这个数是由负数加128而来的,两个负数相加时$128+X_1+128+X_2(X_1,X_2<0)$,如果这个数>128则会进1,使符号位重新成为1,但是同时后面7位表示的也是$128+X_1+X_2$,因为多的128进位了,这样还是符合补码的原理的,但是没有两个数加起来不到128时说明后面7位还是$128+X_1+128+X_2$这样要想的到原来的值需要加-256不符合补码原理.</p>
+<h4 id="杂七杂八"><a href="#杂七杂八" class="headerlink" title="杂七杂八"></a>杂七杂八</h4><p>符号位上的1表示的时后面数值位是128- 原数的绝对值得到的,符号位这个不能表示数值大小,能表示的是状态,后面的进位过来会改变符号位,不论怎么改,只要能按照规则转换回去就说明是对的,不必太过看重这个符号位.</p>
+<h3 id="两个符号位"><a href="#两个符号位" class="headerlink" title="两个符号位"></a>两个符号位</h3><p>11.xxxx 00.xxxx<br>这种数有两个符号位,最终加减得到的结果有4种<br>00 ,11 正常情况,表述正数,负数<br>10  —- 负溢出<br>01  —- 正溢出 </p>
+<h1 id="乘法"><a href="#乘法" class="headerlink" title="乘法"></a>乘法</h1><blockquote>
+<p>乘法的原理建议先看竖式是怎么算的,本质上是乘法分配律<br><img src="https://i.loli.net/2020/03/02/3kyMcV2dHE8GqXe.png" alt=""></p>
+</blockquote>
+<h2 id="原码乘法"><a href="#原码乘法" class="headerlink" title="原码乘法"></a>原码乘法</h2><p>原码乘法就是数用原码进行表示,<strong>符号位单独讨论</strong><br><img src="https://i.loli.net/2020/03/02/iXvUqQJzwP3OBRe.png" alt=""></p>
+<p>直接看ppt吧,得到的数是补码,记得单独算符号位,最后加上<br><strong>几个问题</strong></p>
+<p>1.为什么是逻辑右移?   因为符号不在这里讨论,这里的0.x的0用来存进位(解决原本的溢出问题)<br>2.移动了几次? 乘数有几位就移动几次<br>3.得到的积? 得到积是两部分,一部分高位,一部分低位,占用两个寄存器<br><img src="https://i.loli.net/2020/03/02/xu53HIXiOC1Gmcb.png" alt=""></p>
+<h2 id="补码乘法"><a href="#补码乘法" class="headerlink" title="补码乘法"></a>补码乘法</h2><blockquote>
+<p>补码乘法较为复杂这里只介绍 Booth法</p>
+</blockquote>
+<p>补码乘法统一了符号,直接带着符号运算,得到的结果就是带有符号的补码,<strong>补码使用两位的符号位</strong></p>
+<h4 id="Booth法原理及运算"><a href="#Booth法原理及运算" class="headerlink" title="Booth法原理及运算"></a>Booth法原理及运算</h4><p><img src="https://i.loli.net/2020/03/02/pAIkjNPO6eb4wm2.png" alt=""></p>
+<p>这个具体我也没推,看看最后一行的结论就行了,过程还是和原码的差不多,但是在细节上有些不同</p>
+<p><img src="https://i.loli.net/2020/03/02/HdKPjefqYZAuFNz.png" alt=""></p>
+<p>上面是运算的方法,第三列是符加位,一开始是0,后来就是被挤掉的那一位了,每次符加位-最后一位,然后乘上乘数加到部分积上,<strong>所有的数都是补码</strong>,加减按照补码的规则来就行.最后一位是不移动的,因为移动的次数已经够了,每次的移动都是<strong>算数右移</strong>.</p>
+<h5 id="几个问题"><a href="#几个问题" class="headerlink" title="几个问题"></a>几个问题</h5><ol>
+<li><p>为什么是两位的符号位? 这个是解决进位和符号的问题,溢出时为01,或10,然后右移,01-&gt;00,1,10-&gt;11,0及保存了进位又保存了符号</p>
+</li>
+<li><p>为什么时<strong>算数右移</strong>? 因为带着符号位运算鸭</p>
+</li>
+</ol>
+<p><img src="C:\Users\XYfuture\AppData\Roaming\Typora\typora-user-images\image-20200302153746673.png" alt="image-20200302153746673"></p>
+<p><img src="https://i.loli.net/2020/03/02/jVbHayWiQ2c7KN3.png" alt=""></p>
+<h1 id="除法"><a href="#除法" class="headerlink" title="除法"></a>除法</h1><blockquote>
+<p>除法介绍的就更简单了,仅仅介绍小数的原码除法,有两种分别是回复余数和加减交替法<br>基础原理:<img src="https://i.loli.net/2020/03/02/ZnJ546sOtcouB12.png" alt=""></p>
+<p>每次比较(减法)然后上商,之后相减移位,一直到寄存器极限,剩下的就是余数</p>
+<p>基础约定:<br><img src="https://i.loli.net/2020/03/02/WZwcxdJ8uVHkY3L.png" alt=""></p>
+<p><strong>X&lt;Y</strong>!!!!!,第一位是0没跑了,0.xxxx,后面根据符号的情况替换0</p>
+</blockquote>
+<h3 id="原码恢复余数"><a href="#原码恢复余数" class="headerlink" title="原码恢复余数"></a>原码恢复余数</h3><p><img src="https://i.loli.net/2020/03/02/kOtCIDqK9pimlZs.png" alt=""></p>
+<p>比较-&gt;相减或者保持-&gt;逻辑移位</p>
+<p><img src="https://i.loli.net/2020/03/02/ytEj8vrqwMZzOam.png" alt=""></p>
+<p><img src="https://i.loli.net/2020/03/02/XLGHFTu83o49PQR.png" alt=""></p>
+<p>上图的比较方式是直接相减(补码运算),然后如果成了负的就恢复余数,否则继续进行</p>
+<p>可能存在的问题?</p>
+<ol>
+<li>为什么是逻辑左移? 因为没有符号位,同时因为加的是负数,负数的右移是要补1的</li>
+<li>循环次数? 这个是根据寄存器来的,寄存器能放几位就是几位的</li>
+<li>余数 余数记得乘上2的-n次方</li>
+</ol>
+<h3 id="加减交错"><a href="#加减交错" class="headerlink" title="加减交错"></a>加减交错</h3><p>加减交错解决了需要恢复余数的问题,如果减成了负余数那么后面直接加就行了,还能判断</p>
+<p><img src="https://i.loli.net/2020/03/02/jBLxCVyZW2lsOg7.png" alt=""></p>
+<p>如果该位上了0则 部分余数*2+除数,根据这个值判断下一位商,正的上1,负的上0,继续这个循环.</p>
+<p>这个余数要注意如果最后是负的要加上除数转换为正的.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/29/%E8%AE%A1%E7%BD%91-%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -416,158 +620,6 @@
 <h1 id="复用"><a href="#复用" class="headerlink" title="复用"></a>复用</h1><blockquote>
 <p>to be continued</p>
 </blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/23/vscode%20%E9%85%8D%E7%BD%AE%E8%B0%83%E8%AF%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyfuture">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://i.loli.net/2020/02/28/cAKbXSfZYIC9mF8.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Xyfuture's home">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/02/23/vscode%20%E9%85%8D%E7%BD%AE%E8%B0%83%E8%AF%95/" itemprop="url">vscode调试配置</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-23T12:22:30+08:00">
-                2020-02-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vscode%E4%BD%BF%E7%94%A8/" itemprop="url" rel="index">
-                    <span itemprop="name">vscode使用</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="vscode-配置调试"><a href="#vscode-配置调试" class="headerlink" title="vscode 配置调试"></a>vscode 配置调试</h1><blockquote>
-<p>vscode是目前比较好用的编辑器，虽然好用但是配置还是比较麻烦的，这个主要原因是微软想让人用“科学”的方式使用，就是用json配置，用powershell敲命令运行，虽然这样功能更为强大，但是轻度使用是不方便的。</p>
-</blockquote>
-<h2 id="下载mingw"><a href="#下载mingw" class="headerlink" title="下载mingw"></a>下载mingw</h2><p>mingw是windows上比较好用的编译器，我们就用它作为我们的编译器吧</p>
-<p>下载地址：<a href="http://www.mingw.org/" target="_blank" rel="noopener">mingw</a></p>
-<h2 id="配置json"><a href="#配置json" class="headerlink" title="配置json"></a>配置json</h2><p>json配置两个文件，一个是编译的tasks，一个是调试的launch,放在.vscode文件夹中</p>
-<p>这里有两个模板</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//tasks.json</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"version"</span>: <span class="string">"2.0.0"</span>,</span><br><span class="line">    <span class="attr">"tasks"</span>: [&#123;</span><br><span class="line">            <span class="attr">"label"</span>: <span class="string">"compile"</span>,</span><br><span class="line">            <span class="attr">"command"</span>: <span class="string">"g++"</span>,</span><br><span class="line">            <span class="attr">"args"</span>: [</span><br><span class="line">                <span class="string">"-g"</span>,</span><br><span class="line">                <span class="string">"$&#123;file&#125;"</span>,</span><br><span class="line">                <span class="string">"-o"</span>,</span><br><span class="line">                <span class="string">"$&#123;fileDirname&#125;/$&#123;fileBasenameNoExtension&#125;.exe"</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="attr">"problemMatcher"</span>: &#123;</span><br><span class="line">                <span class="attr">"owner"</span>: <span class="string">"cpp"</span>,</span><br><span class="line">                <span class="attr">"fileLocation"</span>: [</span><br><span class="line">                    <span class="string">"relative"</span>,</span><br><span class="line">                    <span class="string">"$&#123;workspaceRoot&#125;"</span></span><br><span class="line">                ],</span><br><span class="line">                <span class="attr">"pattern"</span>: &#123;</span><br><span class="line">                    <span class="attr">"regexp"</span>: <span class="string">"^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$"</span>,</span><br><span class="line">                    <span class="attr">"file"</span>: <span class="number">1</span>,</span><br><span class="line">                    <span class="attr">"line"</span>: <span class="number">2</span>,</span><br><span class="line">                    <span class="attr">"column"</span>: <span class="number">3</span>,</span><br><span class="line">                    <span class="attr">"severity"</span>: <span class="number">4</span>,</span><br><span class="line">                    <span class="attr">"message"</span>: <span class="number">5</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">"group"</span>: &#123;</span><br><span class="line">                <span class="attr">"kind"</span>: <span class="string">"build"</span>,</span><br><span class="line">                <span class="attr">"isDefault"</span>: <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//launch.json</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"version"</span>: <span class="string">"0.2.0"</span>,</span><br><span class="line">    <span class="attr">"configurations"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>: <span class="string">"C/C++"</span>,</span><br><span class="line">            <span class="attr">"type"</span>: <span class="string">"cppdbg"</span>,</span><br><span class="line">            <span class="attr">"request"</span>: <span class="string">"launch"</span>,</span><br><span class="line">            <span class="attr">"program"</span>: <span class="string">"$&#123;fileDirname&#125;/$&#123;fileBasenameNoExtension&#125;.exe"</span>,</span><br><span class="line">            <span class="attr">"args"</span>: [],</span><br><span class="line">            <span class="attr">"stopAtEntry"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="attr">"cwd"</span>: <span class="string">"$&#123;workspaceFolder&#125;"</span>,</span><br><span class="line">            <span class="attr">"environment"</span>: [],</span><br><span class="line">            <span class="attr">"externalConsole"</span>: <span class="literal">true</span>,<span class="comment">//使用内部会出现问题</span></span><br><span class="line">            <span class="attr">"MIMode"</span>: <span class="string">"gdb"</span>,</span><br><span class="line">            <span class="attr">"miDebuggerPath"</span>: <span class="string">"C:/Program Files/mingw64/bin/gdb.exe"</span>,</span><br><span class="line">            <span class="attr">"preLaunchTask"</span>: <span class="string">"compile"</span>,<span class="comment">//要和tasks中的label一样</span></span><br><span class="line">            <span class="attr">"setupCommands"</span>: [</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="attr">"description"</span>: <span class="string">"Enable pretty-printing for gdb"</span>,</span><br><span class="line">                    <span class="attr">"text"</span>: <span class="string">"-enable-pretty-printing"</span>,</span><br><span class="line">                    <span class="attr">"ignoreFailures"</span>: <span class="literal">true</span></span><br><span class="line">                &#125;</span><br><span class="line">            ],</span><br><span class="line">        &#125;,</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>配置完后直接在调试界面点运行图标就行了，会自动打开一个新窗口，同dev cpp类似</p>
-<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>主要问题就是如果使用内置的powershell就会出现调试时无法输入的问题，暂时不知道原因，只要把launch.json中的externalConsole选项改成true就可以调用外部console解决这个问题</p>
 
           
         
@@ -854,6 +906,158 @@ N = S*r^j</script><p>N是实际的数，S是尾数，r是基数，j是阶数</p>
 <p>左移是*2，把1挤出去会发生溢出(原码)</p>
 <p>右移是÷，把1挤出去会丢失精度(原码)</p>
 <h2 id="逻辑移位"><a href="#逻辑移位" class="headerlink" title="逻辑移位"></a>逻辑移位</h2><p>逻辑移位针对无符号数，直接移动补零就ok了</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/23/vscode%20%E9%85%8D%E7%BD%AE%E8%B0%83%E8%AF%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyfuture">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2020/02/28/cAKbXSfZYIC9mF8.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xyfuture's home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/02/23/vscode%20%E9%85%8D%E7%BD%AE%E8%B0%83%E8%AF%95/" itemprop="url">vscode调试配置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-23T12:22:30+08:00">
+                2020-02-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vscode%E4%BD%BF%E7%94%A8/" itemprop="url" rel="index">
+                    <span itemprop="name">vscode使用</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="vscode-配置调试"><a href="#vscode-配置调试" class="headerlink" title="vscode 配置调试"></a>vscode 配置调试</h1><blockquote>
+<p>vscode是目前比较好用的编辑器，虽然好用但是配置还是比较麻烦的，这个主要原因是微软想让人用“科学”的方式使用，就是用json配置，用powershell敲命令运行，虽然这样功能更为强大，但是轻度使用是不方便的。</p>
+</blockquote>
+<h2 id="下载mingw"><a href="#下载mingw" class="headerlink" title="下载mingw"></a>下载mingw</h2><p>mingw是windows上比较好用的编译器，我们就用它作为我们的编译器吧</p>
+<p>下载地址：<a href="http://www.mingw.org/" target="_blank" rel="noopener">mingw</a></p>
+<h2 id="配置json"><a href="#配置json" class="headerlink" title="配置json"></a>配置json</h2><p>json配置两个文件，一个是编译的tasks，一个是调试的launch,放在.vscode文件夹中</p>
+<p>这里有两个模板</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//tasks.json</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"version"</span>: <span class="string">"2.0.0"</span>,</span><br><span class="line">    <span class="attr">"tasks"</span>: [&#123;</span><br><span class="line">            <span class="attr">"label"</span>: <span class="string">"compile"</span>,</span><br><span class="line">            <span class="attr">"command"</span>: <span class="string">"g++"</span>,</span><br><span class="line">            <span class="attr">"args"</span>: [</span><br><span class="line">                <span class="string">"-g"</span>,</span><br><span class="line">                <span class="string">"$&#123;file&#125;"</span>,</span><br><span class="line">                <span class="string">"-o"</span>,</span><br><span class="line">                <span class="string">"$&#123;fileDirname&#125;/$&#123;fileBasenameNoExtension&#125;.exe"</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="attr">"problemMatcher"</span>: &#123;</span><br><span class="line">                <span class="attr">"owner"</span>: <span class="string">"cpp"</span>,</span><br><span class="line">                <span class="attr">"fileLocation"</span>: [</span><br><span class="line">                    <span class="string">"relative"</span>,</span><br><span class="line">                    <span class="string">"$&#123;workspaceRoot&#125;"</span></span><br><span class="line">                ],</span><br><span class="line">                <span class="attr">"pattern"</span>: &#123;</span><br><span class="line">                    <span class="attr">"regexp"</span>: <span class="string">"^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$"</span>,</span><br><span class="line">                    <span class="attr">"file"</span>: <span class="number">1</span>,</span><br><span class="line">                    <span class="attr">"line"</span>: <span class="number">2</span>,</span><br><span class="line">                    <span class="attr">"column"</span>: <span class="number">3</span>,</span><br><span class="line">                    <span class="attr">"severity"</span>: <span class="number">4</span>,</span><br><span class="line">                    <span class="attr">"message"</span>: <span class="number">5</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">"group"</span>: &#123;</span><br><span class="line">                <span class="attr">"kind"</span>: <span class="string">"build"</span>,</span><br><span class="line">                <span class="attr">"isDefault"</span>: <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//launch.json</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"version"</span>: <span class="string">"0.2.0"</span>,</span><br><span class="line">    <span class="attr">"configurations"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>: <span class="string">"C/C++"</span>,</span><br><span class="line">            <span class="attr">"type"</span>: <span class="string">"cppdbg"</span>,</span><br><span class="line">            <span class="attr">"request"</span>: <span class="string">"launch"</span>,</span><br><span class="line">            <span class="attr">"program"</span>: <span class="string">"$&#123;fileDirname&#125;/$&#123;fileBasenameNoExtension&#125;.exe"</span>,</span><br><span class="line">            <span class="attr">"args"</span>: [],</span><br><span class="line">            <span class="attr">"stopAtEntry"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="attr">"cwd"</span>: <span class="string">"$&#123;workspaceFolder&#125;"</span>,</span><br><span class="line">            <span class="attr">"environment"</span>: [],</span><br><span class="line">            <span class="attr">"externalConsole"</span>: <span class="literal">true</span>,<span class="comment">//使用内部会出现问题</span></span><br><span class="line">            <span class="attr">"MIMode"</span>: <span class="string">"gdb"</span>,</span><br><span class="line">            <span class="attr">"miDebuggerPath"</span>: <span class="string">"C:/Program Files/mingw64/bin/gdb.exe"</span>,</span><br><span class="line">            <span class="attr">"preLaunchTask"</span>: <span class="string">"compile"</span>,<span class="comment">//要和tasks中的label一样</span></span><br><span class="line">            <span class="attr">"setupCommands"</span>: [</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="attr">"description"</span>: <span class="string">"Enable pretty-printing for gdb"</span>,</span><br><span class="line">                    <span class="attr">"text"</span>: <span class="string">"-enable-pretty-printing"</span>,</span><br><span class="line">                    <span class="attr">"ignoreFailures"</span>: <span class="literal">true</span></span><br><span class="line">                &#125;</span><br><span class="line">            ],</span><br><span class="line">        &#125;,</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置完后直接在调试界面点运行图标就行了，会自动打开一个新窗口，同dev cpp类似</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>主要问题就是如果使用内置的powershell就会出现调试时无法输入的问题，暂时不知道原因，只要把launch.json中的externalConsole选项改成true就可以调用外部console解决这个问题</p>
 
           
         
@@ -1295,7 +1499,7 @@ N = S*r^j</script><p>N是实际的数，S是尾数，r是基数，j是阶数</p>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1317,7 +1521,7 @@ N = S*r^j</script><p>N是实际的数，S是尾数，r是基数，j是阶数</p>
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
