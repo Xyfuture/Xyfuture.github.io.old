@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Program,贪心," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="贪心算法是常用的算法,但是证明似乎比较麻烦.  贪心的几个性质贪心的核心思想是找到当前最优解,然后迭代,每一步都是当前的最优解,最终由局部最优达到全局的最优,因此我们需要关注几个东西:  如何区分步骤,怎样划分一步, 如何选择一步的最优解,选择一个贪心指标,使这个值最大或者最小 每进行一步应该怎样更新数据得到下一步  贪心证明 两种证法 第一种的意思是贪心算法优于所有非贪心算法的情况,一般用数学">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Program_贪心">
+<meta property="og:url" content="http://yoursite.com/2020/03/12/Program-%E8%B4%AA%E5%BF%83/index.html">
+<meta property="og:site_name" content="Xyfuture&#39;s home">
+<meta property="og:description" content="贪心算法是常用的算法,但是证明似乎比较麻烦.  贪心的几个性质贪心的核心思想是找到当前最优解,然后迭代,每一步都是当前的最优解,最终由局部最优达到全局的最优,因此我们需要关注几个东西:  如何区分步骤,怎样划分一步, 如何选择一步的最优解,选择一个贪心指标,使这个值最大或者最小 每进行一步应该怎样更新数据得到下一步  贪心证明 两种证法 第一种的意思是贪心算法优于所有非贪心算法的情况,一般用数学">
+<meta property="og:image" content="https://i.loli.net/2020/03/11/eNc6vfqFu2YSVHG.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/12/RjPQCFS85Y3MEbK.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/12/zlqNWrUspBZ8XQL.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/12/TSnU2JjLZvGNtqH.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/12/MbB4z3DHhmkPgdI.png">
+<meta property="article:published_time" content="2020-03-12T08:48:35.000Z">
+<meta property="article:modified_time" content="2020-03-12T14:16:09.807Z">
+<meta property="article:author" content="Xyfuture">
+<meta property="article:tag" content="Program">
+<meta property="article:tag" content="贪心">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/03/11/eNc6vfqFu2YSVHG.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/03/12/Program-贪心/"/>
+
+
+
+
+
+  <title>Program_贪心 | Xyfuture's home</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Xyfuture's home</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/12/Program-%E8%B4%AA%E5%BF%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyfuture">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2020/02/28/cAKbXSfZYIC9mF8.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xyfuture's home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Program_贪心</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-12T16:48:35+08:00">
+                2020-03-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Program/" itemprop="url" rel="index">
+                    <span itemprop="name">Program</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>贪心算法是常用的算法,但是证明似乎比较麻烦.</p>
+</blockquote>
+<h1 id="贪心的几个性质"><a href="#贪心的几个性质" class="headerlink" title="贪心的几个性质"></a>贪心的几个性质</h1><p>贪心的核心思想是找到当前最优解,然后迭代,每一步都是当前的最优解,最终由局部最优达到全局的最优,因此我们需要关注几个东西:</p>
+<ol>
+<li>如何区分步骤,怎样划分一步,</li>
+<li>如何选择一步的最优解,选择一个贪心指标,使这个值最大或者最小</li>
+<li>每进行一步应该怎样更新数据得到下一步</li>
+</ol>
+<h1 id="贪心证明"><a href="#贪心证明" class="headerlink" title="贪心证明"></a>贪心证明</h1><p><img src="https://i.loli.net/2020/03/11/eNc6vfqFu2YSVHG.png" alt=""></p>
+<p>两种证法</p>
+<p>第一种的意思是贪心算法优于所有非贪心算法的情况,一般用数学归纳法证明,设计一个指标,在初始情况说明一下,到第n次说明一下,然后就证出来了<br>注意这个要求一点,就贪心算法是绝对最优的,没有算法能与之等价或者超过他,下面的情况是有算法可以与之等价,都是最优解</p>
+<p>第二种的意思是有多种算法都是最优的,然后贪心能与其中一种进行转化,得到等价的最优解,通常情况下<strong>我们假设一种最优解,然后说明贪心的结果能和最优解相互转换</strong></p>
+<p>目前根据经验第二种方法用的多一些</p>
+<h1 id="贪心例题"><a href="#贪心例题" class="headerlink" title="贪心例题"></a>贪心例题</h1><blockquote>
+<p>说实话没有啥好说的,还是看题吧</p>
+</blockquote>
+<h2 id="区间调度问题"><a href="#区间调度问题" class="headerlink" title="区间调度问题"></a>区间调度问题</h2><p><img src="https://i.loli.net/2020/03/12/RjPQCFS85Y3MEbK.png" alt=""></p>
+<h3 id="贪心准则"><a href="#贪心准则" class="headerlink" title="贪心准则"></a>贪心准则</h3><p>在这里结束时间是关键</p>
+<p><strong>我们要找到当前所有相容子区间中结束时间最早的,然后选他,更新相容区间</strong></p>
+<p>这里是最早结束的,不关心开始的情况</p>
+<h3 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h3><p>可用方法2</p>
+<p>设现在存在最优解,在第i个区间和贪心不同,那么最优解的结束时间一定小于贪心解,我们把最优解换成贪心解发现结束时间变早了,不影响后面的解,所以贪心解和最优解等价,因此贪心最优</p>
+<h2 id="最小延时调度"><a href="#最小延时调度" class="headerlink" title="最小延时调度"></a>最小延时调度</h2><p><img src="https://i.loli.net/2020/03/12/zlqNWrUspBZ8XQL.png" alt=""></p>
+<h3 id="贪心准则-1"><a href="#贪心准则-1" class="headerlink" title="贪心准则"></a>贪心准则</h3><p>将ddl排序,先放ddl最小的(最早ddl的)</p>
+<p><img src="https://i.loli.net/2020/03/12/TSnU2JjLZvGNtqH.png" alt=""></p>
+<h3 id="证明-1"><a href="#证明-1" class="headerlink" title="证明"></a>证明</h3><p><img src="https://i.loli.net/2020/03/12/MbB4z3DHhmkPgdI.png" alt=""></p>
+<h2 id="区间选点"><a href="#区间选点" class="headerlink" title="区间选点"></a>区间选点</h2><h2 id="区间分数"><a href="#区间分数" class="headerlink" title="区间分数"></a>区间分数</h2>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Program/" rel="tag"># Program</a>
+          
+            <a href="/tags/%E8%B4%AA%E5%BF%83/" rel="tag"># 贪心</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/09/%E7%AE%97%E6%B3%95%E5%B0%8F%E7%BB%93/" rel="next" title="算法小结">
+                <i class="fa fa-chevron-left"></i> 算法小结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/13/Program-%E4%BA%8C%E5%88%86/" rel="prev" title="Program-二分">
+                Program-二分 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://i.loli.net/2020/02/28/cAKbXSfZYIC9mF8.jpg"
+                alt="Xyfuture" />
+            
+              <p class="site-author-name" itemprop="name">Xyfuture</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#贪心的几个性质"><span class="nav-number">1.</span> <span class="nav-text">贪心的几个性质</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#贪心证明"><span class="nav-number">2.</span> <span class="nav-text">贪心证明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#贪心例题"><span class="nav-number">3.</span> <span class="nav-text">贪心例题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#区间调度问题"><span class="nav-number">3.1.</span> <span class="nav-text">区间调度问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#贪心准则"><span class="nav-number">3.1.1.</span> <span class="nav-text">贪心准则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#证明"><span class="nav-number">3.1.2.</span> <span class="nav-text">证明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最小延时调度"><span class="nav-number">3.2.</span> <span class="nav-text">最小延时调度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#贪心准则-1"><span class="nav-number">3.2.1.</span> <span class="nav-text">贪心准则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#证明-1"><span class="nav-number">3.2.2.</span> <span class="nav-text">证明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区间选点"><span class="nav-number">3.3.</span> <span class="nav-text">区间选点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区间分数"><span class="nav-number">3.4.</span> <span class="nav-text">区间分数</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xyfuture</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

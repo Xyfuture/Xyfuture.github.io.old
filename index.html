@@ -258,6 +258,725 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/13/Program-%E4%BA%8C%E5%88%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyfuture">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2020/02/28/cAKbXSfZYIC9mF8.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xyfuture's home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/13/Program-%E4%BA%8C%E5%88%86/" itemprop="url">Program-二分</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-13T19:40:59+08:00">
+                2020-03-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E6%80%9D%E7%BB%B4/" itemprop="url" rel="index">
+                    <span itemprop="name">程序设计思维</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>二分算法是一种性能优秀的算法,常常用在有序的序列上</p>
+<p>二分分为三种,整数二分,浮点二分,答案二分</p>
+</blockquote>
+<h1 id="整数二分"><a href="#整数二分" class="headerlink" title="整数二分"></a>整数二分</h1><p>整数二分类似找数问题,在数组中找到指定元素开始的位置和结束的位置</p>
+<p><img src="https://i.loli.net/2020/03/13/Yq81AHg9K63v5jV.png" alt=""></p>
+<p>上述代码是找到第一个大于等于x的点,也就是x开始的位置.(有好几个连续的x就是最先的x的下标)</p>
+<p>下面是镜像算法,找出x结束的位置</p>
+<p><img src="https://i.loli.net/2020/03/13/xnQHAR7p2uUPqMh.png" alt=""></p>
+<p>当然这个写法比较麻烦,也可以第一种写法一样把&lt;和=合在一起</p>
+<h2 id="算法证明"><a href="#算法证明" class="headerlink" title="算法证明"></a>算法证明</h2><p>这个证明有点意思,改天一定写写,用数学归纳法或者反正法都可以证明,把&lt;和=结合起来也挺秒的</p>
+<h2 id="一些思想"><a href="#一些思想" class="headerlink" title="一些思想"></a>一些思想</h2><p><img src="https://i.loli.net/2020/03/13/UXwEGpMOLRgTjJk.png" alt=""></p>
+<p><img src="https://i.loli.net/2020/03/13/bkPMJ4yaKEFTl6f.png" alt=""></p>
+<p>运用条件很简单,只要上线性的,然后有序就行</p>
+<h1 id="浮点二分"><a href="#浮点二分" class="headerlink" title="浮点二分"></a>浮点二分</h1><p>浮点二分是数学上的问题,这里不讨论很多,可以去看看零点定理,连续的函数在一个区间中有正有负,那么就是有零点,确定两个边界用零点存在定理算就完事了,注意精度的问题,<strong>建议是用固定的运算次数来保证精度</strong></p>
+<h1 id="答案二分"><a href="#答案二分" class="headerlink" title="答案二分"></a>答案二分</h1><blockquote>
+<p>结合一个题说一下,这个应该是用的比较多的</p>
+<p>题目原题:<a href="http://poj.org/problem?id=3579" target="_blank" rel="noopener">POJ 3579</a></p>
+</blockquote>
+<p>答案如果是在一个区间内有序,我们就可以使用二分来查找</p>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="https://i.loli.net/2020/03/13/1iZkNob68BYhnay.png" alt=""></p>
+<p>暴力肯定是不行,算出B全部值的复杂度是$n^2$数据范围不过</p>
+<p>但是我们注意到求中位数是从有序序列中找,因此可以二分找</p>
+<p>我们首先将这个X数组排序,排序之后生成的B和不排序的是等价的(因为绝对值),然后用这个X参与后续计算</p>
+<p>B的<strong>最小值肯定不小于0</strong>(不是B[1]-B[0]),最大值是B[n*(n-1)/2 -1]- B[0],因此我们就从这个区间中开始搜索,找到一个mid后问题就是判断和中位数关系,大于就缩小最大值,小于就提升最小值,一直这样下去直到最大值小于最小值(类似前面整数的操作,后面会再解释)</p>
+<p>问题来了,如何确定中位数,最简单的方法,两个for看看有多少个X[j]-X[i]小于等于mid(找出最后一个mid的位置),但是复杂度会超,因此用<strong>二分</strong>的方法看看有多少个元素.</p>
+<p>X[j]-X[i],对i的循环不变,对j用二分,从i+1到n-1二分,这个过程中用到了整数二分中算法</p>
+<p><img src="https://i.loli.net/2020/03/13/NWs3c8eO5ixQVU9.png" alt=""></p>
+<p>cur是找的目标,找到最后一个cur的位置,e中存的是再B中cur的位置(从1开始算)</p>
+<p>这样话我们直到中位数的位置,也知道mid的位置,就能知道mid是不是中位数,让我们再回到第一个二分,即便我们知道是不是中位数,我们也不写第一个二分</p>
+<p>这时我们观察B数组情况</p>
+<p><img src="https://i.loli.net/2020/03/13/iFPBby9COztnh3w.png" alt=""></p>
+<p>我们把这个数组假想成如图所示,X位置是中位数我们可以不构造一个函数(check)让大于等于中位数的mid返回一个0,让小于中位数的mid返回一个1,正是图中数组,这个数组熟悉啊,用整数二分中的方法,找到第一个0就能找到中位数了.</p>
+<p>因此魔改一下这个</p>
+<p><img src="https://i.loli.net/2020/03/13/81MXvs4WfTqLi2I.png" alt=""></p>
+<p>把a[mid]&gt;=x改为check函数,check(mid,target(中位数位置)),我们知道了怎么判断mid的位置,用它和中位数位置一比,大于返回个0,小于返回个1,这个就是check函数.</p>
+<p>最终max&lt;min会退出第一层二分就结束了,整个复杂度是两个二分加一个遍历</p>
+<h2 id="详细证明"><a href="#详细证明" class="headerlink" title="详细证明"></a>详细证明</h2><p>这个证明和整数二分有相似之处,主要是针对为什么替换为check函数是对的,改天有写吧</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/12/Program-%E8%B4%AA%E5%BF%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyfuture">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2020/02/28/cAKbXSfZYIC9mF8.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xyfuture's home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/12/Program-%E8%B4%AA%E5%BF%83/" itemprop="url">Program_贪心</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-12T16:48:35+08:00">
+                2020-03-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Program/" itemprop="url" rel="index">
+                    <span itemprop="name">Program</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>贪心算法是常用的算法,但是证明似乎比较麻烦.</p>
+</blockquote>
+<h1 id="贪心的几个性质"><a href="#贪心的几个性质" class="headerlink" title="贪心的几个性质"></a>贪心的几个性质</h1><p>贪心的核心思想是找到当前最优解,然后迭代,每一步都是当前的最优解,最终由局部最优达到全局的最优,因此我们需要关注几个东西:</p>
+<ol>
+<li>如何区分步骤,怎样划分一步,</li>
+<li>如何选择一步的最优解,选择一个贪心指标,使这个值最大或者最小</li>
+<li>每进行一步应该怎样更新数据得到下一步</li>
+</ol>
+<h1 id="贪心证明"><a href="#贪心证明" class="headerlink" title="贪心证明"></a>贪心证明</h1><p><img src="https://i.loli.net/2020/03/11/eNc6vfqFu2YSVHG.png" alt=""></p>
+<p>两种证法</p>
+<p>第一种的意思是贪心算法优于所有非贪心算法的情况,一般用数学归纳法证明,设计一个指标,在初始情况说明一下,到第n次说明一下,然后就证出来了<br>注意这个要求一点,就贪心算法是绝对最优的,没有算法能与之等价或者超过他,下面的情况是有算法可以与之等价,都是最优解</p>
+<p>第二种的意思是有多种算法都是最优的,然后贪心能与其中一种进行转化,得到等价的最优解,通常情况下<strong>我们假设一种最优解,然后说明贪心的结果能和最优解相互转换</strong></p>
+<p>目前根据经验第二种方法用的多一些</p>
+<h1 id="贪心例题"><a href="#贪心例题" class="headerlink" title="贪心例题"></a>贪心例题</h1><blockquote>
+<p>说实话没有啥好说的,还是看题吧</p>
+</blockquote>
+<h2 id="区间调度问题"><a href="#区间调度问题" class="headerlink" title="区间调度问题"></a>区间调度问题</h2><p><img src="https://i.loli.net/2020/03/12/RjPQCFS85Y3MEbK.png" alt=""></p>
+<h3 id="贪心准则"><a href="#贪心准则" class="headerlink" title="贪心准则"></a>贪心准则</h3><p>在这里结束时间是关键</p>
+<p><strong>我们要找到当前所有相容子区间中结束时间最早的,然后选他,更新相容区间</strong></p>
+<p>这里是最早结束的,不关心开始的情况</p>
+<h3 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h3><p>可用方法2</p>
+<p>设现在存在最优解,在第i个区间和贪心不同,那么最优解的结束时间一定小于贪心解,我们把最优解换成贪心解发现结束时间变早了,不影响后面的解,所以贪心解和最优解等价,因此贪心最优</p>
+<h2 id="最小延时调度"><a href="#最小延时调度" class="headerlink" title="最小延时调度"></a>最小延时调度</h2><p><img src="https://i.loli.net/2020/03/12/zlqNWrUspBZ8XQL.png" alt=""></p>
+<h3 id="贪心准则-1"><a href="#贪心准则-1" class="headerlink" title="贪心准则"></a>贪心准则</h3><p>将ddl排序,先放ddl最小的(最早ddl的)</p>
+<p><img src="https://i.loli.net/2020/03/12/TSnU2JjLZvGNtqH.png" alt=""></p>
+<h3 id="证明-1"><a href="#证明-1" class="headerlink" title="证明"></a>证明</h3><p><img src="https://i.loli.net/2020/03/12/MbB4z3DHhmkPgdI.png" alt=""></p>
+<h2 id="区间选点"><a href="#区间选点" class="headerlink" title="区间选点"></a>区间选点</h2><h2 id="区间分数"><a href="#区间分数" class="headerlink" title="区间分数"></a>区间分数</h2>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/09/%E7%AE%97%E6%B3%95%E5%B0%8F%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyfuture">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2020/02/28/cAKbXSfZYIC9mF8.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xyfuture's home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/09/%E7%AE%97%E6%B3%95%E5%B0%8F%E7%BB%93/" itemprop="url">算法小结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-09T16:22:02+08:00">
+                2020-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E6%80%9D%E7%BB%B4/" itemprop="url" rel="index">
+                    <span itemprop="name">程序设计思维</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="dijkstra"><a href="#dijkstra" class="headerlink" title="dijkstra"></a>dijkstra</h1><p>迪杰斯特拉算法是用于计算单点最短路,并且要求图是无负边权的.</p>
+<h2 id="算法思路"><a href="#算法思路" class="headerlink" title="算法思路"></a>算法思路</h2><p>从一个点开始,记录一个到其他所有点的数组,从这个数组中取出最近的一个点,更新那个数组,然后重复那个数组,每次取最短的点然后更新,直到所有点都被遍历.</p>
+<h3 id="复杂度"><a href="#复杂度" class="headerlink" title="复杂度"></a>复杂度</h3><p>节点数 v 边数 e</p>
+<p><strong>邻接表</strong></p>
+<p>$O(v^2)$ ($O(v^2+e)$)</p>
+<p>因为一共更新了n个点,每个点取的时候首先找最短的点(n的复杂度),同时取完了会找一遍所有的边</p>
+<p><strong>邻接矩阵</strong></p>
+<p>$O(v^2)$</p>
+<h1 id="Prime"><a href="#Prime" class="headerlink" title="Prime"></a>Prime</h1><h1 id="Kruskal"><a href="#Kruskal" class="headerlink" title="Kruskal"></a>Kruskal</h1><h1 id="SPFA"><a href="#SPFA" class="headerlink" title="SPFA"></a>SPFA</h1><h1 id="Floyd"><a href="#Floyd" class="headerlink" title="Floyd"></a>Floyd</h1><h1 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h1><p>BFS啥都能干…</p>
+<h2 id="算法思路-1"><a href="#算法思路-1" class="headerlink" title="算法思路"></a>算法思路</h2><p>首先有一个<strong>vis数组</strong>,这个数组用来记录走过的点,然后开一个队列用来记录访问的元素.好了现在开始BFS,先将原点的vis标记,将这个点加入到队列,从队列中取出这个点,对这个点操作,然后访问这个点所有的邻接点,将没有被标记的点标记加入到队列中,重复队列的循环,直到队列空.</p>
+<h2 id="复杂度-1"><a href="#复杂度-1" class="headerlink" title="复杂度"></a>复杂度</h2><p>顶点数 v 边数 e</p>
+<p><strong>邻接表</strong></p>
+<p>$O(v+e)$</p>
+<p>每个点都被访问一次,访问时候v^2走一个函数,所有点就算v,然后有一个加入队列的for循环,这个循环总的合起来就是e,因此时v+e</p>
+<p><strong>邻接矩阵</strong></p>
+<p>$O(v^2)$</p>
+<p>两个for 都是v</p>
+<p><strong>Question</strong></p>
+<p>邻接表和邻接矩阵的复杂度看着似乎有点问题,不是一个量级,但是你要注意到e最大是v^2,所以还是一个量级的</p>
+<h1 id="DFS"><a href="#DFS" class="headerlink" title="DFS"></a>DFS</h1><h2 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h2><p>DFS是递归的方法,首先标记自己,然后搜索所有没有被标记的点,对他们进行DFS,不能继续搜索就返回到上一级,直到所有都返回</p>
+<h2 id="复杂度-2"><a href="#复杂度-2" class="headerlink" title="复杂度"></a>复杂度</h2><p>和BFS相同</p>
+<p><strong>邻接表</strong></p>
+<p>$O(v+e)$</p>
+<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><p>DFS和BFS都需要注意剪枝的问题,不符合条件的情况一定不要继续访问,主要就是vis数组要标记好</p>
+<p>参考CSP卖菜问题</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/09/%E8%AE%A1%E7%BB%84-%E5%AD%98%E5%82%A8%E5%99%A8%E6%89%A9%E5%B1%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyfuture">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2020/02/28/cAKbXSfZYIC9mF8.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xyfuture's home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/09/%E8%AE%A1%E7%BB%84-%E5%AD%98%E5%82%A8%E5%99%A8%E6%89%A9%E5%B1%95/" itemprop="url">计组-存储器</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-09T08:02:36+08:00">
+                2020-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机组成原理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="储存器基础"><a href="#储存器基础" class="headerlink" title="储存器基础"></a>储存器基础</h1><h2 id="存储器种类"><a href="#存储器种类" class="headerlink" title="存储器种类"></a>存储器种类</h2><p><img src="https://i.loli.net/2020/03/09/eyi6AHkaSIrMqV8.png" alt=""></p>
+<p>这张图画的不错,一个要注意的点,<strong>主存储器(内存)分为RAM和ROM</strong><br>RAM: Random Access Memory  可读可写,存取时间与物理地址无关<br>ROM: Read Only Memory            只能读,但是读的时间也与物理地址无关</p>
+<h2 id="主存储器"><a href="#主存储器" class="headerlink" title="主存储器"></a>主存储器</h2><blockquote>
+<p>下面讲的都是主存储器,就是内存</p>
+</blockquote>
+<p><img src="https://i.loli.net/2020/03/09/jFoykeKLVUwrWnq.png" alt=""></p>
+<p>按照之前的理论,主存有MDR和MAR,两个重要的寄存器,MAR(Memory Address Register)用来存放访存的地址,访存指读或者写,MDR(Memory Data Register)访存的内容写在这里面.</p>
+<p>在这两个寄存器上有许多其他电路辅助访存,MAR上有译码器和驱动器,根据MAR中内容找到找到数据在存储体中实际的位置译码器将地址分开,驱动器给使能信号啥的,MDR有读写控制,用于决定是读是写</p>
+<p>一共有三种总线,地址总线,数据总线和控制总线,总线可以理解为并行接口,传输数据,地址总线和数据总线就不用说了,控制总线传输读写控制,芯片使能等控制信号</p>
+<p><img src="https://i.loli.net/2020/03/09/7puMYKZhI3moVjR.png" alt=""></p>
+<p>大致可以理解为这样</p>
+<p><img src="https://i.loli.net/2020/03/09/82Gs3b9Ye1WuDBg.png" alt=""></p>
+<p>控制信号有点反直觉,只要上是上面加横杆的都代表低电平有效</p>
+<h2 id="译码驱动"><a href="#译码驱动" class="headerlink" title="译码驱动"></a>译码驱动</h2><blockquote>
+<p>这里一直在说一个芯片,芯片中必然有最小存储单元,这个最小的单元一般是1位,但是存储芯片的字长是多位的,这就需要多个最小芯片位于一个地址,同时输出信息</p>
+</blockquote>
+<h3 id="线选法"><a href="#线选法" class="headerlink" title="线选法"></a>线选法</h3><p><img src="https://i.loli.net/2020/03/09/nqI9PGtJOfZb8dp.png" alt=""></p>
+<p>芯片按行分开,地址就是对应哪一行,译码器就将地址分析成一行,然后这一行的最小的单元就被选中,进行读写电路</p>
+<h3 id="重合法"><a href="#重合法" class="headerlink" title="重合法"></a>重合法</h3><p><img src="https://i.loli.net/2020/03/09/3cj6HbKLv9dSxyo.png" alt=""></p>
+<p>这是重合法的线路,首先我们将地址分为行地址和列地址,一行中有多个组,行地址代表选中这一行,列地址选定一组中的哪一个,因为有多个组因此可以输出指定字长的信号</p>
+<p>Intel 2114的例子</p>
+<p><img src="https://i.loli.net/2020/03/09/fW9Aes2o1KOVUE3.png" alt=""></p>
+<p>可以看看这个,列地址有4位,代表一个组中最多就16个单位,行地址则有6位,代表有64行,然后数据总线是4位 ,因此有4组,这样整个的结构是64*64的.</p>
+<p><img src="https://i.loli.net/2020/03/09/9PSTMNtdGxHWZ5D.png" alt=""></p>
+<p>示意图如上</p>
+<h2 id="时序"><a href="#时序" class="headerlink" title="时序"></a>时序</h2><p>因为访存一次需要传输多种信号,因此我们需要定义好顺序,这个顺序是人为规定的,符合这个顺序的数据才能访存,否则无效.</p>
+<p>行地址和地址可能是分开的,下面展示一个示意图</p>
+<p><img src="https://i.loli.net/2020/03/09/Mtg6QKNi9FfCYIP.png" alt=""></p>
+<h2 id="DRAM"><a href="#DRAM" class="headerlink" title="DRAM"></a>DRAM</h2><blockquote>
+<p>Dynamic Random Access Memory<br>用电容的方式存储数据</p>
+</blockquote>
+<h3 id="数据刷新"><a href="#数据刷新" class="headerlink" title="数据刷新"></a>数据刷新</h3><p>DRAM需要定时刷新,一共有三种常见的刷新方式</p>
+<h4 id="集中刷新"><a href="#集中刷新" class="headerlink" title="集中刷新"></a>集中刷新</h4><p>过一段时间刷新所有单元</p>
+<p><img src="https://i.loli.net/2020/03/09/XWOA5DsnwNtBFm7.png" alt=""></p>
+<p><strong>一个周期刷新多少个单元是设计的问题,这里设计为了刷新一行的单元(反正是并行的)</strong></p>
+<p>刷新期间不能访存,称为死区</p>
+<h4 id="分散刷新"><a href="#分散刷新" class="headerlink" title="分散刷新"></a>分散刷新</h4><p><img src="https://i.loli.net/2020/03/09/wYa3BrDZCov4Mgc.png" alt=""></p>
+<p>这种方式是访存一次就刷新一行,同时把刷新时间计算到访存中去,这样就没了死区问题,但是访存速度慢了</p>
+<h4 id="异步刷新"><a href="#异步刷新" class="headerlink" title="异步刷新"></a>异步刷新</h4><p>访存几次然后刷新一行(不是刷新全部),结合上述两种方式的新方式</p>
+<p><img src="https://i.loli.net/2020/03/09/83DKW2LbSZtIGyk.png" alt=""></p>
+<p>还可以把刷新的时间设定在不访存的时候(指令译码阶段)这样就没有死区了.</p>
+<h1 id="存储器与CPU连接"><a href="#存储器与CPU连接" class="headerlink" title="存储器与CPU连接"></a>存储器与CPU连接</h1><p>容量: 1K*4位  1K-&gt;存储单元个数(地址长度) 4-&gt;字长,一个单元的长度</p>
+<p>10条地址线,4条数据线就可以实现对这个存储器的访问.</p>
+<p>按字寻址 按字节寻址</p>
+<h2 id="位扩展"><a href="#位扩展" class="headerlink" title="位扩展"></a>位扩展</h2><p>1k*4 -&gt; 1k*8</p>
+<p>用两个1k*4的存储器拼起来</p>
+<p>地址都是一样的,但是数据线一个是高4位,一个是低4位,片选和读写控制都是直接连上的</p>
+<p><img src="https://i.loli.net/2020/03/09/cLfgHmad9CnsAWE.png" alt=""></p>
+<p>A0-A9是地址线 D0-D7是数据线</p>
+<p>这种扩展方法不扩展地址空间,但是扩展字长的长度</p>
+<h2 id="字扩展"><a href="#字扩展" class="headerlink" title="字扩展"></a>字扩展</h2><p>2片 1k*8 -&gt; 2K*8</p>
+<p>数据线直接连,地址线最高位做片选</p>
+<p><img src="https://i.loli.net/2020/03/09/5Ntp1MfbynGi72w.png" alt=""></p>
+<p>原来的片选(CS)就没用了</p>
+<p>用多出来的地址位作为片选信号,可能要使用译码器</p>
+<h2 id="字位扩展"><a href="#字位扩展" class="headerlink" title="字位扩展"></a>字位扩展</h2><p>8片 1k*4 -&gt; 4k*8</p>
+<p>首先位扩展为 1k*8</p>
+<p>在进行字扩展</p>
+<ol>
+<li>地址线连接</li>
+<li>数据线连接</li>
+<li>读/写命令连接</li>
+<li>片选</li>
+<li>存储器选择</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/06/%E8%AE%A1%E7%BD%91-%E9%80%9A%E4%BF%A1%E5%BA%94%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -646,8 +1365,11 @@
 <li>记忆化搜索(就是标记走过的路)</li>
 </ol>
 <h1 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h1><h3 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h3><ol>
-<li>贪心算法最优,其他都比他差.</li>
-<li>贪心算法和其他一样优,其他算法的结果可以转化为贪心算法</li>
+<li><p>贪心算法最优,其他都比他差. </p>
+</li>
+<li><p>贪心算法和其他一样优,其他算法的结果可以转化为贪心算法</p>
+<p><img src="https://i.loli.net/2020/03/11/eNc6vfqFu2YSVHG.png" alt=""></p>
+</li>
 </ol>
 
           
@@ -1294,803 +2016,13 @@ A-B\ =\ A+(-B)</script><p>这个规则对于补码也是成立的</p>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/23/vscode%20%E9%85%8D%E7%BD%AE%E8%B0%83%E8%AF%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyfuture">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://i.loli.net/2020/02/28/cAKbXSfZYIC9mF8.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Xyfuture's home">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/02/23/vscode%20%E9%85%8D%E7%BD%AE%E8%B0%83%E8%AF%95/" itemprop="url">vscode调试配置</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-23T12:22:30+08:00">
-                2020-02-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vscode%E4%BD%BF%E7%94%A8/" itemprop="url" rel="index">
-                    <span itemprop="name">vscode使用</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="vscode-配置调试"><a href="#vscode-配置调试" class="headerlink" title="vscode 配置调试"></a>vscode 配置调试</h1><blockquote>
-<p>vscode是目前比较好用的编辑器，虽然好用但是配置还是比较麻烦的，这个主要原因是微软想让人用“科学”的方式使用，就是用json配置，用powershell敲命令运行，虽然这样功能更为强大，但是轻度使用是不方便的。</p>
-</blockquote>
-<h2 id="下载mingw"><a href="#下载mingw" class="headerlink" title="下载mingw"></a>下载mingw</h2><p>mingw是windows上比较好用的编译器，我们就用它作为我们的编译器吧</p>
-<p>下载地址：<a href="http://www.mingw.org/" target="_blank" rel="noopener">mingw</a></p>
-<h2 id="配置json"><a href="#配置json" class="headerlink" title="配置json"></a>配置json</h2><p>json配置两个文件，一个是编译的tasks，一个是调试的launch,放在.vscode文件夹中</p>
-<p>这里有两个模板</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//tasks.json</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"version"</span>: <span class="string">"2.0.0"</span>,</span><br><span class="line">    <span class="attr">"tasks"</span>: [&#123;</span><br><span class="line">            <span class="attr">"label"</span>: <span class="string">"compile"</span>,</span><br><span class="line">            <span class="attr">"command"</span>: <span class="string">"g++"</span>,</span><br><span class="line">            <span class="attr">"args"</span>: [</span><br><span class="line">                <span class="string">"-g"</span>,</span><br><span class="line">                <span class="string">"$&#123;file&#125;"</span>,</span><br><span class="line">                <span class="string">"-o"</span>,</span><br><span class="line">                <span class="string">"$&#123;fileDirname&#125;/$&#123;fileBasenameNoExtension&#125;.exe"</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="attr">"problemMatcher"</span>: &#123;</span><br><span class="line">                <span class="attr">"owner"</span>: <span class="string">"cpp"</span>,</span><br><span class="line">                <span class="attr">"fileLocation"</span>: [</span><br><span class="line">                    <span class="string">"relative"</span>,</span><br><span class="line">                    <span class="string">"$&#123;workspaceRoot&#125;"</span></span><br><span class="line">                ],</span><br><span class="line">                <span class="attr">"pattern"</span>: &#123;</span><br><span class="line">                    <span class="attr">"regexp"</span>: <span class="string">"^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$"</span>,</span><br><span class="line">                    <span class="attr">"file"</span>: <span class="number">1</span>,</span><br><span class="line">                    <span class="attr">"line"</span>: <span class="number">2</span>,</span><br><span class="line">                    <span class="attr">"column"</span>: <span class="number">3</span>,</span><br><span class="line">                    <span class="attr">"severity"</span>: <span class="number">4</span>,</span><br><span class="line">                    <span class="attr">"message"</span>: <span class="number">5</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">"group"</span>: &#123;</span><br><span class="line">                <span class="attr">"kind"</span>: <span class="string">"build"</span>,</span><br><span class="line">                <span class="attr">"isDefault"</span>: <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//launch.json</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"version"</span>: <span class="string">"0.2.0"</span>,</span><br><span class="line">    <span class="attr">"configurations"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>: <span class="string">"C/C++"</span>,</span><br><span class="line">            <span class="attr">"type"</span>: <span class="string">"cppdbg"</span>,</span><br><span class="line">            <span class="attr">"request"</span>: <span class="string">"launch"</span>,</span><br><span class="line">            <span class="attr">"program"</span>: <span class="string">"$&#123;fileDirname&#125;/$&#123;fileBasenameNoExtension&#125;.exe"</span>,</span><br><span class="line">            <span class="attr">"args"</span>: [],</span><br><span class="line">            <span class="attr">"stopAtEntry"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="attr">"cwd"</span>: <span class="string">"$&#123;workspaceFolder&#125;"</span>,</span><br><span class="line">            <span class="attr">"environment"</span>: [],</span><br><span class="line">            <span class="attr">"externalConsole"</span>: <span class="literal">true</span>,<span class="comment">//使用内部会出现问题</span></span><br><span class="line">            <span class="attr">"MIMode"</span>: <span class="string">"gdb"</span>,</span><br><span class="line">            <span class="attr">"miDebuggerPath"</span>: <span class="string">"C:/Program Files/mingw64/bin/gdb.exe"</span>,</span><br><span class="line">            <span class="attr">"preLaunchTask"</span>: <span class="string">"compile"</span>,<span class="comment">//要和tasks中的label一样</span></span><br><span class="line">            <span class="attr">"setupCommands"</span>: [</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="attr">"description"</span>: <span class="string">"Enable pretty-printing for gdb"</span>,</span><br><span class="line">                    <span class="attr">"text"</span>: <span class="string">"-enable-pretty-printing"</span>,</span><br><span class="line">                    <span class="attr">"ignoreFailures"</span>: <span class="literal">true</span></span><br><span class="line">                &#125;</span><br><span class="line">            ],</span><br><span class="line">        &#125;,</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>配置完后直接在调试界面点运行图标就行了，会自动打开一个新窗口，同dev cpp类似</p>
-<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>主要问题就是如果使用内置的powershell就会出现调试时无法输入的问题，暂时不知道原因，只要把launch.json中的externalConsole选项改成true就可以调用外部console解决这个问题</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/23/%E8%AE%A1%E7%BB%84%20%E6%95%B0%E5%AD%97%E7%BC%96%E7%A0%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyfuture">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://i.loli.net/2020/02/28/cAKbXSfZYIC9mF8.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Xyfuture's home">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/02/23/%E8%AE%A1%E7%BB%84%20%E6%95%B0%E5%AD%97%E7%BC%96%E7%A0%81/" itemprop="url">计组-数字编码</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-23T12:22:30+08:00">
-                2020-02-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机组成原理</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="计组-数字编码"><a href="#计组-数字编码" class="headerlink" title="计组 数字编码"></a>计组 数字编码</h1><blockquote>
-<p>数字编码在计算机组成中非常重要，但是之前看了许多次都没有建立起完整的概念，这次借助计组和数字逻辑的机会总结一次</p>
-<p>以下讨论的都是<strong>有符号数</strong>，无符号的数较为简单，不写了</p>
-</blockquote>
-<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>真值 原码 补码 反码 移码 （机器数）</p>
-<p>定点数(定点整数 定点小数) 浮点数 </p>
-<p>算数移位 逻辑移位</p>
-<h2 id="定点数"><a href="#定点数" class="headerlink" title="定点数"></a>定点数</h2><p>定点数就是小数点固定的数，要么是完全的整数，没有小数部分，要么是完全的小数，没有整数部分，很少见到小数点在中间的定点数。</p>
-<h3 id="真值"><a href="#真值" class="headerlink" title="真值"></a>真值</h3><p>真值就是数学中实际的值可以是十进制表示的（比如123，-321），也可以是完全的二进制表示的，最主要的是带有符号（+ -）,是我们人看到的最为直观的数据，不是给机器看的。</p>
-<p>定点整数： +123 ，-321</p>
-<p>定点小数：+0.123，-0.321</p>
-<p>正号一般省略，定点小数的0一定要带着，因为靠0和小数点来指明这个数小数</p>
-<h3 id="原码"><a href="#原码" class="headerlink" title="原码"></a>原码</h3><p>原码将真值的符号部分用数值表示了，这样的话相较于真值就多了一位。</p>
-<p>原码组成： 符号部分+数值部分</p>
-<p>这两部分是相对分离的，一般单独对这两部分操作，不会合在一起操作</p>
-<p>正数： 0+真值</p>
-<p>负数： 1+真值</p>
-<p>原码其实只解决了正负的二进制表示，但是没法解决运算问题，因此不能在机内直接使用，下面介绍的补码可以直接使用</p>
-<p>原码存在+0，-0一言，因为原码只管符号位所以数值部分全为0，符号位为1 or 0 都表示真值的0</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>真值</th>
-<th>原码</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>+1001</td>
-<td>01001</td>
-</tr>
-<tr>
-<td>- 1100</td>
-<td>11100</td>
-</tr>
-<tr>
-<td>+0.1101</td>
-<td>0.1101</td>
-</tr>
-<tr>
-<td>-0.1011</td>
-<td>1.1011</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="补码"><a href="#补码" class="headerlink" title="补码"></a>补码</h3><p>补码是非常重要的，补码采取了取模的方法使得正负之间能够通过加法进行运算，通常内存中的数都是用补码进行表达的。</p>
-<p>部分推导：</p>
-<p>首先我们要明白取模的概念（下面以10进制为例）</p>
-<p>我们要建立一个mod16的系统所有数都要模16，因此实际上就0-15这16个数字，其他的无论正数还是负数都可以转换为0-15(加减16即可得到)</p>
-<p>例如 -10 —&gt; -10+16 = 6     18—&gt;18-16 = 2</p>
-<p>那么正数和负数之间的<strong>加法</strong>都可以用0-15进行</p>
-<p>例如 -2 + 3 = 1</p>
-<p>首先把所有数转换为0-15，-2—&gt;14,然后让这两个数相加得到的数继续mod16得到结果，（14+3）%16 =1，就是正确结果</p>
-<p>这是一个简单的原理，但是还有许多问题需要解决，比如溢出，范围，正负号等等，下面转为为char的表示</p>
-<p>char是8位的，表示-128-127范围之间的数据，最高位是符号位，数值部分用到了7位，能表达$2^7$个数，因此我们采取mod $2^7$的方案,因为mod$2^7$正好是$0\sim2^7-1$这$2^7$个数，正好能用数值部分的7位表达，这样的话我们把原码的正数和负数的数值部分都转换为mod$2^7$的数。</p>
-<p>因为我们只表示-128-127，因此正数直接不变，负数数值部分取反加一就行了，负数的取反加一是因为1000，0000 + x(负数) =  想要的数，x(数值部分取反)+x（数值） = 0111，1111 再+1就成了 1 000，0000了。</p>
-<p>通过上述的步骤我们得到了数值部分，符号部分直接正数为0 负数为1就行了(这个1可以理解为经过转化(+1000,0000)的)，至此补码已经得到了。</p>
-<p>运算过程中直接相加就完事了，后7位(数值部分)一直是mod $2^7$，如果发生进位是最有意思的</p>
-<p>正+正 负+负 如果进到符号位说明溢出</p>
-<p>正+负 永远不会溢出，进位说明正数比较大，直接让这个数变成正数了（符号位改变），后面数值部分根据mod原理还是对的，如果没进位，说明负数大，符号位还是1，数是负的，数值部分还是mod 的值，反向mod回去是真值</p>
-<p>正 - 正 怎么操作？</p>
-<p>其实先将后面的正数转换为负数再执行上面的加法，转换过程是所有位(包括符号位)取反加一(原理自己想，相反数+自身 = 0)</p>
-<p>好了前面说了这么多，总结为一句话补码是为了加减操作而生的</p>
-<p><strong>转换</strong></p>
-<p>正数： 和原码相同</p>
-<p>负数： 符号位为1 ，数值部分原码的数值部分取反加一</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>真值</th>
-<th>原码</th>
-<th>补码</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>+1001</td>
-<td>01001</td>
-<td>01001</td>
-</tr>
-<tr>
-<td>- 1100</td>
-<td>11100</td>
-<td>10100</td>
-</tr>
-<tr>
-<td>+0.1101</td>
-<td>0.1101</td>
-<td>0.1101</td>
-</tr>
-<tr>
-<td>-0.1011</td>
-<td>1.1011</td>
-<td>1.0101</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p><strong>补码没有正负0之分</strong>，只有0000，0000表示0，1000，0000表示-128，这是因为-128不mod值是0，能配上数值部分，1表示是负的，经过mod处理的，这个-128没法再原码和反码中表示的</p>
-<h3 id="反码"><a href="#反码" class="headerlink" title="反码"></a>反码</h3><p>反码平时用的比较少，转换也非常简单</p>
-<p>正数：同原码相同</p>
-<p>负数：符号位置1，数值部分取反</p>
-<h3 id="范围"><a href="#范围" class="headerlink" title="范围"></a>范围</h3><p>原码，反码，补码都用于表示数据但是表示的范围并不是一样大的，同时定点数表示小数也是离散的，因此需要记录一下他们的范围</p>
-<p><img src="https://i.loli.net/2020/02/24/k3w14lfEN5I9dYG.png" alt=""></p>
-<p>如何计算？</p>
-<p>有两种方式，第一种是最简单的按照10进制的转换规则，计算一个等比数列的和。第二种是在1111的基础上加上1然后得到1，0000然后减去1就行了</p>
-<p>注意补码在负数上多一个，原码和补码中没有这个值</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>原码，补码，反码都是机器数，我们常用原码和补码，原码更加直观，补码方便计算机的运算，他们之间也有转换关系</p>
-<p>正数：原码，补码，反码完全相同</p>
-<p>负数：</p>
-<p><img src="https://i.loli.net/2020/02/24/TL6OAECehiZNkFr.png" alt=""></p>
-<h2 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h2><h3 id="朴素的数学表示"><a href="#朴素的数学表示" class="headerlink" title="朴素的数学表示"></a>朴素的数学表示</h3><p>浮点数是基于科学计数法的</p>
-<script type="math/tex; mode=display">
-N = S*r^j</script><p>N是实际的数，S是尾数，r是基数，j是阶数</p>
-<p>大致就这样，因为阶数可以变动所以小数点是不定位置的所以叫浮点数</p>
-<h3 id="朴素的浮点数表示"><a href="#朴素的浮点数表示" class="headerlink" title="朴素的浮点数表示"></a>朴素的浮点数表示</h3><p>朴素的浮点数比较随意，前半部是阶数，后半部分是尾数，都用上面说的定点数表示<img src="https://i.loli.net/2020/02/24/1RNCr4UjyMK9nx3.png" alt=""></p>
-<p>这里阶码和尾数可用原码，补码表示，比较乱，我盲猜机内统一用补码表示，不过现在应该没有这样的机器了，毕竟IEEE 754真香，一个注意的点是用补码范围会大一些，我们考试啥的用原码多</p>
-<h4 id="浮点数的范围"><a href="#浮点数的范围" class="headerlink" title="浮点数的范围"></a>浮点数的范围</h4><p><img src="https://i.loli.net/2020/02/24/DScrEFM8GZotk7x.png" alt=""></p>
-<p>看看就行</p>
-<h3 id="规范化的浮点数"><a href="#规范化的浮点数" class="headerlink" title="规范化的浮点数"></a>规范化的浮点数</h3><p>规范化要求尾数最高位必须是1，比如0.1xxx，这样的话统一了阶码，然后这样的话采取原码表示尾数，会缩小一定的范围。</p>
-<p><img src="https://i.loli.net/2020/02/24/mIPKdtufgzrFqeT.png" alt=""></p>
-<h3 id="IEEE754"><a href="#IEEE754" class="headerlink" title="IEEE754"></a>IEEE754</h3><h4 id="移码"><a href="#移码" class="headerlink" title="移码"></a>移码</h4><p>移码用的比较少，主要是对阶</p>
-<p>操作所有数都加上一个统一的值，然后使所有负数都变成正数</p>
-<p>比如加上$2^{n-1}$, $2^{n-1}$有种简便方法，就是所有补码直接把符号位取反</p>
-<h4 id="标准"><a href="#标准" class="headerlink" title="标准"></a>标准</h4><blockquote>
-<p>参考：<a href="[https://baike.baidu.com/item/IEEE%20754/3869922](https://baike.baidu.com/item/IEEE 754/3869922">百度百科</a>)</p>
-</blockquote>
-<p>1位符号8位阶码23位尾数</p>
-<p>尾数要求1.xxxx，1要省略，<strong>尾数用原码表示</strong></p>
-<p>阶码是移码，要加127（$2^7-1$）</p>
-<p>除此之外还有一堆特殊值的规定可以参考百科</p>
-<p>IEEE 754是现在较为通用的浮点数表示标准，用这个就行了</p>
-<h2 id="算数位移"><a href="#算数位移" class="headerlink" title="算数位移"></a>算数位移</h2><h3 id="一点点数学知识"><a href="#一点点数学知识" class="headerlink" title="一点点数学知识"></a>一点点数学知识</h3><p>算不上数学知识就是正数的二进制转换</p>
-<script type="math/tex; mode=display">
-110010=1*2^5+1*2^4+0*2^3+0*2^2+1*2^1+0*2^0</script><p>基于这个一位就相当于乘或除2，如果移除了1，就会丢失精度</p>
-<h3 id="移位操作"><a href="#移位操作" class="headerlink" title="移位操作"></a>移位操作</h3><p>算数位移是针对有符号的定点数的，一般是整数，算数位移可以理解为乘2和除2的操作，结合左右位移就能实现乘法和除法了</p>
-<p><img src="https://i.loli.net/2020/02/24/GtQd4cRBm1xWeH2.png" alt=""></p>
-<p>这张图写的很好，注意一个点 <strong>符号位不变</strong>，正数永远是正数，负数永远是负数</p>
-<p>本身都是补0的，但是因为负数的反码和补码的规则导致会有变化。</p>
-<p>左移是*2，把1挤出去会发生溢出(原码)</p>
-<p>右移是÷，把1挤出去会丢失精度(原码)</p>
-<h2 id="逻辑移位"><a href="#逻辑移位" class="headerlink" title="逻辑移位"></a>逻辑移位</h2><p>逻辑移位针对无符号数，直接移动补零就ok了</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/19/HEXO%E5%AE%89%E8%A3%85/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyfuture">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://i.loli.net/2020/02/28/cAKbXSfZYIC9mF8.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Xyfuture's home">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/02/19/HEXO%E5%AE%89%E8%A3%85/" itemprop="url">HEXO安装</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-19T15:45:01+08:00">
-                2020-02-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/" itemprop="url" rel="index">
-                    <span itemprop="name">软件安装</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="HEXO安装"><a href="#HEXO安装" class="headerlink" title="HEXO安装"></a>HEXO安装</h1><p>安装过两次hexo,每次都会遇到许多问题,感觉软件版本的影响太大了,希望能有一天机器能自动处理所有的问题,而不是简单的报错</p>
-<blockquote>
-<p>参考链接 : <a href="https://www.bilibili.com/video/av44544186/" target="_blank" rel="noopener" title="B站hexo">codesheep</a> <a href="www.hexo.io" title="hexo官网">hexo.io </a> <a href="https://blog.csdn.net/qq_35561857/article/details/81590953" target="_blank" rel="noopener" title="没分清user和server">csdn</a></p>
-</blockquote>
-<h2 id="0-前言"><a href="#0-前言" class="headerlink" title="0. 前言"></a>0. 前言</h2><p>hexo是一个基于nodejs的博客框架,采取静态页面的方式,因此可以直接部署在github上省去一个域名.hexo使用markdown进行书写,对程序员来说还是比较方便的.</p>
-<p>我一共安装过两次hexo,一次部署在本地的机器上,一次部署在阿里云的学生机上,自己的机器还好说,阿里云的安装确实麻烦,阿里云的linux镜像的软件太老了,得先升级</p>
-<p><strong>以下教程建议直接在root用户下进行,没有权限的烦扰</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo su</span><br></pre></td></tr></table></figure>
-<h2 id="1-npm与node准备"><a href="#1-npm与node准备" class="headerlink" title="1. npm与node准备"></a>1. npm与node准备</h2><p>hexo是基于 nodejs,因此可以使用npm包管理器进行下载.</p>
-<p>首先安装npm</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># sudo apt-get update</span></span><br><span class="line">sudo apt-get install npm</span><br></pre></td></tr></table></figure>
-<p>注意安装完成后需要检查一下版本,太低了就要升级(阿里云的ubuntu自带的是3.x,有root权限的bug会导致普通用户install麻烦)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm -v <span class="comment">#检查版本</span></span><br><span class="line">n <span class="comment">#顺便检查node的版本,hexo要求8.10以上</span></span><br></pre></td></tr></table></figure>
-<p><strong>如果版本较低一定要更新</strong></p>
-<blockquote>
-<p>更新参考: <a href="https://segmentfault.com/a/1190000009025883" target="_blank" rel="noopener" title="segmentation fault">跟新npm和node</a></p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm -g install npm@next <span class="comment">#更新npm</span></span><br><span class="line"></span><br><span class="line">npm -g install n<span class="comment">#更新node</span></span><br><span class="line">n latest <span class="comment">#最新版</span></span><br><span class="line">n stable <span class="comment">#稳定版,也可自己制指定版本</span></span><br></pre></td></tr></table></figure>
-<p>node和npm的版本需要配合好(都是最新版就没问题了),否则npm会出现segmentation fault的错误</p>
-<h2 id="2-更换npm源或者安装cnpm"><a href="#2-更换npm源或者安装cnpm" class="headerlink" title="2. 更换npm源或者安装cnpm"></a>2. 更换npm源或者安装cnpm</h2><p>npm的源在国外,因此速度非常慢,我们需要更换源,这里采用淘宝的源</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org</span><br><span class="line">npm config list <span class="comment">#验证</span></span><br></pre></td></tr></table></figure>
-<p>阿里也提供代替npm的工具cnpm可以使用国内源代替npm功能</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-<p>以后直接使用cnpm安装就行了</p>
-<h2 id="3-安装hexo"><a href="#3-安装hexo" class="headerlink" title="3. 安装hexo"></a>3. 安装hexo</h2><p>hexo安装是最简单的问题</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cnpm install -g hexo-cli</span><br><span class="line"><span class="comment"># npm install -g hexo-cli</span></span><br></pre></td></tr></table></figure>
-<p>-g代表全局安装,所有用户都可以使用hexo,有可能出现权限问题</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cnpm install -g hexo-cli <span class="comment"># 解决权限</span></span><br></pre></td></tr></table></figure>
-<p>检查hexo是否安装成功</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo -v</span><br></pre></td></tr></table></figure>
-<h2 id="4-hexo使用"><a href="#4-hexo使用" class="headerlink" title="4. hexo使用"></a>4. hexo使用</h2><h3 id="1-hexo-init"><a href="#1-hexo-init" class="headerlink" title="1. hexo init"></a>1. hexo init</h3><p>hexo在一个文件夹中部署,首先我们创建一个文件夹,进入其中</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir blog</span><br><span class="line"><span class="built_in">cd</span> blog</span><br></pre></td></tr></table></figure>
-<p>初始化hexo</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
-<p>我们可以发现文件夹结构如下</p>
-<p><img src="https://s2.ax1x.com/2020/02/19/3ALsLF.png" alt="3ALsLF.png"></p>
-<h3 id="2-hexo-常用命令"><a href="#2-hexo-常用命令" class="headerlink" title="2. hexo 常用命令"></a>2. hexo 常用命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo clean <span class="comment">#清理</span></span><br><span class="line">hexo generate <span class="comment">#生成静态文件</span></span><br><span class="line">hexo start <span class="comment"># 本地调试 4000端口</span></span><br><span class="line">hexo deploy <span class="comment"># 部署到服务器,根据_config.yml执行</span></span><br></pre></td></tr></table></figure>
-<h3 id="3-hexo-部署"><a href="#3-hexo-部署" class="headerlink" title="3. hexo 部署"></a>3. hexo 部署</h3><p>hexo部署是用hexo的最后一步,将生成的静态文件上传至服务器</p>
-<p>hexo部署有很多种方案,这里介绍基于git的</p>
-<p>直接更改_config.yml(在hexo init的文件夹中)就行了</p>
-<p><img src="https://s2.ax1x.com/2020/02/19/3EgZTS.png" alt="3EgZTS.png"></p>
-<p>更改为如图的形式</p>
-<p>以后使用hexo deploy 就可以直接把generate的结果上传至服务器了,服务器端可以使用nginx来代理,直接显示内容</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/23/esp8226%E5%88%B7micropython/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyfuture">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://i.loli.net/2020/02/28/cAKbXSfZYIC9mF8.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Xyfuture's home">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/01/23/esp8226%E5%88%B7micropython/" itemprop="url">esp8266刷micro python及串口通信</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-23T12:22:30+08:00">
-                2020-01-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%89%A9%E8%81%94%E8%AE%BE%E5%A4%87/" itemprop="url" rel="index">
-                    <span itemprop="name">物联设备</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="esp8266刷micro-python-并且串口通信"><a href="#esp8266刷micro-python-并且串口通信" class="headerlink" title="esp8266刷micro python,并且串口通信"></a>esp8266刷micro python,并且串口通信</h1><blockquote>
-<p>参考链接: </p>
-<ol>
-<li><a href="https://micropython.nxez.com/2018/12/07/micropython-attempt-esp8266-esp32-brush-firmware.html" target="_blank" rel="noopener">实验室</a></li>
-<li><a href="http://bbs.eeworld.com.cn/thread-497508-1-1.html" target="_blank" rel="noopener">有关串口通信</a></li>
-</ol>
-</blockquote>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>esp8266是乐鑫公司推出的集wifi与mcu一体的芯片,性能比51内核强不少,同时价格较为便宜,得到了众多diy爱好者的追捧,同时不少低成本的智能家居产品也使用了该产品(米家台灯就是用的esp8266) nodemcu团队为esp8266设计了方便开发的pcb,同时他们为esp8266提供了lua开发环境(项目还在继续,但是人气没有那么高了)</p>
-<p>micro python是国外的项目,该项目将python解释器移植到了单片机上,该团队重写了python的许多模块使得python能够在单片机上运行,但是传统的x86模块并不能很好的运行(毕竟架构差异较大).micro python语法与python完全一致,因此可以快速开发.micro python团队将解释器移植到了esp8266上,因此我们可以在esp8266上使用micro python.</p>
-<h2 id="固件刷入"><a href="#固件刷入" class="headerlink" title="固件刷入"></a>固件刷入</h2><p>既然是python,那么输入的方式也必须python</p>
-<p>首先安装esptool</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install esptool</span><br></pre></td></tr></table></figure>
-<p>然后使用esptool提供的命令清空flash</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">esptool --port COM6 erase_flash</span><br></pre></td></tr></table></figure>
-<p>port中填入实际的端口</p>
-<p>最后刷入新的固件</p>
-<p>固件下载地址: <a href="http://www.micropython.org/download#other" target="_blank" rel="noopener">micropython.org</a></p>
-<p>在这个网站中下载最新的stable的esp8266的固件(bin格式),下载后备用</p>
-<p>使用esptool提供的命令刷入esp8266</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">esptool --port <span class="built_in">COM4</span> --baud <span class="number">460800</span> write_flash --flash_size=detect <span class="number">0</span> esp8266.bin#（这个改为具体固件的位置）</span><br></pre></td></tr></table></figure>
-<p>这样就能将固件刷入到esp8266中了</p>
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>固件刷入后我们要进行测试,看看刷入是否成功,与esp8266的交互方式是串口,我们首先需要一个串口软件,这里暂时先用putty,不过这个软件有bug,因此不建议一直用这个软件.</p>
-<p>首先打开软件选择serial设置参数</p>
-<p><img src="https://s2.ax1x.com/2020/01/31/13BHED.png" alt="13BHED.png"></p>
-<p>COM口选择实际的</p>
-<p>Speed通信速率使用115200</p>
-<p>Flow contorl 选None</p>
-<p>下面是正确的设置</p>
-<p><img src="https://s2.ax1x.com/2020/01/31/13Bvvt.png" alt="13Bvvt.png"></p>
-<p>点开open,就可以通信了</p>
-<p>如果不出文字,按一下rst</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
+  </nav>
+
 
 
           </div>
@@ -2138,7 +2070,7 @@ N = S*r^j</script><p>N是实际的数，S是尾数，r是基数，j是阶数</p>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2149,7 +2081,7 @@ N = S*r^j</script><p>N是实际的数，S是尾数，r是基数，j是阶数</p>
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2160,7 +2092,7 @@ N = S*r^j</script><p>N是实际的数，S是尾数，r是基数，j是阶数</p>
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
