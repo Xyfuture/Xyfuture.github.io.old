@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Program,homework," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="week3-CSPA-咕咕东的奇遇题意该题算是一个贪心问题,在一个环(26个数)上布置有序的数字,环上有一个指针,然后给定一个数字序列,要求转动圆环,使得指针指向给定的数字,要求总的转动的次数最少.题目中的不是数字而是字母,不过无所谓,ascii直接转换就行 解法我们使用贪心的方案,每一次都找到从当前位置到指定位置的最短路径,最短路径只有两种可能,顺时针转过去或者逆时针转过去.在环上本身就是mod">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Program-week4-homework">
+<meta property="og:url" content="http://yoursite.com/2020/03/15/Program-week4-homework/index.html">
+<meta property="og:site_name" content="Xyfuture&#39;s home">
+<meta property="og:description" content="week3-CSPA-咕咕东的奇遇题意该题算是一个贪心问题,在一个环(26个数)上布置有序的数字,环上有一个指针,然后给定一个数字序列,要求转动圆环,使得指针指向给定的数字,要求总的转动的次数最少.题目中的不是数字而是字母,不过无所谓,ascii直接转换就行 解法我们使用贪心的方案,每一次都找到从当前位置到指定位置的最短路径,最短路径只有两种可能,顺时针转过去或者逆时针转过去.在环上本身就是mod">
+<meta property="og:image" content="https://i.loli.net/2020/03/17/sQkcSOUWyEn2q9N.png">
+<meta property="article:published_time" content="2020-03-15T03:06:08.000Z">
+<meta property="article:modified_time" content="2020-03-20T01:01:42.184Z">
+<meta property="article:author" content="Xyfuture">
+<meta property="article:tag" content="Program">
+<meta property="article:tag" content="homework">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/03/17/sQkcSOUWyEn2q9N.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/03/15/Program-week4-homework/"/>
+
+
+
+
+
+  <title>Program-week4-homework | Xyfuture's home</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Xyfuture's home</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/15/Program-week4-homework/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyfuture">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2020/02/28/cAKbXSfZYIC9mF8.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xyfuture's home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Program-week4-homework</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-15T11:06:08+08:00">
+                2020-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E6%80%9D%E7%BB%B4/" itemprop="url" rel="index">
+                    <span itemprop="name">程序设计思维</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="week3-CSP"><a href="#week3-CSP" class="headerlink" title="week3-CSP"></a>week3-CSP</h1><h2 id="A-咕咕东的奇遇"><a href="#A-咕咕东的奇遇" class="headerlink" title="A-咕咕东的奇遇"></a>A-咕咕东的奇遇</h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>该题算是一个贪心问题,在一个环(26个数)上布置有序的数字,环上有一个指针,然后给定一个数字序列,要求转动圆环,使得指针指向给定的数字,要求总的转动的次数最少.题目中的不是数字而是字母,不过无所谓,ascii直接转换就行</p>
+<h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><p>我们使用贪心的方案,每一次都找到从当前位置到指定位置的最短路径,最短路径只有两种可能,顺时针转过去或者逆时针转过去.在环上本身就是mod26系统,因此让<strong>大数减小数</strong>是一种,<strong>小数加26减大数</strong>是另一种,那个小取那个</p>
+<h3 id="code"><a href="#code" class="headerlink" title="code"></a>code</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> s [<span class="number">10002</span>];<span class="comment">//数组开大</span></span><br><span class="line">	<span class="built_in">memset</span>(s,<span class="number">0</span>,<span class="keyword">sizeof</span>(s));</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%s"</span>,s);</span><br><span class="line">	<span class="keyword">int</span> count=<span class="number">0</span>;<span class="comment">//总和</span></span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">char</span> temp;</span><br><span class="line">	<span class="keyword">int</span> posi = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> maxShift = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>((temp=s[i])!=<span class="string">'\0'</span>)<span class="comment">//判断截止</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> cur = temp-<span class="string">'a'</span>;</span><br><span class="line">		<span class="keyword">if</span>(cur&gt;posi)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> left = cur- posi;<span class="comment">//一种方向</span></span><br><span class="line">			<span class="keyword">int</span> right = posi+<span class="number">26</span> -cur;<span class="comment">//另一种方向</span></span><br><span class="line">			count+=(left&gt;right? right:left);<span class="comment">//取最小</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(cur&lt;=posi)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> left = cur+<span class="number">26</span> - posi;</span><br><span class="line">			<span class="keyword">int</span> right = posi-cur;</span><br><span class="line">			count+= (left&gt;right? right:left);</span><br><span class="line">		&#125;</span><br><span class="line">		posi = cur;</span><br><span class="line">		i++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,count);	</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这道题比较简单,主要就是提升速度,这道题大约耗费了20min,争取减少到10min左右</p>
+<h2 id="B-咕咕东想吃饭"><a href="#B-咕咕东想吃饭" class="headerlink" title="B-咕咕东想吃饭"></a>B-咕咕东想吃饭</h2><h3 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h3><p>这道题算是一道模拟.</p>
+<p>有人在n天时间内都吃东西,每天买多少个是给出的,但是卖东西的用两种策略,一个是1次卖2个.另一种是今天卖一个,明天送一个.这个人的目的是n天结束后不能有剩下的东西,也就是说最后一天不能用第二个策略,问问在给定情况下能不能实现不剩东西.</p>
+<h3 id="解法-1"><a href="#解法-1" class="headerlink" title="解法"></a>解法</h3><blockquote>
+<p>这道题我是按照模拟题做的,然后过了,不过当时没有给出有效的证明,还是有点险</p>
+</blockquote>
+<p>购买的策略,首先两个两个的买,直到当天剩下一个或者没有,剩下的一个用第二种策略,买完了要在第二天减去一个.一直这样循环下去,检查退出的时候是否还要减去第二天的哪一个.如果还需要就是就不行,否则可行,除此之外如果有一天买的比昨天送的还少也不行.</p>
+<h4 id="简略证明"><a href="#简略证明" class="headerlink" title="简略证明"></a>简略证明</h4><p>假设我们有一个能完成任务的方法,我们可以将其转换为上述提出的方法,比如当天k个1策略,m个2策略,我们只关注2策略,m是偶数,则可以直接用1策略代替,如果m是奇数,则m-1是偶数,我们用1策略替代m-1个2策略,剩下的一个2策略保持,这样就成了上述的方法</p>
+<h3 id="code-1"><a href="#code-1" class="headerlink" title="code"></a>code</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> data [<span class="number">100005</span>];<span class="comment">//存第i天的量</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">memset</span> (data,<span class="number">0</span>,<span class="keyword">sizeof</span>(data));</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>,data+i);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> ticket = <span class="number">0</span>;<span class="comment">//送的那一个</span></span><br><span class="line">	<span class="keyword">int</span> curSize= <span class="number">0</span>;<span class="comment">//今天实际的量,减去昨天送的</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		curSize = data[i] -ticket;</span><br><span class="line">		<span class="keyword">if</span>(curSize&lt;<span class="number">0</span>)<span class="comment">//如果今天买的比送的还少也不行</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"NO\n"</span>);</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(curSize%<span class="number">2</span> == <span class="number">0</span>)</span><br><span class="line">			ticket =<span class="number">0</span> ;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			ticket = <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(ticket == <span class="number">0</span>)<span class="comment">//还有送的就不行</span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"YES\n"</span>);</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"NO\n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>这道题大约花了30min,主要的难点我觉得还是证明上,不过赛场上还是没能严格的证出来,只是感觉差不多了,有时候也只能这样,感觉个差不多就交一发,做做后面的题在回来看看.这道题的证明和贪心类似,都是转化最优而来,这种证法还会用在很多的地方</p>
+<h2 id="C-可怕的宇宙射线"><a href="#C-可怕的宇宙射线" class="headerlink" title="C-可怕的宇宙射线"></a>C-可怕的宇宙射线</h2><blockquote>
+<p>比较难</p>
+</blockquote>
+<h3 id="题意-2"><a href="#题意-2" class="headerlink" title="题意"></a>题意</h3><p>粗看是一道模拟题,但是不能纯模拟,得用bfs标记解决</p>
+<p>题意大致是光线分裂,一条光线在坐标系下按照指定步数移动几步,然后分裂为2,左右45°方向,然后继续走指定步数,再次分裂为4….最后问光线一共占据多少个坐标</p>
+<h3 id="解法-2"><a href="#解法-2" class="headerlink" title="解法"></a>解法</h3><p>这道题一上来我就傻傻的写了最简单的模拟,把$2^n$的情况全模拟了,而且因为语法上的问题,负数不能取模,最终差了1min没有交上.不过即便交上了也就能过1,2个点那不全分.</p>
+<p>正确做法:<br>单纯模拟bfs的复杂度是$2^n$,显然是不对的,因此在bfs上进行优化,这里的剪枝的方式是用vis数组进行标记<br>我们开一个vis数组<code>bool vis[x][y][8][32]</code>8代表8个方向,32代表最多30次分裂<br>我们开一个队列,将起始点放进去,在取队列中一个节点,然后我们让光线从起始开始直接走完分裂前的路程,同时标记走过的点,计数走过的点,然后进行分裂,获得到分裂后新的光线的起始坐标,把这个坐标用vis记录,同时包含他的方向和分裂层数,这样就能避免重复走一样的分裂路线,如果这个点没被走过就放入队列.开始循环直到队空</p>
+<h3 id="code-2"><a href="#code-2" class="headerlink" title="code"></a>code</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unordered_map&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">bool</span> vis [<span class="number">400</span>][<span class="number">400</span>][<span class="number">8</span>][<span class="number">35</span>];<span class="comment">//bfs中剪枝</span></span><br><span class="line"><span class="keyword">bool</span> posi [<span class="number">400</span>][<span class="number">400</span>];<span class="comment">//标记走过的点</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">moves</span>//记录每次分裂的起始点的位置</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> x;</span><br><span class="line">    <span class="keyword">int</span> y;</span><br><span class="line">    <span class="keyword">int</span> level;<span class="comment">//第几层</span></span><br><span class="line">    <span class="keyword">int</span> angle;<span class="comment">//方向</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> change[<span class="number">8</span>][<span class="number">2</span>]=</span><br><span class="line">&#123;</span><br><span class="line">	&#123;<span class="number">0</span>,<span class="number">1</span>&#125;,</span><br><span class="line">	&#123;<span class="number">1</span>,<span class="number">1</span>&#125;,</span><br><span class="line">	&#123;<span class="number">1</span>,<span class="number">0</span>&#125;,&#123;<span class="number">1</span>,<span class="number">-1</span>&#125;,&#123;<span class="number">0</span>,<span class="number">-1</span>&#125;,&#123;<span class="number">-1</span>,<span class="number">-1</span>&#125;,&#123;<span class="number">-1</span>,<span class="number">0</span>&#125;,&#123;<span class="number">-1</span>,<span class="number">1</span>&#125;</span><br><span class="line">&#125;;<span class="comment">//不同方向 移动的数组</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">queue</span>&lt;moves&gt; q;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> count=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> moveData [<span class="number">40</span>];<span class="comment">//存储第几层需要移动几次</span></span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">	<span class="built_in">memset</span>(moveData,<span class="number">0</span>,<span class="keyword">sizeof</span>(moveData));</span><br><span class="line">    <span class="built_in">memset</span>(posi,<span class="number">0</span>,<span class="keyword">sizeof</span>(posi));</span><br><span class="line">    <span class="built_in">memset</span>(vis,<span class="number">0</span>,<span class="keyword">sizeof</span>(vis));</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>,moveData+i);</span><br><span class="line">    moves firstNode = &#123;<span class="number">200</span>,<span class="number">200</span>,<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line">    q.push(firstNode);</span><br><span class="line">    vis[<span class="number">200</span>][<span class="number">200</span>][<span class="number">0</span>][<span class="number">0</span>]= <span class="literal">true</span>;<span class="comment">//起始点0,0标记</span></span><br><span class="line">    <span class="keyword">while</span>(!q.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        moves curPoint = q.front();</span><br><span class="line">        <span class="keyword">int</span> x = curPoint.x,y=curPoint.y,angle = curPoint.angle;</span><br><span class="line">        q.pop();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;moveData[curPoint.level];i++)<span class="comment">//从起始点直接到分裂位置,一次完成一层</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(posi[x+change[angle][<span class="number">0</span>]*i][y+change[angle][<span class="number">1</span>]*i] == <span class="literal">false</span>)<span class="comment">//路过的点没被标记则计数增加</span></span><br><span class="line">            &#123;</span><br><span class="line">                count ++;</span><br><span class="line">                posi[x+change[angle][<span class="number">0</span>]*i][y+change[angle][<span class="number">1</span>]*i] = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> angle1=(curPoint.angle+<span class="number">1</span>)%<span class="number">8</span>;<span class="comment">//新的点的两个角度</span></span><br><span class="line">        <span class="keyword">int</span> angle2=(curPoint.angle+<span class="number">7</span>)%<span class="number">8</span>;</span><br><span class="line">        <span class="keyword">int</span> i = moveData[curPoint.level] - <span class="number">1</span>;<span class="comment">//到达最后的层就不在继续了</span></span><br><span class="line">        <span class="keyword">if</span> (curPoint.level == n<span class="number">-1</span>)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        moves newPoint1 = &#123;x+change[angle][<span class="number">0</span>]*i+change[angle1][<span class="number">0</span>],y+change[angle1][<span class="number">1</span>]+change[angle][<span class="number">1</span>]*i,</span><br><span class="line">                    curPoint.level+<span class="number">1</span>,angle1&#125;;<span class="comment">//分裂后的起始点</span></span><br><span class="line">        moves newPoint2 = &#123;x+change[angle2][<span class="number">0</span>]+change[angle][<span class="number">0</span>]*i,y+change[angle2][<span class="number">1</span>]+change[angle][<span class="number">1</span>]*i,</span><br><span class="line">                    curPoint.level+<span class="number">1</span>,angle2&#125;;</span><br><span class="line">        <span class="keyword">if</span> (vis[newPoint1.x][newPoint1.y][newPoint1.level][newPoint1.angle] == <span class="literal">false</span>)<span class="comment">//标记了就不走了,没标记就入队走一遍</span></span><br><span class="line">        &#123;</span><br><span class="line">            q.push(newPoint1);</span><br><span class="line">            vis[newPoint1.x][newPoint1.y][newPoint1.level][newPoint1.angle] = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (vis[newPoint2.x][newPoint2.y][newPoint2.level][newPoint2.angle] == <span class="literal">false</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            q.push(newPoint2);</span><br><span class="line">            vis[newPoint2.x][newPoint2.y][newPoint2.level][newPoint2.angle] = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,count);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h3><p>这道题在赛场上没有做出来,赛上想的太简单了,直接忽略了指数增加的问题</p>
+<p>bfs在使用时也得注意剪枝的情况,想这道题一次就直接剪枝一半,极大降低复杂度,最大的复杂度就是遍历一遍vis数组$O(x<em>y</em>n)$x,y是坐标系的大小,n是步数,还有个常数8忽略了,因为全被标记后就不可能再入队了,直接退出了.</p>
+<h1 id="week4-homework"><a href="#week4-homework" class="headerlink" title="week4-homework"></a>week4-homework</h1><h2 id="A-DDL的恐惧"><a href="#A-DDL的恐惧" class="headerlink" title="A-DDL的恐惧"></a>A-DDL的恐惧</h2><h3 id="题意-3"><a href="#题意-3" class="headerlink" title="题意"></a>题意</h3><p>有一组任务,有每个任务超时的惩罚,还有每个任务的ddl,求最少的惩罚是多少</p>
+<h3 id="解法-3"><a href="#解法-3" class="headerlink" title="解法"></a>解法</h3><p>这道题是贪心问题,助教在课上讲的是按时完成的奖励,这里是超时的惩罚,思路是差不多的.首先按照超时惩罚排序,得到降序序列,然后将惩罚最大的先安排在能安排的离ddl最近的位置,将这个位置标记,然后循环取出,没有可安排的时间则计入惩罚.</p>
+<h4 id="简易证明"><a href="#简易证明" class="headerlink" title="简易证明"></a>简易证明</h4><p>这个是使用交换的方式,将一个最优解转换为贪心解</p>
+<p>对于</p>
+<h3 id="code-3"><a href="#code-3" class="headerlink" title="code"></a>code</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> time[<span class="number">2000</span>];<span class="comment">//时间记录</span></span><br><span class="line">pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; task[<span class="number">1002</span>];<span class="comment">//first是惩罚,second是ddl</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> count;</span><br><span class="line">    <span class="comment">// int ddl[1002],score[1002];</span></span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;count);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> n;</span><br><span class="line">        <span class="keyword">int</span> score = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">memset</span>(task,<span class="number">0</span>,<span class="keyword">sizeof</span>(task));</span><br><span class="line">        <span class="built_in">memset</span>(time,<span class="number">0</span>,<span class="keyword">sizeof</span>(time));</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;task[j].second);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;task[j].first);</span><br><span class="line">        sort(task,task+n);<span class="comment">//排序,这里是升序,因此反着循环</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=n<span class="number">-1</span>;j&gt;=<span class="number">0</span>;j--)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> t = task[j].second;</span><br><span class="line">            <span class="keyword">for</span>(t;t&gt;<span class="number">0</span>;t--)<span class="comment">//找一个时间安排任务</span></span><br><span class="line">                <span class="keyword">if</span>(time[t] == <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    time[t] = <span class="number">1</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            <span class="keyword">if</span>(t == <span class="number">0</span>)<span class="comment">//无法安排则计入惩罚</span></span><br><span class="line">                score+=task[j].first;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,score);</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结-3"><a href="#总结-3" class="headerlink" title="总结"></a>总结</h3><p>贪心问题,证明方法还是常用等效转换的方式,证明其和最优解是等价的.</p>
+<h2 id="B-四个数列"><a href="#B-四个数列" class="headerlink" title="B-四个数列"></a>B-四个数列</h2><h3 id="题意-4"><a href="#题意-4" class="headerlink" title="题意"></a>题意</h3><p>有四个等长的数列,然后从这四个数列中各自取一个数,使其和为0,求问有多少种可能取法</p>
+<h3 id="解法-4"><a href="#解法-4" class="headerlink" title="解法"></a>解法</h3><p>这是道二分的问题,课上已经讲过了.</p>
+<p>如果直接暴力是$O(n^4)$,肯定是不行的,然后进行分组,两个数列一组,先$O(n^2)$让组内组合,然后确定一个组,在另一个组内二分找答案</p>
+<p>注意这个二分是找起始位置和结束位置,因为可能有多个相同的值,都是一种可能</p>
+<p>总的复杂度就是$O(n^2logn)$</p>
+<h3 id="code-4"><a href="#code-4" class="headerlink" title="code"></a>code</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> data[<span class="number">4</span>][<span class="number">4002</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> ans1[<span class="number">16000002</span>];</span><br><span class="line"><span class="keyword">int</span> ans2[<span class="number">16000002</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(data,<span class="number">0</span>,<span class="keyword">sizeof</span>(data));</span><br><span class="line">    <span class="built_in">memset</span>(ans1,<span class="number">0</span>,<span class="keyword">sizeof</span>(ans1));</span><br><span class="line">    <span class="built_in">memset</span>(ans2,<span class="number">0</span>,<span class="keyword">sizeof</span>(ans2));</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)<span class="comment">//读入</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">4</span>;j++)</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;data[j][i]);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)<span class="comment">//计算两组的加和</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">            ans1[i*n+j] = data[<span class="number">0</span>][i]+data[<span class="number">1</span>][j];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">            ans2[i*n+j] = data[<span class="number">2</span>][i]+data[<span class="number">3</span>][j];</span><br><span class="line">    <span class="keyword">int</span> t = n*n;</span><br><span class="line">    <span class="keyword">int</span> min = <span class="number">0</span>,max =t;</span><br><span class="line">    sort(ans1,ans1+t);</span><br><span class="line">    sort(ans2,ans2+t);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;t;i++)<span class="comment">//n^2的循环</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> target = -ans1[i];</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>,right = t<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(left&lt;=right)<span class="comment">//二分找到起始点</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> middle = (right+left)/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span>(ans2[middle] &gt;= target)</span><br><span class="line">            &#123;</span><br><span class="line">                min = middle;</span><br><span class="line">                right = middle - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                left = middle+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (ans2[min]!=target)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        left = <span class="number">0</span>;</span><br><span class="line">        right = t<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(left&lt;=right)<span class="comment">//二分找到终点</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> middle = (right+left)/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span>(ans2[middle]&lt;=target)</span><br><span class="line">            &#123;</span><br><span class="line">                max = middle;</span><br><span class="line">                left = middle+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                right = middle<span class="number">-1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        count+=max-min+<span class="number">1</span>;</span><br><span class="line">    &#125;   </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>,count);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结-4"><a href="#总结-4" class="headerlink" title="总结"></a>总结</h3><p>二分用来找东西方便,但是一定要有序,<strong>记得sort</strong></p>
+<h2 id="C-TT的神秘礼物"><a href="#C-TT的神秘礼物" class="headerlink" title="C- TT的神秘礼物"></a>C- TT的神秘礼物</h2><h3 id="题意-5"><a href="#题意-5" class="headerlink" title="题意"></a>题意</h3><p>给定一个含n个元素的数组A,运用A数组生成一个B数组,B中的元素为abs(A[i] - A[j])，1 &lt;= i &lt; j &lt;= n,然后找出B数组的中位数输出这个中位数</p>
+<h3 id="解法-5"><a href="#解法-5" class="headerlink" title="解法"></a>解法</h3><p>这道题也是课上讲过的,核心思路是二分,而且是两个二分.</p>
+<p>首先我们求中位数必然是在一个有序数列中,满足二分的条件,首先<strong>对a排序</strong>,因为构造b的时候有abs,因此不影响中位数,然后找出b的<strong>最小值0</strong>(注意这里的最小值是0不是a[1]-a[0]),和<strong>最大值a[n-1]-a[0]</strong>,让这两个最为边界进行二分,获得中间值mid.之后判断mid与中位数的情况,这里的判断是计算mid的名次,计算b中第一个大于mid的数前面有几个数,因为中位数的名次是知道的$(n*(n-1)/4+1)$.如果大于等于中位数则让max=mid,否则min=mid+1,然后这样循环下去直到max&lt;min.</p>
+<p>如何求mid是第几个数成了新的问题,这里的解决方法还是二分,因为b中的元素是abs(A[i] - A[j]),则固定一个i,通过二分寻找第一个a[j]-a[i]大于mid的j,然后我们对i进行一次遍历就得到了mid是第几个元素,和给定的中位数名次比较就能操作max和min了.</p>
+<h4 id="严谨一些的证明"><a href="#严谨一些的证明" class="headerlink" title="严谨一些的证明"></a>严谨一些的证明</h4><p>上述的描述虽然给出了解题的思路但是还没有给出一个比较严谨的证明.</p>
+<p>对于第二部分二分来查找名次就不过多进行描述了,这就是最简单的那种二分,找一个端点,但是第一部分直接二分出答案还是需要稍微证明一下.</p>
+<p>首先中位数的名次是固定的,但是和中位数相等的数可能有多个,同时在二分中会出现b中没有的数,下面讨论一下啊是如何准确二分到准确的答案的.</p>
+<p><img src="https://i.loli.net/2020/03/17/sQkcSOUWyEn2q9N.png" alt=""></p>
+<p>上图中x是中位数实际的值,还有一些二分出来的在b中不存在但是和x同名次的数.因为查找排名的原因,实际的x排名是大于中位数的排名的,因此存在一个问题,永远不会有mid名次就是中位数名次的事情.但是在二分中,我们是在mid&gt;=中位数时,更新max和ans(最终的答案),否则更新min,那么min&lt;=x(因为x位置大于中位数,然后mid=x更新max,比x小的一个数名次小于中位数,min会变大),max&gt;=x(这个情况是对于mid未等于x前),这样一直迭代下去无论怎么更新都是满足上述条件的,最终max和min会向x靠近,最终max=min = x然后下一步max会小于min退出循环,最终ans必然等于x.不存在的数在右边,mid是向左边靠的,所以ans不会等于不存在的数.</p>
+<p>后来又想了一下,还是学长上课讲的方法比较简单,我们提供一个check()函数,这个函数返回0或1,0代表mid名次小于中位数,1代表mid名次大于等于中位数名次,这样在0,1交界的位置的1就是我们要找的中位数,不存在的那些数虽然也是1,但是都是在中位数后面,不在交界位置</p>
+<h3 id="code-5"><a href="#code-5" class="headerlink" title="code"></a>code</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> cat[<span class="number">100002</span>];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> cur,<span class="keyword">int</span> tar,<span class="keyword">int</span> n)</span><span class="comment">//排名,tar是中位数名次,cur是mid的值</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> s=<span class="number">0</span>,e=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> left =i+<span class="number">1</span>,right= n<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(left&lt;=right)<span class="comment">//二分找排名</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> mid = (left+right)/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span>(cur&gt;=(cat[mid]-cat[i]))</span><br><span class="line">                left = mid+<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                right = mid<span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        e += left-i<span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(e&gt;=tar)<span class="comment">//大于等于返回1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span><span class="comment">//小于返回0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n)!=EOF)</span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,cat+i);</span><br><span class="line">        sort(cat,cat+n);</span><br><span class="line">        <span class="keyword">int</span> min = <span class="number">0</span>;<span class="comment">//最小值</span></span><br><span class="line">        <span class="keyword">int</span> max = cat[n<span class="number">-1</span>] - cat[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> mid = (min+max)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span> target = (((n*(n<span class="number">-1</span>))/<span class="number">2</span>)+<span class="number">1</span>)/<span class="number">2</span>;<span class="comment">//中位数位置</span></span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(max&gt;min)<span class="comment">//结束条件</span></span><br><span class="line">        &#123;   </span><br><span class="line">            mid = (min+max)/<span class="number">2</span>;      </span><br><span class="line">            <span class="keyword">if</span>(check(mid,target,n))</span><br><span class="line">                ans = mid,max = mid;<span class="comment">//max不能减1因为退出条件是max&lt;=min,更新ans</span></span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                min = mid+<span class="number">1</span>; </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,ans);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结-5"><a href="#总结-5" class="headerlink" title="总结"></a>总结</h3><p>这道题我觉得出的非常好,让我对二分有了更深刻的理解,二分的left和right始终在一个条件附近徘徊,最终逼近这个答案,当left&gt;right退出时ans就满足了条件了.</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Program/" rel="tag"># Program</a>
+          
+            <a href="/tags/homework/" rel="tag"># homework</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/13/Program-%E4%BA%8C%E5%88%86/" rel="next" title="Program-二分">
+                <i class="fa fa-chevron-left"></i> Program-二分
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/15/c-with-python/" rel="prev" title="c_with_python">
+                c_with_python <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://i.loli.net/2020/02/28/cAKbXSfZYIC9mF8.jpg"
+                alt="Xyfuture" />
+            
+              <p class="site-author-name" itemprop="name">Xyfuture</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#week3-CSP"><span class="nav-number">1.</span> <span class="nav-text">week3-CSP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#A-咕咕东的奇遇"><span class="nav-number">1.1.</span> <span class="nav-text">A-咕咕东的奇遇</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意"><span class="nav-number">1.1.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法"><span class="nav-number">1.1.2.</span> <span class="nav-text">解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#code"><span class="nav-number">1.1.3.</span> <span class="nav-text">code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.1.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B-咕咕东想吃饭"><span class="nav-number">1.2.</span> <span class="nav-text">B-咕咕东想吃饭</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简略证明"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">简略证明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#code-1"><span class="nav-number">1.2.3.</span> <span class="nav-text">code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结-1"><span class="nav-number">1.2.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-可怕的宇宙射线"><span class="nav-number">1.3.</span> <span class="nav-text">C-可怕的宇宙射线</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意-2"><span class="nav-number">1.3.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法-2"><span class="nav-number">1.3.2.</span> <span class="nav-text">解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#code-2"><span class="nav-number">1.3.3.</span> <span class="nav-text">code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结-2"><span class="nav-number">1.3.4.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#week4-homework"><span class="nav-number">2.</span> <span class="nav-text">week4-homework</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#A-DDL的恐惧"><span class="nav-number">2.1.</span> <span class="nav-text">A-DDL的恐惧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意-3"><span class="nav-number">2.1.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法-3"><span class="nav-number">2.1.2.</span> <span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简易证明"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">简易证明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#code-3"><span class="nav-number">2.1.3.</span> <span class="nav-text">code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结-3"><span class="nav-number">2.1.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B-四个数列"><span class="nav-number">2.2.</span> <span class="nav-text">B-四个数列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意-4"><span class="nav-number">2.2.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法-4"><span class="nav-number">2.2.2.</span> <span class="nav-text">解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#code-4"><span class="nav-number">2.2.3.</span> <span class="nav-text">code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结-4"><span class="nav-number">2.2.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-TT的神秘礼物"><span class="nav-number">2.3.</span> <span class="nav-text">C- TT的神秘礼物</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意-5"><span class="nav-number">2.3.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法-5"><span class="nav-number">2.3.2.</span> <span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#严谨一些的证明"><span class="nav-number">2.3.2.1.</span> <span class="nav-text">严谨一些的证明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#code-5"><span class="nav-number">2.3.3.</span> <span class="nav-text">code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结-5"><span class="nav-number">2.3.4.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xyfuture</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

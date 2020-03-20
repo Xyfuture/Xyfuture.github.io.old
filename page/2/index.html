@@ -258,6 +258,434 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/02/%E8%AE%A1%E7%BB%84-%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyfuture">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2020/02/28/cAKbXSfZYIC9mF8.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xyfuture's home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/02/%E8%AE%A1%E7%BB%84-%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97/" itemprop="url">计组 四则运算</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-02T14:16:35+08:00">
+                2020-03-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机组成原理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>​        最近学完了整数的加减乘除四则运算,本质上还是根据最基础的数学定理用计算机模仿人的运算步骤,但是因为数值表示的原因,初看起来还是有点难懂的,因此总结一下.</p>
+<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><p>​        准备工作主要指数据的编码,尤其是补码的原理,这个在上一篇中有讲,补码核心的内容就是把负数用mod的方法转换为了正数,然后因为加上了一个数因此在符号位特殊标记一下.借助这个规则我们可以实现四则运算同时解决溢出问题,因此必须对补码有一个较为深刻的认识,否者只能死记硬背了.</p>
+<h1 id="加法"><a href="#加法" class="headerlink" title="加法"></a>加法</h1><blockquote>
+<p>加法和减法都是通过补码实现的,借助补码两者可以同一</p>
+</blockquote>
+<p>加法其实没有什么好说的,按照正常的规则补码直接加,得到的结果也是补码</p>
+<p><img src="https://i.loli.net/2020/03/02/PdmACSpbwi6fIvU.png" alt=""></p>
+<p>就是按照满2进1的规则来就行,符号位也要算上去,没什么好说的.注意一点是最后的这个<strong>mod XX</strong>这个意思是为了保持位数,比如8位+8位我们不给出9位的答案,多的一位会被截断,这就引发了另一个问题就是<strong>溢出</strong>,8位的答案不能表达实际的答案,这个问题在减法中统一讨论.</p>
+<p><img src="https://i.loli.net/2020/03/02/lYnPb1FmO3qDSax.png" alt=""></p>
+<p><center>关于mod的解释</center></p>
+<h1 id="减法"><a href="#减法" class="headerlink" title="减法"></a><strong>减法</strong></h1><p>减法要转为加法进行处理 </p>
+<script type="math/tex; mode=display">
+A-B\ =\ A+(-B)</script><p>这个规则对于补码也是成立的</p>
+<script type="math/tex; mode=display">
+[A]_补-[B]_补\ =\ [A]_补+[-B]_补</script><p>因此我们将减数转换成他的相反数,规则在上一篇文章中也讲过,<strong>所有位(包括符号位)取反,再+1</strong>,之后执行正常的加法就行了.</p>
+<h2 id="溢出问题"><a href="#溢出问题" class="headerlink" title="溢出问题"></a>溢出问题</h2><p>溢出问题是非常重要和有趣的.<br>溢出的意思就是当前的数据位数没有办法表达当前的数据.<br>比如8位可以表示-128-127,但是当两个-128相加时得到的数(-256)就没法表示了,因此就溢出了,下面来说说溢出在补码上的表现</p>
+<p><strong>溢出只发生在正数加正数和负数加负数时</strong>,当两个符号位相同时相加得到了一个不同的符号位就发生了溢出</p>
+<p>负数加负数<br>  1000,0000<br>+1111,1111<br>1,0111,1111<br>可以看到第8位发生了变换了,因此负数溢出,原理就是原本符号位上的1表示这个数是由负数加128而来的,两个负数相加时$128+X_1+128+X_2(X_1,X_2<0)$,如果这个数>128则会进1,使符号位重新成为1,但是同时后面7位表示的也是$128+X_1+X_2$,因为多的128进位了,这样还是符合补码的原理的,但是没有两个数加起来不到128时说明后面7位还是$128+X_1+128+X_2$这样要想的到原来的值需要加-256不符合补码原理.</p>
+<h4 id="杂七杂八"><a href="#杂七杂八" class="headerlink" title="杂七杂八"></a>杂七杂八</h4><p>符号位上的1表示的时后面数值位是128- 原数的绝对值得到的,符号位这个不能表示数值大小,能表示的是状态,后面的进位过来会改变符号位,不论怎么改,只要能按照规则转换回去就说明是对的,不必太过看重这个符号位.</p>
+<h3 id="两个符号位"><a href="#两个符号位" class="headerlink" title="两个符号位"></a>两个符号位</h3><p>11.xxxx 00.xxxx<br>这种数有两个符号位,最终加减得到的结果有4种<br>00 ,11 正常情况,表述正数,负数<br>10  —- 负溢出<br>01  —- 正溢出 </p>
+<h1 id="乘法"><a href="#乘法" class="headerlink" title="乘法"></a>乘法</h1><blockquote>
+<p>乘法的原理建议先看竖式是怎么算的,本质上是乘法分配律<br><img src="https://i.loli.net/2020/03/02/3kyMcV2dHE8GqXe.png" alt=""></p>
+</blockquote>
+<h2 id="原码乘法"><a href="#原码乘法" class="headerlink" title="原码乘法"></a>原码乘法</h2><p>原码乘法就是数用原码进行表示,<strong>符号位单独讨论</strong><br><img src="https://i.loli.net/2020/03/02/iXvUqQJzwP3OBRe.png" alt=""></p>
+<p>直接看ppt吧,得到的数是补码,记得单独算符号位,最后加上<br><strong>几个问题</strong></p>
+<p>1.为什么是逻辑右移?   因为符号不在这里讨论,这里的0.x的0用来存进位(解决原本的溢出问题)<br>2.移动了几次? 乘数有几位就移动几次<br>3.得到的积? 得到积是两部分,一部分高位,一部分低位,占用两个寄存器<br><img src="https://i.loli.net/2020/03/02/xu53HIXiOC1Gmcb.png" alt=""></p>
+<h2 id="补码乘法"><a href="#补码乘法" class="headerlink" title="补码乘法"></a>补码乘法</h2><blockquote>
+<p>补码乘法较为复杂这里只介绍 Booth法</p>
+</blockquote>
+<p>补码乘法统一了符号,直接带着符号运算,得到的结果就是带有符号的补码,<strong>补码使用两位的符号位</strong></p>
+<h4 id="Booth法原理及运算"><a href="#Booth法原理及运算" class="headerlink" title="Booth法原理及运算"></a>Booth法原理及运算</h4><p><img src="https://i.loli.net/2020/03/02/pAIkjNPO6eb4wm2.png" alt=""></p>
+<p>这个具体我也没推,看看最后一行的结论就行了,过程还是和原码的差不多,但是在细节上有些不同</p>
+<p><img src="https://i.loli.net/2020/03/02/HdKPjefqYZAuFNz.png" alt=""></p>
+<p>上面是运算的方法,第三列是符加位,一开始是0,后来就是被挤掉的那一位了,每次符加位-最后一位,然后乘上乘数加到部分积上,<strong>所有的数都是补码</strong>,加减按照补码的规则来就行.最后一位是不移动的,因为移动的次数已经够了,每次的移动都是<strong>算数右移</strong>.</p>
+<h5 id="几个问题"><a href="#几个问题" class="headerlink" title="几个问题"></a>几个问题</h5><ol>
+<li><p>为什么是两位的符号位? 这个是解决进位和符号的问题,溢出时为01,或10,然后右移,01-&gt;00,1,10-&gt;11,0及保存了进位又保存了符号</p>
+</li>
+<li><p>为什么时<strong>算数右移</strong>? 因为带着符号位运算鸭</p>
+</li>
+</ol>
+<p><img src="https://i.loli.net/2020/03/06/3rRB2eN6vUYLTGj.png" alt=""></p>
+<p><img src="https://i.loli.net/2020/03/02/jVbHayWiQ2c7KN3.png" alt=""></p>
+<h1 id="除法"><a href="#除法" class="headerlink" title="除法"></a>除法</h1><blockquote>
+<p>除法介绍的就更简单了,仅仅介绍小数的原码除法,有两种分别是回复余数和加减交替法<br>基础原理:<img src="https://i.loli.net/2020/03/02/ZnJ546sOtcouB12.png" alt=""></p>
+<p>每次比较(减法)然后上商,之后相减移位,一直到寄存器极限,剩下的就是余数</p>
+<p>基础约定:<br><img src="https://i.loli.net/2020/03/02/WZwcxdJ8uVHkY3L.png" alt=""></p>
+<p><strong>X&lt;Y</strong>!!!!!,第一位是0没跑了,0.xxxx,后面根据符号的情况替换0</p>
+</blockquote>
+<h3 id="原码恢复余数"><a href="#原码恢复余数" class="headerlink" title="原码恢复余数"></a>原码恢复余数</h3><p><img src="https://i.loli.net/2020/03/02/kOtCIDqK9pimlZs.png" alt=""></p>
+<p>比较-&gt;相减或者保持-&gt;逻辑移位</p>
+<p><img src="https://i.loli.net/2020/03/02/ytEj8vrqwMZzOam.png" alt=""></p>
+<p><img src="https://i.loli.net/2020/03/02/XLGHFTu83o49PQR.png" alt=""></p>
+<p>上图的比较方式是直接相减(补码运算),然后如果成了负的就恢复余数,否则继续进行</p>
+<p>可能存在的问题?</p>
+<ol>
+<li>为什么是逻辑左移? 因为没有符号位,同时因为加的是负数,负数的右移是要补1的</li>
+<li>循环次数? 这个是根据寄存器来的,寄存器能放几位就是几位的</li>
+<li>余数 余数记得乘上2的-n次方</li>
+</ol>
+<h3 id="加减交错"><a href="#加减交错" class="headerlink" title="加减交错"></a>加减交错</h3><p>加减交错解决了需要恢复余数的问题,如果减成了负余数那么后面直接加就行了,还能判断</p>
+<p><img src="https://i.loli.net/2020/03/02/jBLxCVyZW2lsOg7.png" alt=""></p>
+<p>如果该位上了0则 部分余数*2+除数,根据这个值判断下一位商,正的上1,负的上0,继续这个循环.</p>
+<p>这个余数要注意如果最后是负的要加上除数转换为正的.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/29/%E8%AE%A1%E7%BD%91-%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyfuture">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2020/02/28/cAKbXSfZYIC9mF8.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xyfuture's home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/02/29/%E8%AE%A1%E7%BD%91-%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/" itemprop="url">计网-通信原理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-29T20:18:29+08:00">
+                2020-02-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>这学期计网开幕暴击,通信原理是信息学院的课,涉及到大量的数学知识和物理知识,然而我连傅立叶变换都算不太好,深入的理解是不奢求了.但是总还是要理解一部分的,因此记录一下目前知道的信息</p>
+<p>参考: <a href="https://www.sohu.com/a/219750202_464086" target="_blank" rel="noopener">奈奎斯特定理</a>  <a href="https://baijiahao.baidu.com/s?id=1636833728798493906" target="_blank" rel="noopener">傅立叶变换</a> <a href="https://www.zhihu.com/question/23115645" target="_blank" rel="noopener">带宽</a></p>
+</blockquote>
+<h1 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h1><ul>
+<li>信道: 相当物理介质,比如网线,一台网线就是一个信道,或者大气  通信的通道，是信号传输的媒介</li>
+</ul>
+<h1 id="比特率-波特率"><a href="#比特率-波特率" class="headerlink" title="比特率 波特率"></a>比特率 波特率</h1><h2 id="波特率"><a href="#波特率" class="headerlink" title="波特率"></a>波特率</h2><p>波特率（也称信息传送速率、码元速率、符号速率、或传码率），其定义为每秒钟传送码元的数目，码元速率的单位为 “波特”，常用符号“Baud” 表示，简写为“B”。</p>
+<p>一个数字脉冲就是一个码元，我们用码元速率表示单位时间内信号波形的变换次数，即单位时间内通过信道传输的码元个数。若信号码元宽度为 T 秒，则码元速率 B 为：</p>
+<p><img src="https://i.loli.net/2020/02/29/NkbdEcUmyojteRJ.png" alt=""></p>
+<p>说简单一点就是码元的速度,每秒能传送多少个码元,一个码元就是最基本的单位</p>
+<h2 id="比特率"><a href="#比特率" class="headerlink" title="比特率"></a>比特率</h2><p>比特率是实际的数据传输速率,即每秒传输多少个bit的数据,计算也非常简单,首先我们要知道一个码元对着几个bit, $log_2(k)$ 其中k为一个码元中状态的数量,比如一个码元可能有4中状态则其bit位为2.比特率是波特率乘上码元代表的比特位.</p>
+<p><img src="https://i.loli.net/2020/02/29/B2pUkP9zx8REVd4.jpg" alt=""></p>
+<p>比特率的单位是bit/s</p>
+<h1 id="带宽-傅立叶变化-频域"><a href="#带宽-傅立叶变化-频域" class="headerlink" title="带宽 傅立叶变化 频域"></a>带宽 傅立叶变化 频域</h1><h2 id="傅立叶变换"><a href="#傅立叶变换" class="headerlink" title="傅立叶变换"></a>傅立叶变换</h2><p>这里就不多写了,简单的想成每个周期函数(波形)都能用多个正弦波和余弦波相加表达出来</p>
+<p><img src="https://i.loli.net/2020/02/29/NcL1WqbVjYSrP28.png" alt=""></p>
+<p><img src="https://i.loli.net/2020/02/29/MnWIwauCKyHVh4P.png" alt=""></p>
+<p>这里的正弦函数,余弦函数都是最简单的形式,初相为0</p>
+<h2 id="频域"><a href="#频域" class="headerlink" title="频域"></a>频域</h2><p>电磁波都有一定的频率,注意这里说的频率是正弦或者余弦波的频率(<strong>存疑</strong>),也就是任意一个波经过傅立叶变换后的正弦或者余弦的频率,当然一个普通波经过傅立叶变换后会占据多个频率</p>
+<p><img src="https://i.loli.net/2020/02/29/wcNDJmy4gI3Ura1.png" alt="##"></p>
+<h2 id="带宽"><a href="#带宽" class="headerlink" title="带宽"></a>带宽</h2><blockquote>
+<p>带宽的概念有一定的歧义,我把课本和我认为的都写出来</p>
+</blockquote>
+<p><img src="https://i.loli.net/2020/02/29/UiCVSjuX73rGe1H.png" alt=""></p>
+<p>我的理解(和网上的介绍差不多):</p>
+<p>一般信道都有一个最高的信号频率（注意不是波特率哦，频率是指每秒钟的周期数，而每个周期都会有几次电平变化。。恩，看到区别了吧）和最低的信号频率，只有在这两个频率之间的信号才能通过这个信道，这两个频率的差值就叫做这个信道的带宽，单位是Hz</p>
+<p>带宽这个值和频域是有关系,一个波的带宽可以简单理解为把这个波用傅立叶变换分解后正弦余弦的频率的范围.</p>
+<p>有一个误解说带宽指的是速率(比如100m的带宽),但这不是真正得带宽,这说的是比特率,真正得带宽是频率的范围.</p>
+<h1 id="奈奎斯特定律-香农定律"><a href="#奈奎斯特定律-香农定律" class="headerlink" title="奈奎斯特定律 香农定律"></a>奈奎斯特定律 香农定律</h1><h2 id="奈奎斯特定律"><a href="#奈奎斯特定律" class="headerlink" title="奈奎斯特定律"></a>奈奎斯特定律</h2><blockquote>
+<p>注意奈奎斯特提出过好多定律,这里说的是有关传输速率的,不是奈奎斯特采样定律</p>
+</blockquote>
+<p>1924年，奈奎斯特（Nyquist）就推导出在理想低通信道下的最高码元传输速率的公式：</p>
+<p><img src="https://i.loli.net/2020/02/29/6NwhUqk32W4OnJg.png" alt=""></p>
+<p>其中W是理想低通信道的带宽，单位为赫兹；K是一个码元可能取值的个数,C是比特率</p>
+<p>这么看这个式子是有点别扭的,我们可以这么看,假设我们设计好了比特率,也设计好了码元,这样就能推出占用的带宽了.</p>
+<p><strong>根据奈奎斯特准则我们可以推断出：</strong><br>（1）给定了信道的带宽，则该信道的极限波特率就确定了，不可能超过这个极限波特率传输码元，除非改善该信道的带宽；<br>（2）要想增加信道的比特传送率有两条途径，一方面可以增加该信道的带宽，另一方面可以选择更高的编码方式。</p>
+<h2 id="香农定理"><a href="#香农定理" class="headerlink" title="香农定理"></a>香农定理</h2><p>奈奎斯特假设的是理想的情况,但是实际上由许多的噪声,因此香农提出了香农定理,解决了噪声状态下的带宽问题.</p>
+<p>香农定理指出，在噪声与信号独立的高斯白噪信道中，假设信号的功率为S，噪声功率为N，信道通频带宽为W(Hz)，则该信道的信道容量C有:</p>
+<p><img src="https://i.loli.net/2020/02/29/bNr1CfasT6dRnPH.png" alt=""></p>
+<p>这里不具体讨论香农定理了.</p>
+<h1 id="调制"><a href="#调制" class="headerlink" title="调制"></a>调制</h1><h2 id="基带-通带"><a href="#基带-通带" class="headerlink" title="基带 通带"></a>基带 通带</h2><h3 id="基带-baseband"><a href="#基带-baseband" class="headerlink" title="基带 (baseband)"></a>基带 (baseband)</h3><blockquote>
+<p>以下的内容不不够严谨,是我个人的理解</p>
+</blockquote>
+<p><strong>基带</strong>简单的说就是用一定0和1(GND和VCC)直接表示计算机中的0和1</p>
+<p>基带有多种编码方式,这里只介绍NRZ和manchester及差分Manchester</p>
+<p><img src="https://i.loli.net/2020/02/29/fMNngV7yATi1zcH.png" style="zoom:50%;" /></p>
+<p>(这个图对应有点问题,上移一行)<br>NRZ就不多说了,直接对应,Manchester是上升沿为0,下降沿为1</p>
+<p><strong>差分曼彻斯特编码</strong>:<br>差分曼彻斯特编码在 每个时钟周期的中间都有一次电平跳变，这个跳变做同步之用。 在每个时钟周期的起始处：跳变则说明该比特是0，不跳变则说明该比特是1</p>
+<p><img src="https://i.loli.net/2020/03/05/kq4WFnmApEOhogl.jpg" alt=""></p>
+<h4 id="一个问题"><a href="#一个问题" class="headerlink" title="一个问题"></a>一个问题</h4><p><img src="C:\Users\XYfuture\AppData\Roaming\Typora\typora-user-images\image-20200229220034807.png" alt="image-20200229220034807"></p>
+<p>课本上这里的定义说他是从0开始的,这是因为这样的方波经过傅立叶变换后频率是从零开始的一直增大到一定的数值</p>
+<p>基带也是符合奈奎斯特定理的,其带宽也可以算出来.</p>
+<h3 id="通带"><a href="#通带" class="headerlink" title="通带"></a>通带</h3><p> 基带有许多问题,因此我们提出了通带的方案</p>
+<p>通带最简单的理解就是首先我们有一个载波频率,这个波就是单纯的正弦波,不能传递信息,但是我们通过一些系列骚操作(针对 振幅,频率,相位),将信号调制到载波上使其能够传输信息.</p>
+<p>常见的调制方法(编码方法)</p>
+<ul>
+<li>幅移键控ASK(Amplitude Shift Keying) 不同的振幅表示0,1</li>
+<li>频移键控FSK(Frequency Shift Keying) 两个或更多的频率表示0,1</li>
+<li>相移键控PSK(Phase Shift Keying) 相邻的两个周期不同的相位+180表示0,1</li>
+</ul>
+<p><img src="https://i.loli.net/2020/02/29/MIjWg4wkYXhFJU9.png" alt=""></p>
+<p>这是三种最长常见的调制方式,这三种方式能组合形成更多的调制方式,使得一个码元能表达出更多的比特位</p>
+<p><img src="https://i.loli.net/2020/03/05/dh3fLbWQYG62XKg.png" alt=""></p>
+<p>星位图,前两个只是有相位变化(PSK),后两个是相位和振幅混合,能表示的更多一些.</p>
+<h4 id="一个问题-1"><a href="#一个问题-1" class="headerlink" title="一个问题"></a>一个问题</h4><p>为什么看着载波都是一个频率却能拥有带宽</p>
+<p>这个问题其实和前面的差不多,经过调制后已经不是单纯的正弦波了,经过傅立叶变换能分出很多正弦波,然后这些波的频率以载波的频率为中心左右扩散,因此通带也是拥有带宽的</p>
+<h1 id="复用-Multiplexing"><a href="#复用-Multiplexing" class="headerlink" title="复用(Multiplexing)"></a>复用(Multiplexing)</h1><blockquote>
+<p>to be continued</p>
+</blockquote>
+<h2 id="频分复用FDM"><a href="#频分复用FDM" class="headerlink" title="频分复用FDM"></a>频分复用FDM</h2><h3 id="FDM"><a href="#FDM" class="headerlink" title="FDM"></a>FDM</h3><p>用载波区分</p>
+<h3 id="OFDM"><a href="#OFDM" class="headerlink" title="OFDM"></a>OFDM</h3><p>正交频分多路复用</p>
+<h2 id="时分复用TDM"><a href="#时分复用TDM" class="headerlink" title="时分复用TDM"></a>时分复用TDM</h2><p>静态时分复用 STDM</p>
+<p>多条路,不管这条路有没有数据都分给他时间片段,时间片是固定死的</p>
+<p>统计时分复用</p>
+<p>没数据就不给有数据就给</p>
+<h2 id="码分复用CDMA"><a href="#码分复用CDMA" class="headerlink" title="码分复用CDMA"></a>码分复用CDMA</h2><p>多个终端同时发送,根据码区分终端解码</p>
+<h1 id="奈奎斯特采样定律"><a href="#奈奎斯特采样定律" class="headerlink" title="奈奎斯特采样定律"></a>奈奎斯特采样定律</h1><blockquote>
+<p>参考:<a href="https://baike.baidu.com/item/奈奎斯特采样定律" target="_blank" rel="noopener">百度百科-奈奎斯特</a> <a href="https://baike.baidu.com/item/PCM/1568054" target="_blank" rel="noopener">百度百科-PCM</a></p>
+</blockquote>
+<p>前面说过奈奎斯特提出的通信速率的定理,这里说一下奈奎斯特的采样定律</p>
+<p>采样是指将模拟信号转换成数字信号,比如声音的模拟信号转换成数字的电信号的过程,奈奎斯特提出只需要按照模拟信号的频率的两倍的速率仅从采样就能获取完整的保留原始信号的信息.</p>
+<p>就PCM方式而言,我们需要每隔一段时间就测量一下当前的电压,然后用ADC将这个电压转化成数字,每次间隔的时间必须小于模拟信号的周期的1/2.</p>
+<p>​    </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/27/2020-2-27%20%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E6%80%9D%E7%BB%B4%20BFS%20230838/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1251,7 +1679,7 @@ N = S*r^j</script><p>N是实际的数，S是尾数，r是基数，j是阶数</p>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1262,7 +1690,7 @@ N = S*r^j</script><p>N是实际的数，S是尾数，r是基数，j是阶数</p>
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1273,7 +1701,7 @@ N = S*r^j</script><p>N是实际的数，S是尾数，r是基数，j是阶数</p>
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

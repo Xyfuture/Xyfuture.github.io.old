@@ -258,6 +258,353 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/15/c-with-python/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyfuture">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2020/02/28/cAKbXSfZYIC9mF8.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xyfuture's home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/15/c-with-python/" itemprop="url">c_with_python</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-15T22:46:29+08:00">
+                2020-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/others/" itemprop="url" rel="index">
+                    <span itemprop="name">others</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>最近在写数据结构课设,需要许多图形化的内容,然后cpp直接写GUI会比较麻烦,即便使用MFC,QT,工程量仍旧是很大,所有想到了C和Python之间相互调用</p>
+</blockquote>
+<h1 id="C与python"><a href="#C与python" class="headerlink" title="C与python"></a>C与python</h1><p>python是一种脚本语言,实现有多种方式,常见的python实现方式是用c实现cpython,这样的方式.既然是用c实现,cpp自然能调用python,在cpp中<code>include&lt;Python.h&gt;</code>就可以实现对python的调用,除此之外要把需要的库和dll连接上,否则无法编译</p>
+<p>要注意c调用python时主要架构,要求双方位数一样,建议都是64,用mingw w64和python3.7 64位,位数不一致无法运行.</p>
+<p>python作为胶水语言也可以调用cpp,这种调用方式一般是将cpp编译为python的包,然后在python中import这个模块,使用其中的函数,速度是cpp的原生速度.我们有很多这样的封装工具,boost库,pybind11,swig都可以实现封装操作,比较建议pybind11,这个库只需要头文件,不过其只支持c11</p>
+<h1 id="conda"><a href="#conda" class="headerlink" title="conda"></a>conda</h1><p>conda是python的一种包管理器,同时允许你有多个虚拟的python环境,在一个console中只能同时处于一个环境,这个环境中python的版本是指定的,包也是属于这个环境的,实现的原理主要是建一个单独的文件夹存放python完整的文件,在不同的环境中将命令指向不同的文件夹,大致上是这样</p>
+<h1 id="graphviz"><a href="#graphviz" class="headerlink" title="graphviz"></a>graphviz</h1><p>这个是一个好东西,能够方便我们我们画图,语言是dot语言,可以直接用python生成dot代码,每次根据代码生成图像或者pdf,方便显示,缺点是不是动态的,不能删除元素</p>
+<h1 id="tkinter"><a href="#tkinter" class="headerlink" title="tkinter"></a>tkinter</h1><p>tkinter是python自带的GUI,方便使用,本次也是调用这个实现GUI的渲染,doc可以参考网上的</p>
+<p><strong>要注意的几点</strong></p>
+<p>tkinter本身实际上cpp,只不过是给了python接口,但是python接口是真的简单.</p>
+<p>tkinter在cpp中调用要设置sys.argv,因为tkinter中会读取命令行参数,除此之外编译时需要链接他的一个dll</p>
+<h1 id="conda-base-powershell"><a href="#conda-base-powershell" class="headerlink" title="conda base powershell"></a>conda base powershell</h1><p>在base环境中powershell会出现问题,cpp的exe无法正常运行if和argv,不知道是什么原因,建议退出base,因为原始环境和base的python基本上是等价的</p>
+<h2 id="C调用python参考"><a href="#C调用python参考" class="headerlink" title="C调用python参考"></a>C调用python参考</h2><p><a href="https://docs.python.org/zh-cn/3.7/c-api/" target="_blank" rel="noopener">官方中文</a> 确实有中文,但是感觉写的不怎么好</p>
+<p><a href="https://blog.csdn.net/vampirem/article/details/12948955" target="_blank" rel="noopener">转化为python变量</a> 写的不错</p>
+<p><a href="https://zhuanlan.zhihu.com/p/25888215" target="_blank" rel="noopener">完整程序 </a> 给了不错的例子,包含大部分调用</p>
+<p><a href="https://www.jb51.net/article/64094.htm" target="_blank" rel="noopener">简介</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/15/Program-week4-homework/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyfuture">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2020/02/28/cAKbXSfZYIC9mF8.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xyfuture's home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/15/Program-week4-homework/" itemprop="url">Program-week4-homework</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-15T11:06:08+08:00">
+                2020-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E6%80%9D%E7%BB%B4/" itemprop="url" rel="index">
+                    <span itemprop="name">程序设计思维</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="week3-CSP"><a href="#week3-CSP" class="headerlink" title="week3-CSP"></a>week3-CSP</h1><h2 id="A-咕咕东的奇遇"><a href="#A-咕咕东的奇遇" class="headerlink" title="A-咕咕东的奇遇"></a>A-咕咕东的奇遇</h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>该题算是一个贪心问题,在一个环(26个数)上布置有序的数字,环上有一个指针,然后给定一个数字序列,要求转动圆环,使得指针指向给定的数字,要求总的转动的次数最少.题目中的不是数字而是字母,不过无所谓,ascii直接转换就行</p>
+<h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><p>我们使用贪心的方案,每一次都找到从当前位置到指定位置的最短路径,最短路径只有两种可能,顺时针转过去或者逆时针转过去.在环上本身就是mod26系统,因此让<strong>大数减小数</strong>是一种,<strong>小数加26减大数</strong>是另一种,那个小取那个</p>
+<h3 id="code"><a href="#code" class="headerlink" title="code"></a>code</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> s [<span class="number">10002</span>];<span class="comment">//数组开大</span></span><br><span class="line">	<span class="built_in">memset</span>(s,<span class="number">0</span>,<span class="keyword">sizeof</span>(s));</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%s"</span>,s);</span><br><span class="line">	<span class="keyword">int</span> count=<span class="number">0</span>;<span class="comment">//总和</span></span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">char</span> temp;</span><br><span class="line">	<span class="keyword">int</span> posi = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> maxShift = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>((temp=s[i])!=<span class="string">'\0'</span>)<span class="comment">//判断截止</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> cur = temp-<span class="string">'a'</span>;</span><br><span class="line">		<span class="keyword">if</span>(cur&gt;posi)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> left = cur- posi;<span class="comment">//一种方向</span></span><br><span class="line">			<span class="keyword">int</span> right = posi+<span class="number">26</span> -cur;<span class="comment">//另一种方向</span></span><br><span class="line">			count+=(left&gt;right? right:left);<span class="comment">//取最小</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(cur&lt;=posi)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> left = cur+<span class="number">26</span> - posi;</span><br><span class="line">			<span class="keyword">int</span> right = posi-cur;</span><br><span class="line">			count+= (left&gt;right? right:left);</span><br><span class="line">		&#125;</span><br><span class="line">		posi = cur;</span><br><span class="line">		i++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,count);	</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这道题比较简单,主要就是提升速度,这道题大约耗费了20min,争取减少到10min左右</p>
+<h2 id="B-咕咕东想吃饭"><a href="#B-咕咕东想吃饭" class="headerlink" title="B-咕咕东想吃饭"></a>B-咕咕东想吃饭</h2><h3 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h3><p>这道题算是一道模拟.</p>
+<p>有人在n天时间内都吃东西,每天买多少个是给出的,但是卖东西的用两种策略,一个是1次卖2个.另一种是今天卖一个,明天送一个.这个人的目的是n天结束后不能有剩下的东西,也就是说最后一天不能用第二个策略,问问在给定情况下能不能实现不剩东西.</p>
+<h3 id="解法-1"><a href="#解法-1" class="headerlink" title="解法"></a>解法</h3><blockquote>
+<p>这道题我是按照模拟题做的,然后过了,不过当时没有给出有效的证明,还是有点险</p>
+</blockquote>
+<p>购买的策略,首先两个两个的买,直到当天剩下一个或者没有,剩下的一个用第二种策略,买完了要在第二天减去一个.一直这样循环下去,检查退出的时候是否还要减去第二天的哪一个.如果还需要就是就不行,否则可行,除此之外如果有一天买的比昨天送的还少也不行.</p>
+<h4 id="简略证明"><a href="#简略证明" class="headerlink" title="简略证明"></a>简略证明</h4><p>假设我们有一个能完成任务的方法,我们可以将其转换为上述提出的方法,比如当天k个1策略,m个2策略,我们只关注2策略,m是偶数,则可以直接用1策略代替,如果m是奇数,则m-1是偶数,我们用1策略替代m-1个2策略,剩下的一个2策略保持,这样就成了上述的方法</p>
+<h3 id="code-1"><a href="#code-1" class="headerlink" title="code"></a>code</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> data [<span class="number">100005</span>];<span class="comment">//存第i天的量</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">memset</span> (data,<span class="number">0</span>,<span class="keyword">sizeof</span>(data));</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>,data+i);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> ticket = <span class="number">0</span>;<span class="comment">//送的那一个</span></span><br><span class="line">	<span class="keyword">int</span> curSize= <span class="number">0</span>;<span class="comment">//今天实际的量,减去昨天送的</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		curSize = data[i] -ticket;</span><br><span class="line">		<span class="keyword">if</span>(curSize&lt;<span class="number">0</span>)<span class="comment">//如果今天买的比送的还少也不行</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"NO\n"</span>);</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(curSize%<span class="number">2</span> == <span class="number">0</span>)</span><br><span class="line">			ticket =<span class="number">0</span> ;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			ticket = <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(ticket == <span class="number">0</span>)<span class="comment">//还有送的就不行</span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"YES\n"</span>);</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"NO\n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>这道题大约花了30min,主要的难点我觉得还是证明上,不过赛场上还是没能严格的证出来,只是感觉差不多了,有时候也只能这样,感觉个差不多就交一发,做做后面的题在回来看看.这道题的证明和贪心类似,都是转化最优而来,这种证法还会用在很多的地方</p>
+<h2 id="C-可怕的宇宙射线"><a href="#C-可怕的宇宙射线" class="headerlink" title="C-可怕的宇宙射线"></a>C-可怕的宇宙射线</h2><blockquote>
+<p>比较难</p>
+</blockquote>
+<h3 id="题意-2"><a href="#题意-2" class="headerlink" title="题意"></a>题意</h3><p>粗看是一道模拟题,但是不能纯模拟,得用bfs标记解决</p>
+<p>题意大致是光线分裂,一条光线在坐标系下按照指定步数移动几步,然后分裂为2,左右45°方向,然后继续走指定步数,再次分裂为4….最后问光线一共占据多少个坐标</p>
+<h3 id="解法-2"><a href="#解法-2" class="headerlink" title="解法"></a>解法</h3><p>这道题一上来我就傻傻的写了最简单的模拟,把$2^n$的情况全模拟了,而且因为语法上的问题,负数不能取模,最终差了1min没有交上.不过即便交上了也就能过1,2个点那不全分.</p>
+<p>正确做法:<br>单纯模拟bfs的复杂度是$2^n$,显然是不对的,因此在bfs上进行优化,这里的剪枝的方式是用vis数组进行标记<br>我们开一个vis数组<code>bool vis[x][y][8][32]</code>8代表8个方向,32代表最多30次分裂<br>我们开一个队列,将起始点放进去,在取队列中一个节点,然后我们让光线从起始开始直接走完分裂前的路程,同时标记走过的点,计数走过的点,然后进行分裂,获得到分裂后新的光线的起始坐标,把这个坐标用vis记录,同时包含他的方向和分裂层数,这样就能避免重复走一样的分裂路线,如果这个点没被走过就放入队列.开始循环直到队空</p>
+<h3 id="code-2"><a href="#code-2" class="headerlink" title="code"></a>code</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unordered_map&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">bool</span> vis [<span class="number">400</span>][<span class="number">400</span>][<span class="number">8</span>][<span class="number">35</span>];<span class="comment">//bfs中剪枝</span></span><br><span class="line"><span class="keyword">bool</span> posi [<span class="number">400</span>][<span class="number">400</span>];<span class="comment">//标记走过的点</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">moves</span>//记录每次分裂的起始点的位置</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> x;</span><br><span class="line">    <span class="keyword">int</span> y;</span><br><span class="line">    <span class="keyword">int</span> level;<span class="comment">//第几层</span></span><br><span class="line">    <span class="keyword">int</span> angle;<span class="comment">//方向</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> change[<span class="number">8</span>][<span class="number">2</span>]=</span><br><span class="line">&#123;</span><br><span class="line">	&#123;<span class="number">0</span>,<span class="number">1</span>&#125;,</span><br><span class="line">	&#123;<span class="number">1</span>,<span class="number">1</span>&#125;,</span><br><span class="line">	&#123;<span class="number">1</span>,<span class="number">0</span>&#125;,&#123;<span class="number">1</span>,<span class="number">-1</span>&#125;,&#123;<span class="number">0</span>,<span class="number">-1</span>&#125;,&#123;<span class="number">-1</span>,<span class="number">-1</span>&#125;,&#123;<span class="number">-1</span>,<span class="number">0</span>&#125;,&#123;<span class="number">-1</span>,<span class="number">1</span>&#125;</span><br><span class="line">&#125;;<span class="comment">//不同方向 移动的数组</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">queue</span>&lt;moves&gt; q;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> count=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> moveData [<span class="number">40</span>];<span class="comment">//存储第几层需要移动几次</span></span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">	<span class="built_in">memset</span>(moveData,<span class="number">0</span>,<span class="keyword">sizeof</span>(moveData));</span><br><span class="line">    <span class="built_in">memset</span>(posi,<span class="number">0</span>,<span class="keyword">sizeof</span>(posi));</span><br><span class="line">    <span class="built_in">memset</span>(vis,<span class="number">0</span>,<span class="keyword">sizeof</span>(vis));</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>,moveData+i);</span><br><span class="line">    moves firstNode = &#123;<span class="number">200</span>,<span class="number">200</span>,<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line">    q.push(firstNode);</span><br><span class="line">    vis[<span class="number">200</span>][<span class="number">200</span>][<span class="number">0</span>][<span class="number">0</span>]= <span class="literal">true</span>;<span class="comment">//起始点0,0标记</span></span><br><span class="line">    <span class="keyword">while</span>(!q.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        moves curPoint = q.front();</span><br><span class="line">        <span class="keyword">int</span> x = curPoint.x,y=curPoint.y,angle = curPoint.angle;</span><br><span class="line">        q.pop();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;moveData[curPoint.level];i++)<span class="comment">//从起始点直接到分裂位置,一次完成一层</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(posi[x+change[angle][<span class="number">0</span>]*i][y+change[angle][<span class="number">1</span>]*i] == <span class="literal">false</span>)<span class="comment">//路过的点没被标记则计数增加</span></span><br><span class="line">            &#123;</span><br><span class="line">                count ++;</span><br><span class="line">                posi[x+change[angle][<span class="number">0</span>]*i][y+change[angle][<span class="number">1</span>]*i] = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> angle1=(curPoint.angle+<span class="number">1</span>)%<span class="number">8</span>;<span class="comment">//新的点的两个角度</span></span><br><span class="line">        <span class="keyword">int</span> angle2=(curPoint.angle+<span class="number">7</span>)%<span class="number">8</span>;</span><br><span class="line">        <span class="keyword">int</span> i = moveData[curPoint.level] - <span class="number">1</span>;<span class="comment">//到达最后的层就不在继续了</span></span><br><span class="line">        <span class="keyword">if</span> (curPoint.level == n<span class="number">-1</span>)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        moves newPoint1 = &#123;x+change[angle][<span class="number">0</span>]*i+change[angle1][<span class="number">0</span>],y+change[angle1][<span class="number">1</span>]+change[angle][<span class="number">1</span>]*i,</span><br><span class="line">                    curPoint.level+<span class="number">1</span>,angle1&#125;;<span class="comment">//分裂后的起始点</span></span><br><span class="line">        moves newPoint2 = &#123;x+change[angle2][<span class="number">0</span>]+change[angle][<span class="number">0</span>]*i,y+change[angle2][<span class="number">1</span>]+change[angle][<span class="number">1</span>]*i,</span><br><span class="line">                    curPoint.level+<span class="number">1</span>,angle2&#125;;</span><br><span class="line">        <span class="keyword">if</span> (vis[newPoint1.x][newPoint1.y][newPoint1.level][newPoint1.angle] == <span class="literal">false</span>)<span class="comment">//标记了就不走了,没标记就入队走一遍</span></span><br><span class="line">        &#123;</span><br><span class="line">            q.push(newPoint1);</span><br><span class="line">            vis[newPoint1.x][newPoint1.y][newPoint1.level][newPoint1.angle] = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (vis[newPoint2.x][newPoint2.y][newPoint2.level][newPoint2.angle] == <span class="literal">false</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            q.push(newPoint2);</span><br><span class="line">            vis[newPoint2.x][newPoint2.y][newPoint2.level][newPoint2.angle] = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,count);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h3><p>这道题在赛场上没有做出来,赛上想的太简单了,直接忽略了指数增加的问题</p>
+<p>bfs在使用时也得注意剪枝的情况,想这道题一次就直接剪枝一半,极大降低复杂度,最大的复杂度就是遍历一遍vis数组$O(x<em>y</em>n)$x,y是坐标系的大小,n是步数,还有个常数8忽略了,因为全被标记后就不可能再入队了,直接退出了.</p>
+<h1 id="week4-homework"><a href="#week4-homework" class="headerlink" title="week4-homework"></a>week4-homework</h1><h2 id="A-DDL的恐惧"><a href="#A-DDL的恐惧" class="headerlink" title="A-DDL的恐惧"></a>A-DDL的恐惧</h2><h3 id="题意-3"><a href="#题意-3" class="headerlink" title="题意"></a>题意</h3><p>有一组任务,有每个任务超时的惩罚,还有每个任务的ddl,求最少的惩罚是多少</p>
+<h3 id="解法-3"><a href="#解法-3" class="headerlink" title="解法"></a>解法</h3><p>这道题是贪心问题,助教在课上讲的是按时完成的奖励,这里是超时的惩罚,思路是差不多的.首先按照超时惩罚排序,得到降序序列,然后将惩罚最大的先安排在能安排的离ddl最近的位置,将这个位置标记,然后循环取出,没有可安排的时间则计入惩罚.</p>
+<h4 id="简易证明"><a href="#简易证明" class="headerlink" title="简易证明"></a>简易证明</h4><p>这个是使用交换的方式,将一个最优解转换为贪心解</p>
+<p>对于</p>
+<h3 id="code-3"><a href="#code-3" class="headerlink" title="code"></a>code</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> time[<span class="number">2000</span>];<span class="comment">//时间记录</span></span><br><span class="line">pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; task[<span class="number">1002</span>];<span class="comment">//first是惩罚,second是ddl</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> count;</span><br><span class="line">    <span class="comment">// int ddl[1002],score[1002];</span></span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;count);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> n;</span><br><span class="line">        <span class="keyword">int</span> score = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">memset</span>(task,<span class="number">0</span>,<span class="keyword">sizeof</span>(task));</span><br><span class="line">        <span class="built_in">memset</span>(time,<span class="number">0</span>,<span class="keyword">sizeof</span>(time));</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;task[j].second);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;task[j].first);</span><br><span class="line">        sort(task,task+n);<span class="comment">//排序,这里是升序,因此反着循环</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=n<span class="number">-1</span>;j&gt;=<span class="number">0</span>;j--)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> t = task[j].second;</span><br><span class="line">            <span class="keyword">for</span>(t;t&gt;<span class="number">0</span>;t--)<span class="comment">//找一个时间安排任务</span></span><br><span class="line">                <span class="keyword">if</span>(time[t] == <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    time[t] = <span class="number">1</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            <span class="keyword">if</span>(t == <span class="number">0</span>)<span class="comment">//无法安排则计入惩罚</span></span><br><span class="line">                score+=task[j].first;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,score);</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结-3"><a href="#总结-3" class="headerlink" title="总结"></a>总结</h3><p>贪心问题,证明方法还是常用等效转换的方式,证明其和最优解是等价的.</p>
+<h2 id="B-四个数列"><a href="#B-四个数列" class="headerlink" title="B-四个数列"></a>B-四个数列</h2><h3 id="题意-4"><a href="#题意-4" class="headerlink" title="题意"></a>题意</h3><p>有四个等长的数列,然后从这四个数列中各自取一个数,使其和为0,求问有多少种可能取法</p>
+<h3 id="解法-4"><a href="#解法-4" class="headerlink" title="解法"></a>解法</h3><p>这是道二分的问题,课上已经讲过了.</p>
+<p>如果直接暴力是$O(n^4)$,肯定是不行的,然后进行分组,两个数列一组,先$O(n^2)$让组内组合,然后确定一个组,在另一个组内二分找答案</p>
+<p>注意这个二分是找起始位置和结束位置,因为可能有多个相同的值,都是一种可能</p>
+<p>总的复杂度就是$O(n^2logn)$</p>
+<h3 id="code-4"><a href="#code-4" class="headerlink" title="code"></a>code</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> data[<span class="number">4</span>][<span class="number">4002</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> ans1[<span class="number">16000002</span>];</span><br><span class="line"><span class="keyword">int</span> ans2[<span class="number">16000002</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(data,<span class="number">0</span>,<span class="keyword">sizeof</span>(data));</span><br><span class="line">    <span class="built_in">memset</span>(ans1,<span class="number">0</span>,<span class="keyword">sizeof</span>(ans1));</span><br><span class="line">    <span class="built_in">memset</span>(ans2,<span class="number">0</span>,<span class="keyword">sizeof</span>(ans2));</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)<span class="comment">//读入</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">4</span>;j++)</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;data[j][i]);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)<span class="comment">//计算两组的加和</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">            ans1[i*n+j] = data[<span class="number">0</span>][i]+data[<span class="number">1</span>][j];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">            ans2[i*n+j] = data[<span class="number">2</span>][i]+data[<span class="number">3</span>][j];</span><br><span class="line">    <span class="keyword">int</span> t = n*n;</span><br><span class="line">    <span class="keyword">int</span> min = <span class="number">0</span>,max =t;</span><br><span class="line">    sort(ans1,ans1+t);</span><br><span class="line">    sort(ans2,ans2+t);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;t;i++)<span class="comment">//n^2的循环</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> target = -ans1[i];</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>,right = t<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(left&lt;=right)<span class="comment">//二分找到起始点</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> middle = (right+left)/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span>(ans2[middle] &gt;= target)</span><br><span class="line">            &#123;</span><br><span class="line">                min = middle;</span><br><span class="line">                right = middle - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                left = middle+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (ans2[min]!=target)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        left = <span class="number">0</span>;</span><br><span class="line">        right = t<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(left&lt;=right)<span class="comment">//二分找到终点</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> middle = (right+left)/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span>(ans2[middle]&lt;=target)</span><br><span class="line">            &#123;</span><br><span class="line">                max = middle;</span><br><span class="line">                left = middle+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                right = middle<span class="number">-1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        count+=max-min+<span class="number">1</span>;</span><br><span class="line">    &#125;   </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>,count);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结-4"><a href="#总结-4" class="headerlink" title="总结"></a>总结</h3><p>二分用来找东西方便,但是一定要有序,<strong>记得sort</strong></p>
+<h2 id="C-TT的神秘礼物"><a href="#C-TT的神秘礼物" class="headerlink" title="C- TT的神秘礼物"></a>C- TT的神秘礼物</h2><h3 id="题意-5"><a href="#题意-5" class="headerlink" title="题意"></a>题意</h3><p>给定一个含n个元素的数组A,运用A数组生成一个B数组,B中的元素为abs(A[i] - A[j])，1 &lt;= i &lt; j &lt;= n,然后找出B数组的中位数输出这个中位数</p>
+<h3 id="解法-5"><a href="#解法-5" class="headerlink" title="解法"></a>解法</h3><p>这道题也是课上讲过的,核心思路是二分,而且是两个二分.</p>
+<p>首先我们求中位数必然是在一个有序数列中,满足二分的条件,首先<strong>对a排序</strong>,因为构造b的时候有abs,因此不影响中位数,然后找出b的<strong>最小值0</strong>(注意这里的最小值是0不是a[1]-a[0]),和<strong>最大值a[n-1]-a[0]</strong>,让这两个最为边界进行二分,获得中间值mid.之后判断mid与中位数的情况,这里的判断是计算mid的名次,计算b中第一个大于mid的数前面有几个数,因为中位数的名次是知道的$(n*(n-1)/4+1)$.如果大于等于中位数则让max=mid,否则min=mid+1,然后这样循环下去直到max&lt;min.</p>
+<p>如何求mid是第几个数成了新的问题,这里的解决方法还是二分,因为b中的元素是abs(A[i] - A[j]),则固定一个i,通过二分寻找第一个a[j]-a[i]大于mid的j,然后我们对i进行一次遍历就得到了mid是第几个元素,和给定的中位数名次比较就能操作max和min了.</p>
+<h4 id="严谨一些的证明"><a href="#严谨一些的证明" class="headerlink" title="严谨一些的证明"></a>严谨一些的证明</h4><p>上述的描述虽然给出了解题的思路但是还没有给出一个比较严谨的证明.</p>
+<p>对于第二部分二分来查找名次就不过多进行描述了,这就是最简单的那种二分,找一个端点,但是第一部分直接二分出答案还是需要稍微证明一下.</p>
+<p>首先中位数的名次是固定的,但是和中位数相等的数可能有多个,同时在二分中会出现b中没有的数,下面讨论一下啊是如何准确二分到准确的答案的.</p>
+<p><img src="https://i.loli.net/2020/03/17/sQkcSOUWyEn2q9N.png" alt=""></p>
+<p>上图中x是中位数实际的值,还有一些二分出来的在b中不存在但是和x同名次的数.因为查找排名的原因,实际的x排名是大于中位数的排名的,因此存在一个问题,永远不会有mid名次就是中位数名次的事情.但是在二分中,我们是在mid&gt;=中位数时,更新max和ans(最终的答案),否则更新min,那么min&lt;=x(因为x位置大于中位数,然后mid=x更新max,比x小的一个数名次小于中位数,min会变大),max&gt;=x(这个情况是对于mid未等于x前),这样一直迭代下去无论怎么更新都是满足上述条件的,最终max和min会向x靠近,最终max=min = x然后下一步max会小于min退出循环,最终ans必然等于x.不存在的数在右边,mid是向左边靠的,所以ans不会等于不存在的数.</p>
+<p>后来又想了一下,还是学长上课讲的方法比较简单,我们提供一个check()函数,这个函数返回0或1,0代表mid名次小于中位数,1代表mid名次大于等于中位数名次,这样在0,1交界的位置的1就是我们要找的中位数,不存在的那些数虽然也是1,但是都是在中位数后面,不在交界位置</p>
+<h3 id="code-5"><a href="#code-5" class="headerlink" title="code"></a>code</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> cat[<span class="number">100002</span>];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> cur,<span class="keyword">int</span> tar,<span class="keyword">int</span> n)</span><span class="comment">//排名,tar是中位数名次,cur是mid的值</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> s=<span class="number">0</span>,e=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> left =i+<span class="number">1</span>,right= n<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(left&lt;=right)<span class="comment">//二分找排名</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> mid = (left+right)/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span>(cur&gt;=(cat[mid]-cat[i]))</span><br><span class="line">                left = mid+<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                right = mid<span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        e += left-i<span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(e&gt;=tar)<span class="comment">//大于等于返回1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span><span class="comment">//小于返回0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n)!=EOF)</span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,cat+i);</span><br><span class="line">        sort(cat,cat+n);</span><br><span class="line">        <span class="keyword">int</span> min = <span class="number">0</span>;<span class="comment">//最小值</span></span><br><span class="line">        <span class="keyword">int</span> max = cat[n<span class="number">-1</span>] - cat[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> mid = (min+max)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span> target = (((n*(n<span class="number">-1</span>))/<span class="number">2</span>)+<span class="number">1</span>)/<span class="number">2</span>;<span class="comment">//中位数位置</span></span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(max&gt;min)<span class="comment">//结束条件</span></span><br><span class="line">        &#123;   </span><br><span class="line">            mid = (min+max)/<span class="number">2</span>;      </span><br><span class="line">            <span class="keyword">if</span>(check(mid,target,n))</span><br><span class="line">                ans = mid,max = mid;<span class="comment">//max不能减1因为退出条件是max&lt;=min,更新ans</span></span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                min = mid+<span class="number">1</span>; </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,ans);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结-5"><a href="#总结-5" class="headerlink" title="总结"></a>总结</h3><p>这道题我觉得出的非常好,让我对二分有了更深刻的理解,二分的left和right始终在一个条件附近徘徊,最终逼近这个答案,当left&gt;right退出时ans就满足了条件了.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/13/Program-%E4%BA%8C%E5%88%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1217,7 +1564,7 @@
 <h3 id="题意-2"><a href="#题意-2" class="headerlink" title="题意"></a>题意</h3><p>这个题是让我们选区间覆盖给定的区间,找到选取区间最少的情况,注意一点区间是离散的,就是说(1,2) (3,4)是能覆盖(1,4)的,是离散的数字区间.</p>
 <h3 id="解法-2"><a href="#解法-2" class="headerlink" title="解法"></a>解法</h3><p>解法还是贪心的原则,首先排序,按照区间起点从小到大排序,然后选出起点能与上一断接上的(起始时为0)的区间,然后从这些区间中选出长度最长的,然后用这个区间的终点为现在的长度,重复这个循环,如果能达到指定的长度则输出结果,如果长度不能被更新则输出-1</p>
 <h3 id="code-2"><a href="#code-2" class="headerlink" title="code"></a>code</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line">pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; data[<span class="number">26000</span>];</span><br><span class="line"><span class="keyword">int</span> visited[<span class="number">26000</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n,m;</span><br><span class="line">    <span class="built_in">memset</span>(data,<span class="number">0</span>,<span class="keyword">sizeof</span>(data));</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m)!=EOF)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">memset</span>(visited,<span class="number">0</span>,<span class="keyword">sizeof</span>(visited));</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;data[i].first,&amp;data[i].second);</span><br><span class="line">        <span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> maxEnd=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        sort(data,data+n);</span><br><span class="line">        <span class="keyword">while</span>(j!=m)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> t=<span class="number">0</span>;t&lt;n;t++ )</span><br><span class="line">            &#123;            </span><br><span class="line">                <span class="keyword">if</span>(data[t].first&lt;=j+<span class="number">1</span>)<span class="comment">//数字距离</span></span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span>(visited[t]!=<span class="number">1</span>)</span><br><span class="line">                    &#123;</span><br><span class="line">                        visited[t]=<span class="number">1</span>;</span><br><span class="line">                        <span class="keyword">if</span>(data[t].second&gt;maxEnd)</span><br><span class="line">                            maxEnd = data[t].second;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            count++;</span><br><span class="line">            <span class="keyword">if</span>(j&lt;maxEnd)</span><br><span class="line">                j = maxEnd;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(maxEnd == m)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,count);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"-1\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h3>
+
           
         
       
@@ -1588,434 +1935,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/02/%E8%AE%A1%E7%BB%84-%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyfuture">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://i.loli.net/2020/02/28/cAKbXSfZYIC9mF8.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Xyfuture's home">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/02/%E8%AE%A1%E7%BB%84-%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97/" itemprop="url">计组 四则运算</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-02T14:16:35+08:00">
-                2020-03-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机组成原理</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>​        最近学完了整数的加减乘除四则运算,本质上还是根据最基础的数学定理用计算机模仿人的运算步骤,但是因为数值表示的原因,初看起来还是有点难懂的,因此总结一下.</p>
-<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><p>​        准备工作主要指数据的编码,尤其是补码的原理,这个在上一篇中有讲,补码核心的内容就是把负数用mod的方法转换为了正数,然后因为加上了一个数因此在符号位特殊标记一下.借助这个规则我们可以实现四则运算同时解决溢出问题,因此必须对补码有一个较为深刻的认识,否者只能死记硬背了.</p>
-<h1 id="加法"><a href="#加法" class="headerlink" title="加法"></a>加法</h1><blockquote>
-<p>加法和减法都是通过补码实现的,借助补码两者可以同一</p>
-</blockquote>
-<p>加法其实没有什么好说的,按照正常的规则补码直接加,得到的结果也是补码</p>
-<p><img src="https://i.loli.net/2020/03/02/PdmACSpbwi6fIvU.png" alt=""></p>
-<p>就是按照满2进1的规则来就行,符号位也要算上去,没什么好说的.注意一点是最后的这个<strong>mod XX</strong>这个意思是为了保持位数,比如8位+8位我们不给出9位的答案,多的一位会被截断,这就引发了另一个问题就是<strong>溢出</strong>,8位的答案不能表达实际的答案,这个问题在减法中统一讨论.</p>
-<p><img src="https://i.loli.net/2020/03/02/lYnPb1FmO3qDSax.png" alt=""></p>
-<p><center>关于mod的解释</center></p>
-<h1 id="减法"><a href="#减法" class="headerlink" title="减法"></a><strong>减法</strong></h1><p>减法要转为加法进行处理 </p>
-<script type="math/tex; mode=display">
-A-B\ =\ A+(-B)</script><p>这个规则对于补码也是成立的</p>
-<script type="math/tex; mode=display">
-[A]_补-[B]_补\ =\ [A]_补+[-B]_补</script><p>因此我们将减数转换成他的相反数,规则在上一篇文章中也讲过,<strong>所有位(包括符号位)取反,再+1</strong>,之后执行正常的加法就行了.</p>
-<h2 id="溢出问题"><a href="#溢出问题" class="headerlink" title="溢出问题"></a>溢出问题</h2><p>溢出问题是非常重要和有趣的.<br>溢出的意思就是当前的数据位数没有办法表达当前的数据.<br>比如8位可以表示-128-127,但是当两个-128相加时得到的数(-256)就没法表示了,因此就溢出了,下面来说说溢出在补码上的表现</p>
-<p><strong>溢出只发生在正数加正数和负数加负数时</strong>,当两个符号位相同时相加得到了一个不同的符号位就发生了溢出</p>
-<p>负数加负数<br>  1000,0000<br>+1111,1111<br>1,0111,1111<br>可以看到第8位发生了变换了,因此负数溢出,原理就是原本符号位上的1表示这个数是由负数加128而来的,两个负数相加时$128+X_1+128+X_2(X_1,X_2<0)$,如果这个数>128则会进1,使符号位重新成为1,但是同时后面7位表示的也是$128+X_1+X_2$,因为多的128进位了,这样还是符合补码的原理的,但是没有两个数加起来不到128时说明后面7位还是$128+X_1+128+X_2$这样要想的到原来的值需要加-256不符合补码原理.</p>
-<h4 id="杂七杂八"><a href="#杂七杂八" class="headerlink" title="杂七杂八"></a>杂七杂八</h4><p>符号位上的1表示的时后面数值位是128- 原数的绝对值得到的,符号位这个不能表示数值大小,能表示的是状态,后面的进位过来会改变符号位,不论怎么改,只要能按照规则转换回去就说明是对的,不必太过看重这个符号位.</p>
-<h3 id="两个符号位"><a href="#两个符号位" class="headerlink" title="两个符号位"></a>两个符号位</h3><p>11.xxxx 00.xxxx<br>这种数有两个符号位,最终加减得到的结果有4种<br>00 ,11 正常情况,表述正数,负数<br>10  —- 负溢出<br>01  —- 正溢出 </p>
-<h1 id="乘法"><a href="#乘法" class="headerlink" title="乘法"></a>乘法</h1><blockquote>
-<p>乘法的原理建议先看竖式是怎么算的,本质上是乘法分配律<br><img src="https://i.loli.net/2020/03/02/3kyMcV2dHE8GqXe.png" alt=""></p>
-</blockquote>
-<h2 id="原码乘法"><a href="#原码乘法" class="headerlink" title="原码乘法"></a>原码乘法</h2><p>原码乘法就是数用原码进行表示,<strong>符号位单独讨论</strong><br><img src="https://i.loli.net/2020/03/02/iXvUqQJzwP3OBRe.png" alt=""></p>
-<p>直接看ppt吧,得到的数是补码,记得单独算符号位,最后加上<br><strong>几个问题</strong></p>
-<p>1.为什么是逻辑右移?   因为符号不在这里讨论,这里的0.x的0用来存进位(解决原本的溢出问题)<br>2.移动了几次? 乘数有几位就移动几次<br>3.得到的积? 得到积是两部分,一部分高位,一部分低位,占用两个寄存器<br><img src="https://i.loli.net/2020/03/02/xu53HIXiOC1Gmcb.png" alt=""></p>
-<h2 id="补码乘法"><a href="#补码乘法" class="headerlink" title="补码乘法"></a>补码乘法</h2><blockquote>
-<p>补码乘法较为复杂这里只介绍 Booth法</p>
-</blockquote>
-<p>补码乘法统一了符号,直接带着符号运算,得到的结果就是带有符号的补码,<strong>补码使用两位的符号位</strong></p>
-<h4 id="Booth法原理及运算"><a href="#Booth法原理及运算" class="headerlink" title="Booth法原理及运算"></a>Booth法原理及运算</h4><p><img src="https://i.loli.net/2020/03/02/pAIkjNPO6eb4wm2.png" alt=""></p>
-<p>这个具体我也没推,看看最后一行的结论就行了,过程还是和原码的差不多,但是在细节上有些不同</p>
-<p><img src="https://i.loli.net/2020/03/02/HdKPjefqYZAuFNz.png" alt=""></p>
-<p>上面是运算的方法,第三列是符加位,一开始是0,后来就是被挤掉的那一位了,每次符加位-最后一位,然后乘上乘数加到部分积上,<strong>所有的数都是补码</strong>,加减按照补码的规则来就行.最后一位是不移动的,因为移动的次数已经够了,每次的移动都是<strong>算数右移</strong>.</p>
-<h5 id="几个问题"><a href="#几个问题" class="headerlink" title="几个问题"></a>几个问题</h5><ol>
-<li><p>为什么是两位的符号位? 这个是解决进位和符号的问题,溢出时为01,或10,然后右移,01-&gt;00,1,10-&gt;11,0及保存了进位又保存了符号</p>
-</li>
-<li><p>为什么时<strong>算数右移</strong>? 因为带着符号位运算鸭</p>
-</li>
-</ol>
-<p><img src="https://i.loli.net/2020/03/06/3rRB2eN6vUYLTGj.png" alt=""></p>
-<p><img src="https://i.loli.net/2020/03/02/jVbHayWiQ2c7KN3.png" alt=""></p>
-<h1 id="除法"><a href="#除法" class="headerlink" title="除法"></a>除法</h1><blockquote>
-<p>除法介绍的就更简单了,仅仅介绍小数的原码除法,有两种分别是回复余数和加减交替法<br>基础原理:<img src="https://i.loli.net/2020/03/02/ZnJ546sOtcouB12.png" alt=""></p>
-<p>每次比较(减法)然后上商,之后相减移位,一直到寄存器极限,剩下的就是余数</p>
-<p>基础约定:<br><img src="https://i.loli.net/2020/03/02/WZwcxdJ8uVHkY3L.png" alt=""></p>
-<p><strong>X&lt;Y</strong>!!!!!,第一位是0没跑了,0.xxxx,后面根据符号的情况替换0</p>
-</blockquote>
-<h3 id="原码恢复余数"><a href="#原码恢复余数" class="headerlink" title="原码恢复余数"></a>原码恢复余数</h3><p><img src="https://i.loli.net/2020/03/02/kOtCIDqK9pimlZs.png" alt=""></p>
-<p>比较-&gt;相减或者保持-&gt;逻辑移位</p>
-<p><img src="https://i.loli.net/2020/03/02/ytEj8vrqwMZzOam.png" alt=""></p>
-<p><img src="https://i.loli.net/2020/03/02/XLGHFTu83o49PQR.png" alt=""></p>
-<p>上图的比较方式是直接相减(补码运算),然后如果成了负的就恢复余数,否则继续进行</p>
-<p>可能存在的问题?</p>
-<ol>
-<li>为什么是逻辑左移? 因为没有符号位,同时因为加的是负数,负数的右移是要补1的</li>
-<li>循环次数? 这个是根据寄存器来的,寄存器能放几位就是几位的</li>
-<li>余数 余数记得乘上2的-n次方</li>
-</ol>
-<h3 id="加减交错"><a href="#加减交错" class="headerlink" title="加减交错"></a>加减交错</h3><p>加减交错解决了需要恢复余数的问题,如果减成了负余数那么后面直接加就行了,还能判断</p>
-<p><img src="https://i.loli.net/2020/03/02/jBLxCVyZW2lsOg7.png" alt=""></p>
-<p>如果该位上了0则 部分余数*2+除数,根据这个值判断下一位商,正的上1,负的上0,继续这个循环.</p>
-<p>这个余数要注意如果最后是负的要加上除数转换为正的.</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/29/%E8%AE%A1%E7%BD%91-%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyfuture">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://i.loli.net/2020/02/28/cAKbXSfZYIC9mF8.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Xyfuture's home">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/02/29/%E8%AE%A1%E7%BD%91-%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/" itemprop="url">计网-通信原理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-29T20:18:29+08:00">
-                2020-02-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>这学期计网开幕暴击,通信原理是信息学院的课,涉及到大量的数学知识和物理知识,然而我连傅立叶变换都算不太好,深入的理解是不奢求了.但是总还是要理解一部分的,因此记录一下目前知道的信息</p>
-<p>参考: <a href="https://www.sohu.com/a/219750202_464086" target="_blank" rel="noopener">奈奎斯特定理</a>  <a href="https://baijiahao.baidu.com/s?id=1636833728798493906" target="_blank" rel="noopener">傅立叶变换</a> <a href="https://www.zhihu.com/question/23115645" target="_blank" rel="noopener">带宽</a></p>
-</blockquote>
-<h1 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h1><ul>
-<li>信道: 相当物理介质,比如网线,一台网线就是一个信道,或者大气  通信的通道，是信号传输的媒介</li>
-</ul>
-<h1 id="比特率-波特率"><a href="#比特率-波特率" class="headerlink" title="比特率 波特率"></a>比特率 波特率</h1><h2 id="波特率"><a href="#波特率" class="headerlink" title="波特率"></a>波特率</h2><p>波特率（也称信息传送速率、码元速率、符号速率、或传码率），其定义为每秒钟传送码元的数目，码元速率的单位为 “波特”，常用符号“Baud” 表示，简写为“B”。</p>
-<p>一个数字脉冲就是一个码元，我们用码元速率表示单位时间内信号波形的变换次数，即单位时间内通过信道传输的码元个数。若信号码元宽度为 T 秒，则码元速率 B 为：</p>
-<p><img src="https://i.loli.net/2020/02/29/NkbdEcUmyojteRJ.png" alt=""></p>
-<p>说简单一点就是码元的速度,每秒能传送多少个码元,一个码元就是最基本的单位</p>
-<h2 id="比特率"><a href="#比特率" class="headerlink" title="比特率"></a>比特率</h2><p>比特率是实际的数据传输速率,即每秒传输多少个bit的数据,计算也非常简单,首先我们要知道一个码元对着几个bit, $log_2(k)$ 其中k为一个码元中状态的数量,比如一个码元可能有4中状态则其bit位为2.比特率是波特率乘上码元代表的比特位.</p>
-<p><img src="https://i.loli.net/2020/02/29/B2pUkP9zx8REVd4.jpg" alt=""></p>
-<p>比特率的单位是bit/s</p>
-<h1 id="带宽-傅立叶变化-频域"><a href="#带宽-傅立叶变化-频域" class="headerlink" title="带宽 傅立叶变化 频域"></a>带宽 傅立叶变化 频域</h1><h2 id="傅立叶变换"><a href="#傅立叶变换" class="headerlink" title="傅立叶变换"></a>傅立叶变换</h2><p>这里就不多写了,简单的想成每个周期函数(波形)都能用多个正弦波和余弦波相加表达出来</p>
-<p><img src="https://i.loli.net/2020/02/29/NcL1WqbVjYSrP28.png" alt=""></p>
-<p><img src="https://i.loli.net/2020/02/29/MnWIwauCKyHVh4P.png" alt=""></p>
-<p>这里的正弦函数,余弦函数都是最简单的形式,初相为0</p>
-<h2 id="频域"><a href="#频域" class="headerlink" title="频域"></a>频域</h2><p>电磁波都有一定的频率,注意这里说的频率是正弦或者余弦波的频率(<strong>存疑</strong>),也就是任意一个波经过傅立叶变换后的正弦或者余弦的频率,当然一个普通波经过傅立叶变换后会占据多个频率</p>
-<p><img src="https://i.loli.net/2020/02/29/wcNDJmy4gI3Ura1.png" alt="##"></p>
-<h2 id="带宽"><a href="#带宽" class="headerlink" title="带宽"></a>带宽</h2><blockquote>
-<p>带宽的概念有一定的歧义,我把课本和我认为的都写出来</p>
-</blockquote>
-<p><img src="https://i.loli.net/2020/02/29/UiCVSjuX73rGe1H.png" alt=""></p>
-<p>我的理解(和网上的介绍差不多):</p>
-<p>一般信道都有一个最高的信号频率（注意不是波特率哦，频率是指每秒钟的周期数，而每个周期都会有几次电平变化。。恩，看到区别了吧）和最低的信号频率，只有在这两个频率之间的信号才能通过这个信道，这两个频率的差值就叫做这个信道的带宽，单位是Hz</p>
-<p>带宽这个值和频域是有关系,一个波的带宽可以简单理解为把这个波用傅立叶变换分解后正弦余弦的频率的范围.</p>
-<p>有一个误解说带宽指的是速率(比如100m的带宽),但这不是真正得带宽,这说的是比特率,真正得带宽是频率的范围.</p>
-<h1 id="奈奎斯特定律-香农定律"><a href="#奈奎斯特定律-香农定律" class="headerlink" title="奈奎斯特定律 香农定律"></a>奈奎斯特定律 香农定律</h1><h2 id="奈奎斯特定律"><a href="#奈奎斯特定律" class="headerlink" title="奈奎斯特定律"></a>奈奎斯特定律</h2><blockquote>
-<p>注意奈奎斯特提出过好多定律,这里说的是有关传输速率的,不是奈奎斯特采样定律</p>
-</blockquote>
-<p>1924年，奈奎斯特（Nyquist）就推导出在理想低通信道下的最高码元传输速率的公式：</p>
-<p><img src="https://i.loli.net/2020/02/29/6NwhUqk32W4OnJg.png" alt=""></p>
-<p>其中W是理想低通信道的带宽，单位为赫兹；K是一个码元可能取值的个数,C是比特率</p>
-<p>这么看这个式子是有点别扭的,我们可以这么看,假设我们设计好了比特率,也设计好了码元,这样就能推出占用的带宽了.</p>
-<p><strong>根据奈奎斯特准则我们可以推断出：</strong><br>（1）给定了信道的带宽，则该信道的极限波特率就确定了，不可能超过这个极限波特率传输码元，除非改善该信道的带宽；<br>（2）要想增加信道的比特传送率有两条途径，一方面可以增加该信道的带宽，另一方面可以选择更高的编码方式。</p>
-<h2 id="香农定理"><a href="#香农定理" class="headerlink" title="香农定理"></a>香农定理</h2><p>奈奎斯特假设的是理想的情况,但是实际上由许多的噪声,因此香农提出了香农定理,解决了噪声状态下的带宽问题.</p>
-<p>香农定理指出，在噪声与信号独立的高斯白噪信道中，假设信号的功率为S，噪声功率为N，信道通频带宽为W(Hz)，则该信道的信道容量C有:</p>
-<p><img src="https://i.loli.net/2020/02/29/bNr1CfasT6dRnPH.png" alt=""></p>
-<p>这里不具体讨论香农定理了.</p>
-<h1 id="调制"><a href="#调制" class="headerlink" title="调制"></a>调制</h1><h2 id="基带-通带"><a href="#基带-通带" class="headerlink" title="基带 通带"></a>基带 通带</h2><h3 id="基带-baseband"><a href="#基带-baseband" class="headerlink" title="基带 (baseband)"></a>基带 (baseband)</h3><blockquote>
-<p>以下的内容不不够严谨,是我个人的理解</p>
-</blockquote>
-<p><strong>基带</strong>简单的说就是用一定0和1(GND和VCC)直接表示计算机中的0和1</p>
-<p>基带有多种编码方式,这里只介绍NRZ和manchester及差分Manchester</p>
-<p><img src="https://i.loli.net/2020/02/29/fMNngV7yATi1zcH.png" style="zoom:50%;" /></p>
-<p>(这个图对应有点问题,上移一行)<br>NRZ就不多说了,直接对应,Manchester是上升沿为0,下降沿为1</p>
-<p><strong>差分曼彻斯特编码</strong>:<br>差分曼彻斯特编码在 每个时钟周期的中间都有一次电平跳变，这个跳变做同步之用。 在每个时钟周期的起始处：跳变则说明该比特是0，不跳变则说明该比特是1</p>
-<p><img src="https://i.loli.net/2020/03/05/kq4WFnmApEOhogl.jpg" alt=""></p>
-<h4 id="一个问题"><a href="#一个问题" class="headerlink" title="一个问题"></a>一个问题</h4><p><img src="C:\Users\XYfuture\AppData\Roaming\Typora\typora-user-images\image-20200229220034807.png" alt="image-20200229220034807"></p>
-<p>课本上这里的定义说他是从0开始的,这是因为这样的方波经过傅立叶变换后频率是从零开始的一直增大到一定的数值</p>
-<p>基带也是符合奈奎斯特定理的,其带宽也可以算出来.</p>
-<h3 id="通带"><a href="#通带" class="headerlink" title="通带"></a>通带</h3><p> 基带有许多问题,因此我们提出了通带的方案</p>
-<p>通带最简单的理解就是首先我们有一个载波频率,这个波就是单纯的正弦波,不能传递信息,但是我们通过一些系列骚操作(针对 振幅,频率,相位),将信号调制到载波上使其能够传输信息.</p>
-<p>常见的调制方法(编码方法)</p>
-<ul>
-<li>幅移键控ASK(Amplitude Shift Keying) 不同的振幅表示0,1</li>
-<li>频移键控FSK(Frequency Shift Keying) 两个或更多的频率表示0,1</li>
-<li>相移键控PSK(Phase Shift Keying) 相邻的两个周期不同的相位+180表示0,1</li>
-</ul>
-<p><img src="https://i.loli.net/2020/02/29/MIjWg4wkYXhFJU9.png" alt=""></p>
-<p>这是三种最长常见的调制方式,这三种方式能组合形成更多的调制方式,使得一个码元能表达出更多的比特位</p>
-<p><img src="https://i.loli.net/2020/03/05/dh3fLbWQYG62XKg.png" alt=""></p>
-<p>星位图,前两个只是有相位变化(PSK),后两个是相位和振幅混合,能表示的更多一些.</p>
-<h4 id="一个问题-1"><a href="#一个问题-1" class="headerlink" title="一个问题"></a>一个问题</h4><p>为什么看着载波都是一个频率却能拥有带宽</p>
-<p>这个问题其实和前面的差不多,经过调制后已经不是单纯的正弦波了,经过傅立叶变换能分出很多正弦波,然后这些波的频率以载波的频率为中心左右扩散,因此通带也是拥有带宽的</p>
-<h1 id="复用-Multiplexing"><a href="#复用-Multiplexing" class="headerlink" title="复用(Multiplexing)"></a>复用(Multiplexing)</h1><blockquote>
-<p>to be continued</p>
-</blockquote>
-<h2 id="频分复用FDM"><a href="#频分复用FDM" class="headerlink" title="频分复用FDM"></a>频分复用FDM</h2><h3 id="FDM"><a href="#FDM" class="headerlink" title="FDM"></a>FDM</h3><p>用载波区分</p>
-<h3 id="OFDM"><a href="#OFDM" class="headerlink" title="OFDM"></a>OFDM</h3><p>正交频分多路复用</p>
-<h2 id="时分复用TDM"><a href="#时分复用TDM" class="headerlink" title="时分复用TDM"></a>时分复用TDM</h2><p>静态时分复用 STDM</p>
-<p>多条路,不管这条路有没有数据都分给他时间片段,时间片是固定死的</p>
-<p>统计时分复用</p>
-<p>没数据就不给有数据就给</p>
-<h2 id="码分复用CDMA"><a href="#码分复用CDMA" class="headerlink" title="码分复用CDMA"></a>码分复用CDMA</h2><p>多个终端同时发送,根据码区分终端解码</p>
-<h1 id="奈奎斯特采样定律"><a href="#奈奎斯特采样定律" class="headerlink" title="奈奎斯特采样定律"></a>奈奎斯特采样定律</h1><blockquote>
-<p>参考:<a href="https://baike.baidu.com/item/奈奎斯特采样定律" target="_blank" rel="noopener">百度百科-奈奎斯特</a> <a href="https://baike.baidu.com/item/PCM/1568054" target="_blank" rel="noopener">百度百科-PCM</a></p>
-</blockquote>
-<p>前面说过奈奎斯特提出的通信速率的定理,这里说一下奈奎斯特的采样定律</p>
-<p>采样是指将模拟信号转换成数字信号,比如声音的模拟信号转换成数字的电信号的过程,奈奎斯特提出只需要按照模拟信号的频率的两倍的速率仅从采样就能获取完整的保留原始信号的信息.</p>
-<p>就PCM方式而言,我们需要每隔一段时间就测量一下当前的电压,然后用ADC将这个电压转化成数字,每次间隔的时间必须小于模拟信号的周期的1/2.</p>
-<p>​    </p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2070,7 +1989,7 @@ A-B\ =\ A+(-B)</script><p>这个规则对于补码也是成立的</p>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2081,7 +2000,7 @@ A-B\ =\ A+(-B)</script><p>这个规则对于补码也是成立的</p>
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2092,7 +2011,7 @@ A-B\ =\ A+(-B)</script><p>这个规则对于补码也是成立的</p>
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
