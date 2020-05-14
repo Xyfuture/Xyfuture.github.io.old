@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Program,homework," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="week9-homeworkA - 咕咕东的目录管理器题意题面 题目要求实现一个简单的目录管理器,主要是实现几个命令,建议还是去原题看看 解法命令分为两种操作和询问,对于操作类型来说有一个undo 的操作,因此要使用一个栈来记录所有的操作型指令用于恢复. 首先我们设计文件树的存储(为啥用树?题目直接说了文件树 … ) 这个树肯定是多个孩子的,我们可以用类似孩子链表的形式使用vector nodes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Program-week9-homework">
+<meta property="og:url" content="http://yoursite.com/2020/04/29/Program-week9-homework/index.html">
+<meta property="og:site_name" content="Xyfuture&#39;s home">
+<meta property="og:description" content="week9-homeworkA - 咕咕东的目录管理器题意题面 题目要求实现一个简单的目录管理器,主要是实现几个命令,建议还是去原题看看 解法命令分为两种操作和询问,对于操作类型来说有一个undo 的操作,因此要使用一个栈来记录所有的操作型指令用于恢复. 首先我们设计文件树的存储(为啥用树?题目直接说了文件树 … ) 这个树肯定是多个孩子的,我们可以用类似孩子链表的形式使用vector nodes">
+<meta property="og:image" content="https://i.loli.net/2020/05/04/CG9PtmcWDFk8oEp.png">
+<meta property="og:image" content="https://i.loli.net/2020/05/04/mj8enzuLZFfSGKM.png">
+<meta property="og:image" content="https://i.loli.net/2020/05/04/MhjWDYoq5uE6TXR.png">
+<meta property="article:published_time" content="2020-04-29T13:28:23.000Z">
+<meta property="article:modified_time" content="2020-05-04T15:30:16.152Z">
+<meta property="article:author" content="Xyfuture">
+<meta property="article:tag" content="Program">
+<meta property="article:tag" content="homework">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/04/CG9PtmcWDFk8oEp.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/04/29/Program-week9-homework/"/>
+
+
+
+
+
+  <title>Program-week9-homework | Xyfuture's home</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Xyfuture's home</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/29/Program-week9-homework/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyfuture">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2020/02/28/cAKbXSfZYIC9mF8.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xyfuture's home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Program-week9-homework</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-29T21:28:23+08:00">
+                2020-04-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E6%80%9D%E7%BB%B4/" itemprop="url" rel="index">
+                    <span itemprop="name">程序设计思维</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="week9-homework"><a href="#week9-homework" class="headerlink" title="week9-homework"></a>week9-homework</h1><h2 id="A-咕咕东的目录管理器"><a href="#A-咕咕东的目录管理器" class="headerlink" title="A - 咕咕东的目录管理器"></a><a href="https://vjudge.net/problem/Kattis-directorymanagement" target="_blank" rel="noopener">A - 咕咕东的目录管理器</a></h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><h4 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h4><p><img src="https://i.loli.net/2020/05/04/CG9PtmcWDFk8oEp.png" alt=""></p>
+<p>题目要求实现一个简单的目录管理器,主要是实现几个命令,建议还是去原题看看</p>
+<h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><p>命令分为两种操作和询问,对于操作类型来说有一个undo 的操作,因此要使用一个栈来记录所有的操作型指令用于恢复.</p>
+<p>首先我们设计文件树的存储(为啥用树?题目直接说了文件树 … )</p>
+<p>这个树肯定是多个孩子的,我们可以用类似孩子链表的形式使用vector nodes存储所有节点,我们要求孩子顺序是字典序,因此使用map\<string,int\>存储孩子,string是文件名,int是vector种的下标.为了溯源存储一个int father,表示父节点的下标</p>
+<p>剩下的几个变量都是为了题目实现而存储的信息.int allNodes代表的是以该节点为根的文件树的总节点数(每次插入或者删除节点向上溯源更新). string nodeName表示文件的当前节点的文件夹名.除此之外vector\<string\> ftree用来储存tree命令时前后的5个文件夹名.int change储存ftree是否应该发生改变,change=1表示文件结构被更新过,ftree不能用了.</p>
+<p>下面讲解各个命令:</p>
+<p>首先编写一个pushForward函数,用来从当前节点开始通过father向上更新整棵树,更新allNode和change.使用一个int curPosi记录当前操作的节点下标</p>
+<p>mkdir: 首先检查新的文件名是否在children中存在,存在输出ERR.,不存在就新建,插入到nodes中,同时更新children,调用pushForward,将该次命令和操作的两个节点下标插入到栈history</p>
+<p>rm: 首先检查children中有没有该文件,没有输出ERR,有就在children中删除(在nodes中不清除节点),调用pushForwad,将命令和操作的两个下标插入到history</p>
+<p>cd: 遇到”..”直接返回到father,如果father是0(根节点)输出ERR.否则检查孩子中有没有想到的文件名,如果可以没有输出ERR,最后将命令和操作的下标插入到history</p>
+<p>sz: 直接输出allNodes</p>
+<p>ls: 首先看孩子个数,小于10,全部输出,大于10,输出前5个和后5个</p>
+<p>tree: 该命令是比较难实现的,需要一定的记忆化<br>首先看当前节点的孩子个数,0个输出EMPTY,直接结束.其他情况首先递归实现以该节点为根的文件树通过先根遍历的方式更新ftree.更新时,更新过的节点change改为0表示无需再次更新.然后输出ftree前5个和后5个</p>
+<h3 id="code"><a href="#code" class="headerlink" title="code"></a>code</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">treeNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="built_in">string</span> nodeName;<span class="comment">//文件名</span></span><br><span class="line">    <span class="keyword">int</span> father;<span class="comment">//父节点下标</span></span><br><span class="line">    <span class="keyword">int</span> allNodes;<span class="comment">//总的孩子个数+1 sz使用</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; ftree;<span class="comment">//tree命令使用的数组,前5个和后5个</span></span><br><span class="line">    <span class="keyword">int</span> change;<span class="comment">//ftree是否发生改变</span></span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="built_in">string</span>,<span class="keyword">int</span>&gt; children;<span class="comment">//按字典序存孩子节点的文件名和下标</span></span><br><span class="line">    treeNode(<span class="built_in">string</span> name,<span class="keyword">int</span> father,<span class="keyword">int</span> allNodes,<span class="keyword">int</span> change):nodeName(name),father(father),allNodes(allNodes),change(change)</span><br><span class="line">    &#123;&#125;</span><br><span class="line">    treeNode()&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cmd</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="built_in">string</span> command;</span><br><span class="line">    <span class="keyword">int</span> pwd;</span><br><span class="line">    <span class="keyword">int</span> newDir;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;treeNode&gt; nodes;<span class="comment">//所有节点的数组,下标就是这里的</span></span><br><span class="line"><span class="built_in">stack</span>&lt;cmd&gt; history;<span class="comment">//操作命令历史记录</span></span><br><span class="line"><span class="keyword">int</span> curPosi;<span class="comment">//当前操作的位置的下标</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pushForward</span><span class="params">(<span class="keyword">int</span> posi,<span class="keyword">int</span> num)</span><span class="comment">//从posi开始上溯</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    </span><br><span class="line">    nodes[posi].allNodes +=num;<span class="comment">//更新allNode</span></span><br><span class="line">    nodes[posi].change = <span class="number">1</span>;<span class="comment">//ftree要重新改变</span></span><br><span class="line">    nodes[posi].ftree.clear();<span class="comment">//清空(也可以不删)</span></span><br><span class="line">    <span class="keyword">if</span>(nodes[posi].father == posi)<span class="comment">//到达根节点</span></span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    <span class="keyword">else</span> <span class="comment">//继续更新父节点</span></span><br><span class="line">        pushForward(nodes[posi].father,num);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mkdir</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> newDirName;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;newDirName;</span><br><span class="line">    <span class="keyword">if</span> (nodes[curPosi].children.find(newDirName) != nodes[curPosi].children.end())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"ERR\n"</span>;</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    nodes.push_back(treeNode(newDirName,curPosi,<span class="number">1</span>,<span class="number">1</span>));<span class="comment">//插入新节点</span></span><br><span class="line">    <span class="keyword">int</span> newPosi = nodes.size() - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    pushForward(curPosi,<span class="number">1</span>);<span class="comment">//向上更新</span></span><br><span class="line">    nodes[curPosi].children[newDirName] =newPosi;<span class="comment">//孩子</span></span><br><span class="line">    history.push(&#123;<span class="string">"mkdir"</span>,curPosi,newPosi&#125;);<span class="comment">//更新history</span></span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"OK\n"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rm</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> delDirName;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;delDirName;</span><br><span class="line">    <span class="keyword">if</span> (nodes[curPosi].children.find(delDirName) == nodes[curPosi].children.end())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"ERR\n"</span>;</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> ptr =nodes[curPosi].children[delDirName];</span><br><span class="line">    <span class="keyword">int</span> cnt = nodes[ptr].allNodes;</span><br><span class="line">    nodes[curPosi].children.erase(delDirName);<span class="comment">//只删除孩子,不删除nodes</span></span><br><span class="line">    history.push(&#123;<span class="string">"rm"</span>,curPosi,ptr&#125;);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"OK\n"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cd</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> newDirName;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;newDirName;</span><br><span class="line">    <span class="keyword">if</span>(newDirName == <span class="string">".."</span>)<span class="comment">//father</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(nodes[curPosi].father == curPosi)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;<span class="string">"ERR\n"</span>;</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> newPosi = nodes[curPosi].father;</span><br><span class="line">        history.push(&#123;<span class="string">"cd"</span>,curPosi,newPosi&#125;);</span><br><span class="line">        curPosi = newPosi;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"OK\n"</span>;</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(nodes[curPosi].children.find(newDirName) == nodes[curPosi].children.end())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"ERR\n"</span>;</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> newPosi = nodes[curPosi].children[newDirName];</span><br><span class="line">    history.push(&#123;<span class="string">"cd"</span>,curPosi,newPosi&#125;);</span><br><span class="line">    curPosi = newPosi;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"OK\n"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sz</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> cnt = nodes[curPosi].allNodes;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;cnt&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ls</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> childSize = nodes[curPosi].children.size();</span><br><span class="line">    <span class="keyword">if</span>(childSize == <span class="number">0</span>)</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"EMPTY\n"</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (childSize &lt;=<span class="number">10</span>)<span class="comment">//10个之内</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> i:nodes[curPosi].children)</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;i.first&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        <span class="comment">// cout&lt;&lt;"\n";</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">map</span>&lt;<span class="built_in">string</span>,<span class="keyword">int</span>&gt;::iterator front = nodes[curPosi].children.begin();</span><br><span class="line">        <span class="built_in">map</span>&lt;<span class="built_in">string</span>,<span class="keyword">int</span>&gt;::iterator tail = nodes[curPosi].children.end();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++,front++)<span class="comment">//前5个</span></span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;(*front).first&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        <span class="comment">// tail--;</span></span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"...\n"</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++,tail--);<span class="comment">//后5个</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++,tail++)</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;(*tail).first&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        <span class="comment">// cout&lt;&lt;"\n";</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">undo</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(history.size() == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"ERR\n"</span>;</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    cmd oldCmd = history.top();</span><br><span class="line">    history.pop();</span><br><span class="line">    <span class="keyword">if</span>(oldCmd.command == <span class="string">"mkdir"</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        nodes[oldCmd.pwd].children.erase(nodes[oldCmd.newDir].nodeName);<span class="comment">//去除孩子</span></span><br><span class="line">        <span class="keyword">int</span> cnt = nodes[oldCmd.newDir].allNodes;</span><br><span class="line">        pushForward(oldCmd.pwd,<span class="number">-1</span>*cnt);<span class="comment">//更新allnNodes</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(oldCmd.command == <span class="string">"rm"</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        nodes[oldCmd.pwd].children[nodes[oldCmd.newDir].nodeName] = oldCmd.newDir;<span class="comment">//加回孩子</span></span><br><span class="line">        <span class="keyword">int</span> cnt = nodes[oldCmd.newDir].allNodes;</span><br><span class="line">        pushForward(oldCmd.pwd,cnt);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(oldCmd.command == <span class="string">"cd"</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        curPosi = oldCmd.pwd;<span class="comment">//直接回退</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"OK\n"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">firstRoot</span><span class="params">(<span class="keyword">int</span> ptr,<span class="keyword">int</span> cur)</span><span class="comment">//在allNodes小于10的时候直接先根遍历更新ftree就行了</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    nodes[ptr].ftree.push_back(nodes[cur].nodeName);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> i:nodes[cur].children)</span><br><span class="line">        firstRoot(ptr,i.second);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">begin_end</span><span class="params">(<span class="keyword">int</span> ptr)</span><span class="comment">//更新ftree</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(nodes[ptr].change == <span class="number">0</span>)<span class="comment">//已经更新过了</span></span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    <span class="keyword">if</span>(nodes[ptr].allNodes&lt;=<span class="number">10</span>)<span class="comment">//10个节点及一下</span></span><br><span class="line">    &#123;</span><br><span class="line">        firstRoot(ptr,ptr);</span><br><span class="line">        nodes[ptr].change = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> i:nodes[ptr].children)<span class="comment">//更新所有孩子的</span></span><br><span class="line">            begin_end(i.second);</span><br><span class="line">        nodes[ptr].ftree.push_back(nodes[ptr].nodeName);<span class="comment">//先放入自己</span></span><br><span class="line">        <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> i:nodes[ptr].children)<span class="comment">//前4个</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(cnt&gt;=<span class="number">4</span>)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> t=<span class="number">0</span>;t&lt;nodes[i.second].ftree.size();t++)</span><br><span class="line">                <span class="keyword">if</span>(cnt++&lt;<span class="number">4</span>)</span><br><span class="line">                    nodes[ptr].ftree.push_back(nodes[i.second].ftree[t]);</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">map</span>&lt;<span class="built_in">string</span>,<span class="keyword">int</span>&gt;::reverse_iterator it=nodes[ptr].children.rbegin();it!=nodes[ptr].children.rend();it++)<span class="comment">//后5个</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(cnt&gt;=<span class="number">5</span>)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> t=nodes[(*it).second].ftree.size()<span class="number">-1</span>;t&gt;=<span class="number">0</span>;t--)<span class="comment">//倒着的</span></span><br><span class="line">                <span class="keyword">if</span>(cnt++&lt;<span class="number">5</span>)</span><br><span class="line">                    nodes[ptr].ftree.insert(nodes[ptr].ftree.begin()+<span class="number">5</span>,nodes[(*it).second].ftree[t]);</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        nodes[ptr].change = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tree</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> childSize = nodes[curPosi].allNodes;</span><br><span class="line">    <span class="keyword">if</span>( childSize== <span class="number">1</span> )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"EMPTY\n"</span>;</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125; </span><br><span class="line">    begin_end(curPosi);</span><br><span class="line">    <span class="keyword">if</span>(childSize&lt;=<span class="number">10</span>)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> i:nodes[curPosi].ftree)</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;i&lt;&lt;<span class="string">"\n"</span>;</span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;nodes[curPosi].ftree[i]&lt;&lt;<span class="string">"\n"</span>;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"...\n"</span>;<span class="comment">//输出... 仔细看提</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">5</span>;i&lt;<span class="number">10</span>;i++)</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;nodes[curPosi].ftree[i]&lt;&lt;<span class="string">"\n"</span>;</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">treeNode <span class="title">rootNode</span> <span class="params">(<span class="string">"root"</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="built_in">string</span> curCmd;</span><br><span class="line">    <span class="keyword">int</span> t=<span class="number">0</span>;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;t;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;t;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> q;</span><br><span class="line">        nodes.clear();<span class="comment">//空间释放!!!!</span></span><br><span class="line">        nodes.push_back(rootNode);</span><br><span class="line">        <span class="keyword">while</span>(!history.empty())</span><br><span class="line">            history.pop();</span><br><span class="line">        curPosi = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;q;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;q;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">cin</span>&gt;&gt;curCmd;</span><br><span class="line">            <span class="keyword">if</span>(curCmd == <span class="string">"MKDIR"</span>) mkdir();</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(curCmd == <span class="string">"RM"</span>) rm();</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(curCmd == <span class="string">"CD"</span>) cd();</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(curCmd == <span class="string">"SZ"</span>) sz();</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(curCmd == <span class="string">"LS"</span>) ls();</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(curCmd == <span class="string">"TREE"</span>) tree();</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(curCmd == <span class="string">"UNDO"</span>) undo();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>把本次模拟较为复杂,难点主要集中在tree的实现上,因为数据规模的原因直接进行前序遍历复杂度会超时,因此采取记忆化的操作,这样只在插入删除新的节点后才进行更新,其他情况直接使用存储的tree信息.</p>
+<p>除此之外stl的map使用也值得一看,直接实现了有序的查找,复杂度还低</p>
+<h2 id="B-东东学打牌"><a href="#B-东东学打牌" class="headerlink" title="B - 东东学打牌"></a><a href="https://vjudge.net/problem/计蒜客-41408" target="_blank" rel="noopener">B - 东东学打牌</a></h2><h3 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h3><p>和之前做过的那个发牌的题挺类似,使用类似搜索的方法</p>
+<p><img src="https://i.loli.net/2020/05/04/mj8enzuLZFfSGKM.png" alt="image-20200504185524882"></p>
+<h3 id="解法-1"><a href="#解法-1" class="headerlink" title="解法"></a>解法</h3><p>首先使用个结构体来handCard记录一个人的姓名和手牌,姓名使用string手牌使用vector,手牌转换为数字.使用一个handCard数组记录有所人的手牌.</p>
+<p>然后开8个vector,分别表示8种情况下的人,然后写8个函数,分别判断一个人的手牌是哪一种情况,然后分配到对应的vector</p>
+<p>针对这个8种情况编写几个排序函数,实现题目中要求的顺序,有几个排序方法使能复用的.</p>
+<p>在8个判断函数中,使用map实现对同一数字手牌个数的判断.</p>
+<h3 id="code-1"><a href="#code-1" class="headerlink" title="code"></a>code</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;<span class="comment">//手牌和人名</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">handCard</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="built_in">string</span> name;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; cards;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">handCard allCard[<span class="number">1000</span>];<span class="comment">//所有人的情况</span></span><br><span class="line"><span class="keyword">int</span> exchanges[<span class="number">100</span>];<span class="comment">//将ascii码转换为对应的数字</span></span><br><span class="line"><span class="keyword">int</span> longshun[] = &#123;<span class="number">1</span>,<span class="number">10</span>,<span class="number">11</span>,<span class="number">12</span>,<span class="number">13</span>&#125;;<span class="comment">//龙顺判断</span></span><br><span class="line"><span class="comment">// priority_queue&lt;string,vector&lt;string&gt;,greater&lt;string&gt; &gt; ans[8];</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ans[<span class="number">8</span>];<span class="comment">//8种类型</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">getCardNum</span><span class="params">(<span class="keyword">int</span> ptr,<span class="keyword">int</span> i)</span><span class="comment">//获取一张手牌</span></span></span><br><span class="line"><span class="function"></span>&#123;<span class="keyword">return</span> allCard[ptr].cards[i];&#125;</span><br><span class="line"></span><br><span class="line">map&lt;int,int&gt; getCnt(int ptr)//获得计数的字典</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; mp;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)</span><br><span class="line">        mp[allCard[ptr].cards[i]]++;</span><br><span class="line">    <span class="keyword">return</span> mp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">distribute</span><span class="params">(<span class="keyword">int</span> ptr)</span><span class="comment">//判断一套牌属于哪一个类型</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; mp = getCnt(ptr);</span><br><span class="line">    <span class="keyword">int</span> i =<span class="number">0</span> ;</span><br><span class="line">    &#123;<span class="comment">//龙顺</span></span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)</span><br><span class="line">            <span class="keyword">if</span>(allCard[ptr].cards[i]!=longshun[i])</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">if</span>(i == <span class="number">5</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            ans[<span class="number">7</span>].push_back(ptr);</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#123;<span class="comment">//顺子</span></span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)</span><br><span class="line">            <span class="keyword">if</span>(allCard[ptr].cards[i]+<span class="number">1</span>!=allCard[ptr].cards[i+<span class="number">1</span>])</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">if</span>(i == <span class="number">4</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            ans[<span class="number">6</span>].push_back(ptr);</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#123;<span class="comment">//炸弹</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> t:mp)</span><br><span class="line">            <span class="keyword">if</span>(t.second == <span class="number">4</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                ans[<span class="number">5</span>].push_back(ptr);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#123;<span class="comment">//三带二</span></span><br><span class="line">        <span class="keyword">int</span> flag = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> t:mp)</span><br><span class="line">            <span class="keyword">if</span>(t.second!=<span class="number">3</span>&amp;&amp;t.second!=<span class="number">2</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                flag = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">if</span>(flag)</span><br><span class="line">        &#123;</span><br><span class="line">            ans[<span class="number">4</span>].push_back(ptr);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#123;<span class="comment">//三个</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> t:mp)</span><br><span class="line">            <span class="keyword">if</span>(t.second == <span class="number">3</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                ans[<span class="number">3</span>].push_back(ptr);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#123;<span class="comment">//两对</span></span><br><span class="line">        <span class="keyword">int</span> flag =<span class="number">0</span> ;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> t:mp)</span><br><span class="line">            <span class="keyword">if</span>(t.second == <span class="number">2</span>)</span><br><span class="line">                flag++;</span><br><span class="line">        <span class="keyword">if</span>(flag == <span class="number">2</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            ans[<span class="number">2</span>].push_back(ptr);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#123;<span class="comment">//对子</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> t:mp)</span><br><span class="line">            <span class="keyword">if</span>(t.second == <span class="number">2</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                ans[<span class="number">1</span>].push_back(ptr);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ans[<span class="number">0</span>].push_back(ptr);<span class="comment">//大牌</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">nameOrder</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span><span class="comment">//比较大牌,实际上就是名字的字典序</span></span></span><br><span class="line"><span class="function"></span>&#123;<span class="keyword">return</span> allCard[a].name&gt;allCard[b].name;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">numOrder</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span><span class="comment">//所有手牌和的大小,顺子比较直接使用,大数也直接使用</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> al=<span class="number">0</span>,bl=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)</span><br><span class="line">        al+=allCard[a].cards[i],bl+=allCard[b].cards[i];</span><br><span class="line">    <span class="keyword">if</span>(al&lt;bl)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (al==bl)</span><br><span class="line">        <span class="keyword">return</span> nameOrder(a,b);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp6</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span><span class="comment">//炸弹</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(getCardNum(a,<span class="number">1</span>)&lt;getCardNum(b,<span class="number">1</span>))<span class="comment">//炸弹大小</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(getCardNum(a,<span class="number">1</span>) == getCardNum(b,<span class="number">1</span>))</span><br><span class="line">        <span class="keyword">return</span> numOrder(a,b);<span class="comment">//比较剩下的一张牌</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp5</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span><span class="comment">//三带二</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; mpa = getCnt(a);</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; mpb = getCnt(b);</span><br><span class="line">    <span class="keyword">int</span> al=<span class="number">0</span>,bl=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> t:mpa)</span><br><span class="line">        <span class="keyword">if</span>(t.second == <span class="number">3</span>) al=t.first;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> t:mpb)</span><br><span class="line">        <span class="keyword">if</span>(t.second == <span class="number">3</span>) bl=t.first;</span><br><span class="line">    <span class="keyword">if</span>(al&lt;bl)<span class="comment">//比较三</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(al==bl)<span class="comment">//比较二</span></span><br><span class="line">        <span class="keyword">return</span> numOrder(a,b);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//三个和三带二一样</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp3</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span><span class="comment">//两对</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> al[<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">int</span> bl[<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; mpa = getCnt(a);</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; mpb = getCnt(b);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> t:mpa)</span><br><span class="line">        <span class="keyword">if</span>(t.second == <span class="number">2</span>)<span class="comment">//两个对子</span></span><br><span class="line">            al[i++] = t.first;</span><br><span class="line">    i=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> t:mpb)</span><br><span class="line">        <span class="keyword">if</span>(t.second == <span class="number">2</span>)</span><br><span class="line">            bl[i++] = t.first;</span><br><span class="line">    <span class="keyword">if</span>(al[<span class="number">1</span>]&lt;bl[<span class="number">1</span>]) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(al[<span class="number">1</span>]==bl[<span class="number">1</span>])</span><br><span class="line">        <span class="keyword">if</span>(al[<span class="number">0</span>]&lt;bl[<span class="number">0</span>])</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(al[<span class="number">0</span>] == bl[<span class="number">0</span>])</span><br><span class="line">            <span class="keyword">return</span> numOrder(a,b);<span class="comment">//比较剩下的那一个数</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp2</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span><span class="comment">//对子</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; mpa = getCnt(a);</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; mpb= getCnt(b);</span><br><span class="line">    <span class="keyword">int</span> al=<span class="number">0</span>,bl=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> t:mpa)</span><br><span class="line">        <span class="keyword">if</span>(t.second == <span class="number">2</span>)   al =t.first;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> t:mpb)</span><br><span class="line">        <span class="keyword">if</span>(t.second == <span class="number">2</span>)   bl=t.first;</span><br><span class="line">    <span class="keyword">if</span>(al&lt;bl) <span class="comment">//比较唯一的一个对子</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(al == bl)</span><br><span class="line">        <span class="keyword">return</span> numOrder(a,b);<span class="comment">//比较剩下的</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">output</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    sort(ans[<span class="number">0</span>].begin(),ans[<span class="number">0</span>].end(),numOrder);<span class="comment">//排序</span></span><br><span class="line">    sort(ans[<span class="number">1</span>].begin(),ans[<span class="number">1</span>].end(),cmp2);</span><br><span class="line">    sort(ans[<span class="number">2</span>].begin(),ans[<span class="number">2</span>].end(),cmp3);</span><br><span class="line">    sort(ans[<span class="number">3</span>].begin(),ans[<span class="number">3</span>].end(),cmp5);</span><br><span class="line">    sort(ans[<span class="number">4</span>].begin(),ans[<span class="number">4</span>].end(),cmp5);</span><br><span class="line">    sort(ans[<span class="number">5</span>].begin(),ans[<span class="number">5</span>].end(),cmp6);</span><br><span class="line">    sort(ans[<span class="number">6</span>].begin(),ans[<span class="number">6</span>].end(),numOrder);</span><br><span class="line">    sort(ans[<span class="number">7</span>].begin(),ans[<span class="number">7</span>].end(),nameOrder);</span><br><span class="line">    <span class="comment">// sort(ans[0].begin(),ans[0].end(),);</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">7</span>;i&gt;=<span class="number">0</span>;i--)<span class="comment">//输出结果</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::reverse_iterator it=ans[i].rbegin();it!=ans[i].rend();it++)</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;allCard[*it].name&lt;&lt;<span class="string">"\n"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">readInt</span><span class="params">()</span><span class="comment">//读入一个ascii转换为int</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> temp;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%c"</span>,&amp;temp);</span><br><span class="line">    <span class="keyword">if</span>(temp == <span class="string">'1'</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        getchar();</span><br><span class="line">        <span class="keyword">return</span> <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> change[temp];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(change,<span class="number">0</span>,<span class="keyword">sizeof</span>(change));</span><br><span class="line">    <span class="keyword">int</span> s=<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">char</span> i=<span class="string">'2'</span>;i&lt;=<span class="string">'9'</span>;i++,s++)</span><br><span class="line">        change[i] = s;</span><br><span class="line">    change[<span class="string">'A'</span>] = <span class="number">1</span>;<span class="comment">//初始化</span></span><br><span class="line">    change[<span class="string">'J'</span>] = <span class="number">11</span>;</span><br><span class="line">    change[<span class="string">'Q'</span>] = <span class="number">12</span>;</span><br><span class="line">    change[<span class="string">'K'</span>] = <span class="number">13</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> k;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;k)!=EOF)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// getchar();</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;k;i++)</span><br><span class="line">            allCard[i].cards.clear();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">8</span>;i++)</span><br><span class="line">            ans[i].clear();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;k;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">cin</span>&gt;&gt;allCard[i].name;</span><br><span class="line">            getchar();</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> t=<span class="number">0</span>;t&lt;<span class="number">5</span>;t++)</span><br><span class="line">                allCard[i].cards.push_back(readInt());</span><br><span class="line">            sort(allCard[i].cards.begin(),allCard[i].cards.end());<span class="comment">//将每张手牌排序</span></span><br><span class="line">        &#125;    </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;k;i++)</span><br><span class="line">            distribute(i);<span class="comment">//把每个人手牌的类型分类</span></span><br><span class="line">        output();<span class="comment">//输出</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>这道题不是很难,主要是就是考虑题目中给出的几个情况的判断,判断同一个大小的牌数是一个比较麻烦的部分,使用map复杂度能低一些.另一个重要的地方是函数结构的设计,尽量提高的代码的复用率</p>
+<h2 id="C-签到题，独立思考哈"><a href="#C-签到题，独立思考哈" class="headerlink" title="C - 签到题，独立思考哈"></a><a href="https://vjudge.net/problem/CodeForces-1042A" target="_blank" rel="noopener">C - 签到题，独立思考哈</a></h2><h3 id="题面-1"><a href="#题面-1" class="headerlink" title="题面"></a>题面</h3><p><img src="https://i.loli.net/2020/05/04/MhjWDYoq5uE6TXR.png" alt=""></p>
+<p>这个题实际上就是一个分配的问题,如何分配使所有单位的最大值最大或者最小</p>
+<h3 id="解法-2"><a href="#解法-2" class="headerlink" title="解法"></a>解法</h3><p>首先最大值最小首先采取的方法就是平均值,一平均就是最小的,但是因为已经分配好的不能再懂了,如果现在的最大值比平均后的值大,说明加入y之后最小的最大值还是原来的最大值,如果最大值小于平均值,那么平均值就是最小最大值</p>
+<p>最大最大值就很简单了,直接在现在最大值的基础上加上y就行了</p>
+<h3 id="code-2"><a href="#code-2" class="headerlink" title="code"></a>code</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> data[<span class="number">105</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(data,<span class="number">0</span>,<span class="keyword">sizeof</span>(data));</span><br><span class="line">    <span class="keyword">int</span> x,y;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;x,&amp;y);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;x;i++)</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>,data+i);</span><br><span class="line">    <span class="keyword">int</span> sum=<span class="number">0</span>;<span class="comment">//当前的总计,用于求平均数</span></span><br><span class="line">    <span class="keyword">int</span> Max=<span class="number">0</span>;<span class="comment">//当前的最大值</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;x;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        sum+=data[i];<span class="comment">//统计</span></span><br><span class="line">        <span class="keyword">if</span>(data[i]&gt;Max) Max = data[i];<span class="comment">//最大值</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> mn = <span class="built_in">ceil</span>((sum+y)/(x*<span class="number">1.0</span>));<span class="comment">//加上y的平均数</span></span><br><span class="line">    <span class="keyword">if</span>(mn&lt;Max)<span class="comment">//当前最大值大于平均数</span></span><br><span class="line">        mn = Max;<span class="comment">//取当前最大值</span></span><br><span class="line">    <span class="keyword">int</span> mx = Max+y;<span class="comment">///最大的最大值</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d %d"</span>,mn,mx); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h3><p>这道题不难,主要是就把最小的最大值情况想全了就行</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Program/" rel="tag"># Program</a>
+          
+            <a href="/tags/homework/" rel="tag"># homework</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/29/Program-week10-homework/" rel="next" title="Program-week10-homework">
+                <i class="fa fa-chevron-left"></i> Program-week10-homework
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/05/14/Program-week11-homework/" rel="prev" title="Program-week10-homework">
+                Program-week10-homework <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://i.loli.net/2020/02/28/cAKbXSfZYIC9mF8.jpg"
+                alt="Xyfuture" />
+            
+              <p class="site-author-name" itemprop="name">Xyfuture</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#week9-homework"><span class="nav-number">1.</span> <span class="nav-text">week9-homework</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#A-咕咕东的目录管理器"><span class="nav-number">1.1.</span> <span class="nav-text">A - 咕咕东的目录管理器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意"><span class="nav-number">1.1.1.</span> <span class="nav-text">题意</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题面"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">题面</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法"><span class="nav-number">1.1.2.</span> <span class="nav-text">解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#code"><span class="nav-number">1.1.3.</span> <span class="nav-text">code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.1.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B-东东学打牌"><span class="nav-number">1.2.</span> <span class="nav-text">B - 东东学打牌</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#code-1"><span class="nav-number">1.2.3.</span> <span class="nav-text">code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结-1"><span class="nav-number">1.2.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-签到题，独立思考哈"><span class="nav-number">1.3.</span> <span class="nav-text">C - 签到题，独立思考哈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题面-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">题面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法-2"><span class="nav-number">1.3.2.</span> <span class="nav-text">解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#code-2"><span class="nav-number">1.3.3.</span> <span class="nav-text">code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结-2"><span class="nav-number">1.3.4.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xyfuture</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
