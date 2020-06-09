@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Program,homework," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="week16-CSPA - TT数鸭子题面 数位计数,统计一个数中每一位上不同数字的个数 解法直接把每一位分离,然后用个桶排就行了 code123456789101112131415161718192021222324252627282930313233343536373839#include &lt;iostream&gt;#include &lt;cstdio&gt;#include &lt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Program-week16-homework">
+<meta property="og:url" content="http://yoursite.com/2020/06/04/Program-week16-homework/index.html">
+<meta property="og:site_name" content="Xyfuture&#39;s home">
+<meta property="og:description" content="week16-CSPA - TT数鸭子题面 数位计数,统计一个数中每一位上不同数字的个数 解法直接把每一位分离,然后用个桶排就行了 code123456789101112131415161718192021222324252627282930313233343536373839#include &lt;iostream&gt;#include &lt;cstdio&gt;#include &lt;">
+<meta property="og:image" content="c:/Users/XYfuture/AppData/Roaming/Typora/typora-user-images/image-20200604232652734.png">
+<meta property="og:image" content="https://i.loli.net/2020/06/04/QYmHrq5kciC3yu8.png">
+<meta property="og:image" content="https://i.loli.net/2020/06/04/QeKlCTHaupUhzid.png">
+<meta property="article:published_time" content="2020-06-04T15:25:32.000Z">
+<meta property="article:modified_time" content="2020-06-09T13:42:10.106Z">
+<meta property="article:author" content="Xyfuture">
+<meta property="article:tag" content="Program">
+<meta property="article:tag" content="homework">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/XYfuture/AppData/Roaming/Typora/typora-user-images/image-20200604232652734.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/06/04/Program-week16-homework/"/>
+
+
+
+
+
+  <title>Program-week16-homework | Xyfuture's home</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Xyfuture's home</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/04/Program-week16-homework/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyfuture">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2020/02/28/cAKbXSfZYIC9mF8.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xyfuture's home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Program-week16-homework</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-04T23:25:32+08:00">
+                2020-06-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E6%80%9D%E7%BB%B4/" itemprop="url" rel="index">
+                    <span itemprop="name">程序设计思维</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="week16-CSP"><a href="#week16-CSP" class="headerlink" title="week16-CSP"></a>week16-CSP</h1><h2 id="A-TT数鸭子"><a href="#A-TT数鸭子" class="headerlink" title="A - TT数鸭子"></a>A - TT数鸭子</h2><h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p><img src="C:\Users\XYfuture\AppData\Roaming\Typora\typora-user-images\image-20200604232652734.png" alt="image-20200604232652734"></p>
+<p>数位计数,统计一个数中每一位上不同数字的个数</p>
+<h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><p>直接把每一位分离,然后用个桶排就行了</p>
+<h3 id="code"><a href="#code" class="headerlink" title="code"></a>code</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">int</span> num[<span class="number">10</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getDif</span><span class="params">(ll temp)</span><span class="comment">//统计</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(num,<span class="number">0</span>,<span class="keyword">sizeof</span>(num));</span><br><span class="line">    <span class="keyword">while</span>(temp)<span class="comment">//分离</span></span><br><span class="line">    &#123;</span><br><span class="line">        num[temp%<span class="number">10</span>] ++;</span><br><span class="line">        temp/=<span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> cnt=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)</span><br><span class="line">        <span class="keyword">if</span>(num[i]) cnt++;<span class="comment">//只要有就计数</span></span><br><span class="line">    <span class="keyword">return</span> cnt;</span><br><span class="line">&#125;   </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> n,k;</span><br><span class="line">    ll cur;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;k);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%lld"</span>,&amp;cur);</span><br><span class="line">        <span class="keyword">if</span>(getDif(cur)&lt;k)<span class="comment">//总个数</span></span><br><span class="line">            cnt++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>,cnt);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>题目难度不大,不过题目的描述有点坑,k本身最大就是10</p>
+<h2 id="B-ZJM要抵御宇宙射线"><a href="#B-ZJM要抵御宇宙射线" class="headerlink" title="B - ZJM要抵御宇宙射线"></a>B - ZJM要抵御宇宙射线</h2><h3 id="题面-1"><a href="#题面-1" class="headerlink" title="题面"></a>题面</h3><p><img src="https://i.loli.net/2020/06/04/QYmHrq5kciC3yu8.png" alt="image-20200604233248190"></p>
+<p>在一堆点中画一个圆,求出圆的最小半径的平方,圆心限制在给定的点上</p>
+<h3 id="解法-1"><a href="#解法-1" class="headerlink" title="解法"></a>解法</h3><p>复杂度为O(n^2^)</p>
+<p>每一个点都求与其他点的距离,然后找出最远的距离,然后从这些距离中找出最小的距离.</p>
+<p>注意要注意一点,求得都是平方</p>
+<h3 id="code-1"><a href="#code-1" class="headerlink" title="code"></a>code</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;pair&lt;<span class="keyword">double</span>,<span class="keyword">double</span>&gt; &gt; posi;<span class="comment">//每一个点</span></span><br><span class="line"><span class="keyword">double</span> dis[<span class="number">1005</span>];<span class="comment">//每一个点的最大距离</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="keyword">double</span> cur_x,cur_y;</span><br><span class="line">    <span class="keyword">double</span> temp_min=<span class="number">4e18</span>;<span class="comment">//这个一定要开大!!!!! 平方!!!!!</span></span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%lf%lf"</span>,&amp;cur_x,&amp;cur_y);</span><br><span class="line">        posi.push_back(make_pair(cur_x,cur_y));</span><br><span class="line">    &#125;</span><br><span class="line">    sort(posi.begin(),posi.end());<span class="comment">//排序,因为输出要求从小到大</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;posi.size();i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">double</span> cur_max = <span class="number">0</span>;<span class="comment">//当前节点的最远距离</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;posi.size();j++)</span><br><span class="line">            <span class="keyword">if</span>(i!=j)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">double</span> x_dis = posi[i].first-posi[j].first;</span><br><span class="line">                <span class="keyword">double</span> y_dis = posi[i].second - posi[j].second;</span><br><span class="line">                <span class="keyword">double</span> temp_dis = <span class="built_in">pow</span>(x_dis,<span class="number">2</span>)+<span class="built_in">pow</span>(y_dis,<span class="number">2</span>);<span class="comment">//勾股,直接半径平方</span></span><br><span class="line">                <span class="keyword">if</span>(temp_dis&gt;cur_max)<span class="comment">//求最大</span></span><br><span class="line">                    cur_max = temp_dis;</span><br><span class="line">            &#125;</span><br><span class="line">        dis[i] = cur_max;<span class="comment">//记录</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> ptr=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">        <span class="keyword">if</span>(dis[i]&lt;temp_min)<span class="comment">//找最小的</span></span><br><span class="line">        &#123;</span><br><span class="line">            ptr = i;</span><br><span class="line">            temp_min = dis[i];</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%.2f %.2f\n"</span>,posi[ptr].first,posi[ptr].second);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%.2f"</span>,temp_min);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>这道题本身非常简单,但是这次还是没有拿全分,主要原因是temp_min开小了.后几个点的数据范围算出的平方已经到了e10,但是一开始只开了e7,导致错误,double能开非常大,毕竟IEEE754</p>
+<h2 id="C-宇宙狗的危机"><a href="#C-宇宙狗的危机" class="headerlink" title="C - 宇宙狗的危机"></a>C - 宇宙狗的危机</h2><h3 id="题面-2"><a href="#题面-2" class="headerlink" title="题面"></a>题面</h3><p><img src="https://i.loli.net/2020/06/04/QeKlCTHaupUhzid.png" alt="image-20200604234553328"></p>
+<p>找一个二叉搜索树,满足gcd条件</p>
+<h3 id="解法-2"><a href="#解法-2" class="headerlink" title="解法"></a>解法</h3><blockquote>
+<p>讲道理,完全想不到</p>
+</blockquote>
+<p>首先给出的序列是有序的,而二叉搜索树中序遍历的结果也是有序的,因此我们要做的就是在给定序列上反向中序遍历,方法是使用区间dp</p>
+<p>最朴素的想法是dp[i][j][t],表示从i-j以t为根能建立满足条件的BST,但是这样做复杂度太高(大约O(n^4^)),因此需要压缩,这里给出的压缩方法是左右子树的方法.</p>
+<p>dp[i][j][0]表示从i-j可以作为左子树,而这个左子树的根必然是j+1,同理dp[i][j][1]是右子树,根是i-1,这样复杂度能降到O(n^3^)，每次只需要判断这个区间能不能成为左子树或者右子树就可以了。</p>
+<p>除此之外gcd的结果使用一个数组进行记录，这样能优化掉log n的复杂度。</p>
+<p>这次为了方便使用自上而下的方法（记忆化DFS），常数可能大一些，但是基本复杂度应该是可以的，这样就能过了。</p>
+<h3 id="code-2"><a href="#code-2" class="headerlink" title="code"></a>code</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> m,n;</span><br><span class="line"><span class="keyword">int</span> data[<span class="number">705</span>];<span class="comment">//原始数据</span></span><br><span class="line"><span class="keyword">int</span> ans[<span class="number">705</span>][<span class="number">705</span>][<span class="number">2</span>];<span class="comment">//左右子树</span></span><br><span class="line"><span class="keyword">int</span> g[<span class="number">705</span>][<span class="number">705</span>];<span class="comment">//gcd结果</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;<span class="keyword">return</span> b == <span class="number">0</span> ? a : gcd(b,a%b);&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dfs_check</span><span class="params">(<span class="keyword">int</span> l,<span class="keyword">int</span> r, <span class="keyword">int</span> dir)</span><span class="comment">//0 左子树 1 右子树</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(ans[l][r][dir]!=<span class="number">0</span>)   <span class="keyword">return</span> ans[l][r][dir];<span class="comment">//有结果直接返回</span></span><br><span class="line">    <span class="keyword">int</span> root;</span><br><span class="line">    <span class="keyword">if</span>(dir == <span class="number">0</span>)<span class="comment">//左子树还是右子树</span></span><br><span class="line">        root = r+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">        root = l<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=l;i&lt;=r;i++)<span class="comment">//遍历区间，判断其是否是左(右)子树，两个条件，gcd&gt;1,区间本身是树</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(g[i][root]&gt;<span class="number">1</span>)<span class="comment">//能连接</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(i == l)<span class="comment">//边界单独处理</span></span><br><span class="line">            &#123;   </span><br><span class="line">                <span class="keyword">if</span>(ans[i+<span class="number">1</span>][r][<span class="number">1</span>]==<span class="number">0</span>)<span class="comment">//已存在就继续了</span></span><br><span class="line">                    ans[i+<span class="number">1</span>][r][<span class="number">1</span>]=dfs_check(i+<span class="number">1</span>,r,<span class="number">1</span>);</span><br><span class="line">                <span class="keyword">if</span>(ans[i+<span class="number">1</span>][r][<span class="number">1</span>]==<span class="number">1</span>)<span class="comment">//能成为子树</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(i == r)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(ans[l][i<span class="number">-1</span>][<span class="number">0</span>]==<span class="number">0</span>)</span><br><span class="line">                    ans[l][i<span class="number">-1</span>][<span class="number">0</span>]=dfs_check(l,i<span class="number">-1</span>,<span class="number">0</span>);</span><br><span class="line">                <span class="keyword">if</span>(ans[l][i<span class="number">-1</span>][<span class="number">0</span>]==<span class="number">1</span>)</span><br><span class="line">                    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(ans[l][i<span class="number">-1</span>][<span class="number">0</span>]==<span class="number">0</span>)<span class="comment">//该区间本身能成为一棵树</span></span><br><span class="line">                    ans[l][i<span class="number">-1</span>][<span class="number">0</span>] = dfs_check(l,i<span class="number">-1</span>,<span class="number">0</span>);</span><br><span class="line">                <span class="keyword">if</span>(ans[i+<span class="number">1</span>][r][<span class="number">1</span>]==<span class="number">0</span>)</span><br><span class="line">                    ans[i+<span class="number">1</span>][r][<span class="number">1</span>] = dfs_check(i+<span class="number">1</span>,r,<span class="number">1</span>);</span><br><span class="line">                <span class="keyword">if</span>(ans[l][i<span class="number">-1</span>][<span class="number">0</span>]==<span class="number">1</span>&amp;&amp;ans[i+<span class="number">1</span>][r][<span class="number">1</span>]==<span class="number">1</span>)<span class="comment">//能成为树返回1</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;<span class="comment">//不能成为左右子树</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">call_dfs</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> flag = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)<span class="comment">//从最顶层开始，遍历一遍，只要返回1就满足题目条件</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(i==<span class="number">1</span>)<span class="comment">//边界</span></span><br><span class="line">            flag = (ans[i+<span class="number">1</span>][n][<span class="number">1</span>]=dfs_check(i+<span class="number">1</span>,n,<span class="number">1</span>));<span class="comment">//一边判断一边记忆化</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(i==n)</span><br><span class="line">            flag = (ans[<span class="number">1</span>][i<span class="number">-1</span>][<span class="number">0</span>]=dfs_check(<span class="number">1</span>,i<span class="number">-1</span>,<span class="number">0</span>));</span><br><span class="line">        <span class="keyword">else</span><span class="comment">//中间</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(((ans[<span class="number">1</span>][i<span class="number">-1</span>][<span class="number">0</span>]=dfs_check(<span class="number">1</span>,i<span class="number">-1</span>,<span class="number">0</span>))+(ans[i+<span class="number">1</span>][n][<span class="number">1</span>]=dfs_check(i+<span class="number">1</span>,n,<span class="number">1</span>)))==<span class="number">2</span>)</span><br><span class="line">                flag = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(flag == <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;m);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;m;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=n;j++)</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,data+j);</span><br><span class="line">        <span class="built_in">memset</span>(ans,<span class="number">0</span>,<span class="keyword">sizeof</span>(ans));</span><br><span class="line">        <span class="built_in">memset</span>(g,<span class="number">0</span>,<span class="keyword">sizeof</span>(g));</span><br><span class="line">        data[<span class="number">0</span>]=data[<span class="number">1</span>],data[n+<span class="number">1</span>]=data[n];</span><br><span class="line">        ans[<span class="number">0</span>][<span class="number">0</span>][<span class="number">0</span>] =<span class="number">1</span>;<span class="comment">//初始化边界，似乎可以不用</span></span><br><span class="line">        ans[n+<span class="number">1</span>][n+<span class="number">1</span>][<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;=n+<span class="number">1</span>;j++)<span class="comment">//gcd情况</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> t=<span class="number">0</span>;t&lt;=n+<span class="number">1</span>;t++)</span><br><span class="line">                g[j][t] = gcd(data[j],data[t]);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=n;j++)<span class="comment">//初始化，区间只有一个的情况</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(g[j][j+<span class="number">1</span>]&gt;<span class="number">1</span>) ans[j][j][<span class="number">0</span>] =<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> ans[j][j][<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line">            <span class="keyword">if</span>(g[j][j<span class="number">-1</span>]&gt;<span class="number">1</span>) ans[j][j][<span class="number">1</span>] =<span class="number">1</span> ;</span><br><span class="line">            <span class="keyword">else</span> ans[j][j][<span class="number">1</span>] = <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(call_dfs())</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Yes\n"</span>);</span><br><span class="line">        <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"No\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h3><p>这道题在考场上没有想到使用dp的方法，我一直在想是不是先建一个图，然后在图上搜索一个二叉搜索树，然而这样根本行不通，甚至前几个暴力的分也弄到。比较核心的是二叉搜索树的中序遍历是有序的，给出的数据是有序的，因此应该从中序遍历的反过程去想。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Program/" rel="tag"># Program</a>
+          
+            <a href="/tags/homework/" rel="tag"># homework</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/26/Program-week14-homework/" rel="next" title="Program-week14-homework">
+                <i class="fa fa-chevron-left"></i> Program-week14-homework
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/09/Program-week15-homework/" rel="prev" title="Program-week15-homework">
+                Program-week15-homework <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://i.loli.net/2020/02/28/cAKbXSfZYIC9mF8.jpg"
+                alt="Xyfuture" />
+            
+              <p class="site-author-name" itemprop="name">Xyfuture</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#week16-CSP"><span class="nav-number">1.</span> <span class="nav-text">week16-CSP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#A-TT数鸭子"><span class="nav-number">1.1.</span> <span class="nav-text">A - TT数鸭子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题面"><span class="nav-number">1.1.1.</span> <span class="nav-text">题面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法"><span class="nav-number">1.1.2.</span> <span class="nav-text">解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#code"><span class="nav-number">1.1.3.</span> <span class="nav-text">code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.1.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B-ZJM要抵御宇宙射线"><span class="nav-number">1.2.</span> <span class="nav-text">B - ZJM要抵御宇宙射线</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题面-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">题面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#code-1"><span class="nav-number">1.2.3.</span> <span class="nav-text">code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结-1"><span class="nav-number">1.2.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-宇宙狗的危机"><span class="nav-number">1.3.</span> <span class="nav-text">C - 宇宙狗的危机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题面-2"><span class="nav-number">1.3.1.</span> <span class="nav-text">题面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法-2"><span class="nav-number">1.3.2.</span> <span class="nav-text">解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#code-2"><span class="nav-number">1.3.3.</span> <span class="nav-text">code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结-2"><span class="nav-number">1.3.4.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xyfuture</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

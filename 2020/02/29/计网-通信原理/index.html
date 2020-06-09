@@ -99,7 +99,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/02/29/MIjWg4wkYXhFJU9.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/05/dh3fLbWQYG62XKg.png">
 <meta property="article:published_time" content="2020-02-29T12:18:29.000Z">
-<meta property="article:modified_time" content="2020-03-06T13:26:05.564Z">
+<meta property="article:modified_time" content="2020-05-31T04:04:02.327Z">
 <meta property="article:author" content="Xyfuture">
 <meta property="article:tag" content="计网">
 <meta property="article:tag" content="原理">
@@ -378,7 +378,7 @@
 <p>一个数字脉冲就是一个码元，我们用码元速率表示单位时间内信号波形的变换次数，即单位时间内通过信道传输的码元个数。若信号码元宽度为 T 秒，则码元速率 B 为：</p>
 <p><img src="https://i.loli.net/2020/02/29/NkbdEcUmyojteRJ.png" alt=""></p>
 <p>说简单一点就是码元的速度,每秒能传送多少个码元,一个码元就是最基本的单位</p>
-<h2 id="比特率"><a href="#比特率" class="headerlink" title="比特率"></a>比特率</h2><p>比特率是实际的数据传输速率,即每秒传输多少个bit的数据,计算也非常简单,首先我们要知道一个码元对着几个bit, $log_2(k)$ 其中k为一个码元中状态的数量,比如一个码元可能有4中状态则其bit位为2.比特率是波特率乘上码元代表的比特位.</p>
+<h2 id="比特率"><a href="#比特率" class="headerlink" title="比特率"></a>比特率</h2><p>比特率是实际的数据传输速率,即每秒传输多少个bit的数据,计算也非常简单,首先我们要知道一个码元对着几个bit, $log_2(k)$ 其中k为一个码元中状态的数量,比如一个码元可能有4种状态则其bit位为2.比特率是波特率乘上码元代表的比特位.</p>
 <p><img src="https://i.loli.net/2020/02/29/B2pUkP9zx8REVd4.jpg" alt=""></p>
 <p>比特率的单位是bit/s</p>
 <h1 id="带宽-傅立叶变化-频域"><a href="#带宽-傅立叶变化-频域" class="headerlink" title="带宽 傅立叶变化 频域"></a>带宽 傅立叶变化 频域</h1><h2 id="傅立叶变换"><a href="#傅立叶变换" class="headerlink" title="傅立叶变换"></a>傅立叶变换</h2><p>这里就不多写了,简单的想成每个周期函数(波形)都能用多个正弦波和余弦波相加表达出来</p>
@@ -415,11 +415,11 @@
 <p><img src="https://i.loli.net/2020/02/29/fMNngV7yATi1zcH.png" style="zoom:50%;" /></p>
 <p>(这个图对应有点问题,上移一行)<br>NRZ就不多说了,直接对应,Manchester是上升沿为0,下降沿为1</p>
 <p><strong>差分曼彻斯特编码</strong>:<br>差分曼彻斯特编码在 每个时钟周期的中间都有一次电平跳变，这个跳变做同步之用。 在每个时钟周期的起始处：跳变则说明该比特是0，不跳变则说明该比特是1</p>
-<p><img src="https://i.loli.net/2020/03/05/kq4WFnmApEOhogl.jpg" alt=""></p>
+<p><img src="https://i.loli.net/2020/03/05/kq4WFnmApEOhogl.jpg" style="zoom:200%;" /></p>
 <h4 id="一个问题"><a href="#一个问题" class="headerlink" title="一个问题"></a>一个问题</h4><p><img src="C:\Users\XYfuture\AppData\Roaming\Typora\typora-user-images\image-20200229220034807.png" alt="image-20200229220034807"></p>
 <p>课本上这里的定义说他是从0开始的,这是因为这样的方波经过傅立叶变换后频率是从零开始的一直增大到一定的数值</p>
 <p>基带也是符合奈奎斯特定理的,其带宽也可以算出来.</p>
-<h3 id="通带"><a href="#通带" class="headerlink" title="通带"></a>通带</h3><p> 基带有许多问题,因此我们提出了通带的方案</p>
+<h3 id="通带"><a href="#通带" class="headerlink" title="通带"></a>通带</h3><p>基带有许多问题,因此我们提出了通带的方案</p>
 <p>通带最简单的理解就是首先我们有一个载波频率,这个波就是单纯的正弦波,不能传递信息,但是我们通过一些系列骚操作(针对 振幅,频率,相位),将信号调制到载波上使其能够传输信息.</p>
 <p>常见的调制方法(编码方法)</p>
 <ul>
@@ -577,7 +577,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

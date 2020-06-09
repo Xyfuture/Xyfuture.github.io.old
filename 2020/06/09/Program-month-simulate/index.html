@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Program,homework," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="模拟炉石传说201609-3题面 完整题面非常长，前面都是介绍背景，没啥用，重点关注后面，基本规则  1个英雄 7个随从 一个回合三种操作 添加随从，随从死亡都是顺移的 攻击的规则是双方都掉血  然后看看最后的约定就可以了 解法这道题完全就是模拟，因此直接按照题意要求做就可以 随从的存放使用vector，比较方便插入和删除随从 随从根据血量和攻击力确定，使用pair存储，每次攻击时判断攻击后的血量">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Program-month-simulate">
+<meta property="og:url" content="http://yoursite.com/2020/06/09/Program-month-simulate/index.html">
+<meta property="og:site_name" content="Xyfuture&#39;s home">
+<meta property="og:description" content="模拟炉石传说201609-3题面 完整题面非常长，前面都是介绍背景，没啥用，重点关注后面，基本规则  1个英雄 7个随从 一个回合三种操作 添加随从，随从死亡都是顺移的 攻击的规则是双方都掉血  然后看看最后的约定就可以了 解法这道题完全就是模拟，因此直接按照题意要求做就可以 随从的存放使用vector，比较方便插入和删除随从 随从根据血量和攻击力确定，使用pair存储，每次攻击时判断攻击后的血量">
+<meta property="og:image" content="https://i.loli.net/2020/06/09/ABPYhflZb9U2r3W.png">
+<meta property="og:image" content="http://118.190.20.162/RequireFile.do?fid=FH8TRMFr">
+<meta property="og:image" content="http://118.190.20.162/RequireFile.do?fid=6tGGttRh">
+<meta property="og:image" content="http://118.190.20.162/RequireFile.do?fid=3bTyJMHd">
+<meta property="og:image" content="https://i.loli.net/2020/06/09/JdnMPj2cATwDyk6.png">
+<meta property="article:published_time" content="2020-06-09T10:42:50.000Z">
+<meta property="article:modified_time" content="2020-06-09T12:05:34.829Z">
+<meta property="article:author" content="Xyfuture">
+<meta property="article:tag" content="Program">
+<meta property="article:tag" content="homework">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/06/09/ABPYhflZb9U2r3W.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/06/09/Program-month-simulate/"/>
+
+
+
+
+
+  <title>Program-month-simulate | Xyfuture's home</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Xyfuture's home</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/09/Program-month-simulate/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyfuture">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2020/02/28/cAKbXSfZYIC9mF8.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xyfuture's home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Program-month-simulate</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-09T18:42:50+08:00">
+                2020-06-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E6%80%9D%E7%BB%B4/" itemprop="url" rel="index">
+                    <span itemprop="name">程序设计思维</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="模拟"><a href="#模拟" class="headerlink" title="模拟"></a>模拟</h1><h2 id="炉石传说201609-3"><a href="#炉石传说201609-3" class="headerlink" title="炉石传说201609-3"></a>炉石传说201609-3</h2><h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p><img src="https://i.loli.net/2020/06/09/ABPYhflZb9U2r3W.png" alt="image-20200609184738151"></p>
+<p>完整题面非常长，前面都是介绍背景，没啥用，重点关注后面，基本规则</p>
+<ul>
+<li>1个英雄 7个随从</li>
+<li>一个回合三种操作</li>
+<li>添加随从，随从死亡都是顺移的</li>
+<li>攻击的规则是双方都掉血</li>
+</ul>
+<p>然后看看最后的约定就可以了</p>
+<h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><p>这道题完全就是模拟，因此直接按照题意要求做就可以</p>
+<p>随从的存放使用vector，比较方便插入和删除随从</p>
+<p>随从根据血量和攻击力确定，使用pair存储，每次攻击时判断攻击后的血量，然后按要求删除</p>
+<p>英雄和随从放在一起，但是在数组的0号下标</p>
+<p>最后输赢判断就是看看谁的英雄hp是负的，负的（0）为输，都正为平</p>
+<h3 id="code"><a href="#code" class="headerlink" title="code"></a>code</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="built_in">vector</span>&lt;pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; &gt; player[<span class="number">2</span>];<span class="comment">//0是先手，1是后手</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">summon</span><span class="params">(<span class="keyword">int</span> t)</span><span class="comment">//加入随从</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> posi,hp,atk;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;posi&gt;&gt;atk&gt;&gt;hp;</span><br><span class="line">    player[t].insert(player[t].begin()+posi,make_pair(hp,atk));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">attack</span><span class="params">(<span class="keyword">int</span> t)</span><span class="comment">//攻击</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> attacker,defender;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;attacker&gt;&gt;defender;</span><br><span class="line">    player[t][attacker].first -= player[t^<span class="number">1</span>][defender].second;</span><br><span class="line">    player[t^<span class="number">1</span>][defender].first -= player[t][attacker].second;</span><br><span class="line">    <span class="keyword">if</span>(defender!=<span class="number">0</span>&amp;&amp;player[t^<span class="number">1</span>][defender].first&lt;=<span class="number">0</span>)<span class="comment">//删除，不删英雄</span></span><br><span class="line">        player[t^<span class="number">1</span>].erase(player[t^<span class="number">1</span>].begin()+defender);</span><br><span class="line">    <span class="keyword">if</span>(player[t][attacker].first&lt;=<span class="number">0</span>)</span><br><span class="line">        player[t].erase(player[t].begin()+attacker);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">process</span><span class="params">(<span class="keyword">int</span> t,<span class="built_in">string</span> temp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(temp == <span class="string">"summon"</span>)</span><br><span class="line">        summon(t);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (temp == <span class="string">"attack"</span> )</span><br><span class="line">        attack(t);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=<span class="number">7</span>;i++)</span><br><span class="line">        <span class="keyword">if</span>(i==<span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            player[<span class="number">0</span>].push_back(make_pair(<span class="number">30</span>,<span class="number">0</span>));</span><br><span class="line">            player[<span class="number">1</span>].push_back(make_pair(<span class="number">30</span>,<span class="number">0</span>));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            player[<span class="number">0</span>].push_back(make_pair(<span class="number">0</span>,<span class="number">-1</span>));<span class="comment">//攻击力为-1区分</span></span><br><span class="line">            player[<span class="number">1</span>].push_back(make_pair(<span class="number">0</span>,<span class="number">-1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">int</span> temp_cnt =<span class="number">0</span> ;</span><br><span class="line">    <span class="keyword">int</span> choose = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">string</span> temp_str;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;temp_str;</span><br><span class="line">        <span class="keyword">if</span>(temp_str == <span class="string">"end"</span>)</span><br><span class="line">            choose++;</span><br><span class="line">        <span class="keyword">else</span> </span><br><span class="line">            process(choose%<span class="number">2</span>,temp_str);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(player[<span class="number">0</span>][<span class="number">0</span>].first&lt;=<span class="number">0</span>)<span class="comment">//输出胜负</span></span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"-1\n"</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(player[<span class="number">1</span>][<span class="number">0</span>].first&lt;=<span class="number">0</span>)</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"1\n"</span>;</span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"0\n"</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> cnt[<span class="number">2</span>]=&#123;<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">2</span>;i++)<span class="comment">//输出hp</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;player[i][<span class="number">0</span>].first&lt;&lt;<span class="string">"\n"</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;player[i].size();j++)<span class="comment">//计算多少个存活的</span></span><br><span class="line">            <span class="keyword">if</span>(player[i][j].first&gt;<span class="number">0</span>&amp;&amp;player[i][j].second&gt;=<span class="number">0</span>)<span class="comment">//攻击力大于等于0</span></span><br><span class="line">                cnt[i]++;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;cnt[i]&lt;&lt;<span class="string">" "</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;player[i].size();j++)</span><br><span class="line">            <span class="keyword">if</span>(player[i][j].first&gt;<span class="number">0</span>&amp;&amp;player[i][j].second&gt;=<span class="number">0</span>)<span class="comment">//输出随从</span></span><br><span class="line">                <span class="built_in">cout</span>&lt;&lt;player[i][j].first&lt;&lt;<span class="string">" "</span>;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"\n"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这道题难度不是很大，但是题面太长，容易抓不到关键信息，最后的约定非常重要，这里提供了很多信息。这道题一共交了2次第一次70，第一次因为初始化的问题出错，我把英雄的攻击力设为了-1，这导致英雄反击时随从的hp会出错，改了之后就过了</p>
+<h2 id="元素选择器"><a href="#元素选择器" class="headerlink" title="元素选择器"></a>元素选择器</h2><h2 id="题面-1"><a href="#题面-1" class="headerlink" title="题面"></a>题面</h2><p>官方题面有点长，建议跳过</p>
+<p><img src="http://118.190.20.162/RequireFile.do?fid=FH8TRMFr" alt="img"></p>
+<p><img src="http://118.190.20.162/RequireFile.do?fid=6tGGttRh" alt="img"></p>
+<p><img src="http://118.190.20.162/RequireFile.do?fid=3bTyJMHd" alt="img"></p>
+<p>题面还是CSP经典风格，非常长加上一堆没用的背景介绍</p>
+<p>简单的来说，现在给出一个BOM树，然后在这个树上按照给定的规则查询label和id，BOM树需要自己根据输入创建</p>
+<h3 id="解法-1"><a href="#解法-1" class="headerlink" title="解法"></a>解法</h3><p>首先明确题目中几个问题</p>
+<ul>
+<li>多级匹配时除了最后一个，前面几个不要求严格的数据（匹配的序列只要是该节点所有父亲的一个子序列即可，不要求每一个都匹配）</li>
+<li>题目中说多级匹配中只有一个格式（要么label，要么id）是错误的，评测中会出现label id同时存在的情况，因此写的时候要注意</li>
+</ul>
+<p><strong>解决方案：</strong></p>
+<p>首先用一个数组存储顺序给出的每一行，存储其label和id。同时利用数组的下标使用vector按照给出的规则创建BOM树。创建树时使用栈存储每个节点的父节点（类似反向DFS），同时在新节点中记录其父节点</p>
+<p>检索时首先遍历数组匹配最后一个关键词（根据其是id还是label进行不同的判断），匹配到后，找到其父节点向前匹配，匹配规则是只要祖先中有待检索的关键词就行，祖先中可能有几个匹配不到的。</p>
+<p>单级和多级同理，只不过只匹配最后一个就行。</p>
+<h3 id="code-1"><a href="#code-1" class="headerlink" title="code"></a>code</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="built_in">string</span> label;<span class="comment">//div p 这类东西</span></span><br><span class="line">    <span class="built_in">string</span> id;<span class="comment">//id #xxxx</span></span><br><span class="line">    <span class="keyword">int</span> father;<span class="comment">//父节点位置</span></span><br><span class="line">    node(<span class="built_in">string</span> l,<span class="built_in">string</span> i,<span class="keyword">int</span> f):label(l),id(i),father(f)</span><br><span class="line">    &#123;&#125;</span><br><span class="line">    node()&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">node data[<span class="number">105</span>];<span class="comment">//存储所有元素</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; tree[<span class="number">105</span>];<span class="comment">//树结构</span></span><br><span class="line"><span class="built_in">stack</span>&lt;pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; &gt; root;<span class="comment">//创建树使用</span></span><br><span class="line"><span class="keyword">int</span> tot,cur;<span class="comment">//创建树的下标</span></span><br><span class="line"><span class="keyword">int</span> m,n;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ans;<span class="comment">//答案</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">string</span> temp_label,temp_id;<span class="comment">//新节点的label和id</span></span><br><span class="line"><span class="built_in">string</span> ops[<span class="number">105</span>];<span class="comment">//检索时所有的值</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getInfo</span><span class="params">()</span><span class="comment">//获取一行的输入，存储id时加上#</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> cur_label,cur_id;</span><br><span class="line">    <span class="keyword">char</span> tmp;</span><br><span class="line">    <span class="keyword">int</span> level =<span class="number">0</span> ;</span><br><span class="line">    <span class="keyword">while</span>((tmp=getchar())==<span class="string">'.'</span>)<span class="comment">//计算.的个数 树的层级</span></span><br><span class="line">        level++;</span><br><span class="line">    <span class="keyword">while</span>(!(tmp==<span class="string">'\n'</span>||tmp == <span class="string">'#'</span>))<span class="comment">//存label</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(tmp == <span class="string">' '</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            tmp = getchar();</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        cur_label+=tmp;</span><br><span class="line">        tmp = getchar();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(tmp!=<span class="string">'\n'</span>)<span class="comment">//存id</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(tmp==<span class="string">' '</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            tmp = getchar();</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        cur_id+=tmp;</span><br><span class="line">        tmp=getchar();</span><br><span class="line">    &#125;</span><br><span class="line">    temp_label=cur_label;</span><br><span class="line">    temp_id=cur_id;</span><br><span class="line">    <span class="keyword">return</span> level/<span class="number">2</span>;<span class="comment">//返回层级</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getOp</span><span class="params">()</span><span class="comment">//获取检索的对象 多级和一级的相同，都是存到ops中</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> cnt=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">char</span> tmp;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">105</span>;i++)</span><br><span class="line">        ops[i].clear();</span><br><span class="line">    <span class="keyword">while</span>((tmp=getchar())!=<span class="string">'\n'</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(tmp==<span class="string">' '</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            cnt++;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        ops[cnt]+=tmp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cnt+<span class="number">1</span>;<span class="comment">//级数</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmpStr</span><span class="params">(<span class="built_in">string</span>&amp; a,<span class="built_in">string</span>&amp; b)</span><span class="comment">//不区分大小写比较</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(a.length()!=b.length())</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">int</span> len = a.length();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;i++)</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">tolower</span>(a[i])!=<span class="built_in">tolower</span>(b[i]))</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> temp_num)</span><span class="comment">//检索</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ans.clear();<span class="comment">//存储答案</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)<span class="comment">//遍历整个树，从后向前找</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> flag =<span class="number">0</span>;<span class="comment">//最后一个是否相符</span></span><br><span class="line">        <span class="keyword">int</span> num = temp_num<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> cur = data[i].father;</span><br><span class="line">        <span class="keyword">if</span>(ops[temp_num<span class="number">-1</span>][<span class="number">0</span>] == <span class="string">'#'</span>)<span class="comment">//比较最后一个</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(data[i].id == ops[temp_num<span class="number">-1</span>])<span class="comment">//id</span></span><br><span class="line">                flag = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(cmpStr(data[i].label,ops[temp_num<span class="number">-1</span>]))<span class="comment">//label</span></span><br><span class="line">            flag =<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(flag)<span class="comment">//最后一个匹配，向前找，看看是否满足</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span> (num&gt;<span class="number">0</span>&amp;&amp;cur&gt;<span class="number">0</span>)<span class="comment">//ops全部相符 or 找到树的根</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(ops[num<span class="number">-1</span>][<span class="number">0</span>] == <span class="string">'#'</span>)<span class="comment">//id</span></span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span>(ops[num<span class="number">-1</span>] == data[cur].id)<span class="comment">//匹配就移动ops的下标</span></span><br><span class="line">                        num--;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span><span class="comment">//label</span></span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span>(cmpStr(data[cur].label,ops[num<span class="number">-1</span>]))</span><br><span class="line">                        num--;</span><br><span class="line">                &#125;</span><br><span class="line">                cur = data[cur].father;<span class="comment">//树向上一级查找</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(num ==<span class="number">0</span> )<span class="comment">//ops全部匹配</span></span><br><span class="line">                ans.push_back(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n&gt;&gt;m;</span><br><span class="line">    getchar();</span><br><span class="line">    tot = <span class="number">1</span>;</span><br><span class="line">    root.push(make_pair(<span class="number">-1</span>,<span class="number">0</span>));<span class="comment">//用一个栈表示当前节点的父节点</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> level = getInfo();</span><br><span class="line">        <span class="keyword">while</span>(root.top().first&gt;=level)<span class="comment">//找到当前节点的父节点</span></span><br><span class="line">            root.pop();</span><br><span class="line">        pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; last = root.top();</span><br><span class="line">        data[tot] = node(temp_label,temp_id,last.second);<span class="comment">//插入新节点，second是父节点的下标</span></span><br><span class="line">        tree[last.second].push_back(tot);<span class="comment">//树</span></span><br><span class="line">        root.push(make_pair(last.first+<span class="number">1</span>,tot++));<span class="comment">//维护root</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;m;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> num = getOp();</span><br><span class="line">        find(num);</span><br><span class="line">        <span class="keyword">int</span> len = ans.size();</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;len&lt;&lt;<span class="string">" "</span>;<span class="comment">//输出个数</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> t=<span class="number">0</span>;t&lt;len;t++)</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;ans[t]&lt;&lt;<span class="string">" "</span>;<span class="comment">//那一行</span></span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"\n"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>这道题交了好几次，主要原因是解法中的两个问题，一开始我理解的完全不对（但是这样我还有80分，感觉数据出水了），最后看有人说最后两个点是id和label都有，我稍微改了一下过了，但是题目中明明说</p>
+<p><img src="https://i.loli.net/2020/06/09/JdnMPj2cATwDyk6.png" alt="image-20200609200403407"></p>
+<p>感觉还是题目说的不清楚，总感觉有些问题</p>
+<p>不过时间控制还不错，写了1h左右就有80分了，考试的时候感觉这个速度就可以，模拟题还是比较浪费时间</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Program/" rel="tag"># Program</a>
+          
+            <a href="/tags/homework/" rel="tag"># homework</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/06/09/Program-week15-homework/" rel="next" title="Program-week15-homework">
+                <i class="fa fa-chevron-left"></i> Program-week15-homework
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://i.loli.net/2020/02/28/cAKbXSfZYIC9mF8.jpg"
+                alt="Xyfuture" />
+            
+              <p class="site-author-name" itemprop="name">Xyfuture</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#模拟"><span class="nav-number">1.</span> <span class="nav-text">模拟</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#炉石传说201609-3"><span class="nav-number">1.1.</span> <span class="nav-text">炉石传说201609-3</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题面"><span class="nav-number">1.1.1.</span> <span class="nav-text">题面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法"><span class="nav-number">1.1.2.</span> <span class="nav-text">解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#code"><span class="nav-number">1.1.3.</span> <span class="nav-text">code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.1.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#元素选择器"><span class="nav-number">1.2.</span> <span class="nav-text">元素选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题面-1"><span class="nav-number">1.3.</span> <span class="nav-text">题面</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#code-1"><span class="nav-number">1.3.2.</span> <span class="nav-text">code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结-1"><span class="nav-number">1.3.3.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xyfuture</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

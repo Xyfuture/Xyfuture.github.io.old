@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Program,homework," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="week14-模拟A - 猫睡觉问题题面 一天内有时间段必须醒着,其他时间可以睡觉也可以醒着,但是连续醒着时间有限制,连续睡觉有最短时间限制,同时这个时间可能是跨天的(一个循环),求取睡觉的策略 解法这道题的难点主要在于跨天的时间管理和题意理解(存在一种特殊情况) 对于跨天的时间管理,我们采取模的策略,每天开始的时间不是0点,而是第一个出现的时间点.这样无论跨不跨天都是按24小时算.(相当于画了个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Program-week14-homework">
+<meta property="og:url" content="http://yoursite.com/2020/05/26/Program-week14-homework/index.html">
+<meta property="og:site_name" content="Xyfuture&#39;s home">
+<meta property="og:description" content="week14-模拟A - 猫睡觉问题题面 一天内有时间段必须醒着,其他时间可以睡觉也可以醒着,但是连续醒着时间有限制,连续睡觉有最短时间限制,同时这个时间可能是跨天的(一个循环),求取睡觉的策略 解法这道题的难点主要在于跨天的时间管理和题意理解(存在一种特殊情况) 对于跨天的时间管理,我们采取模的策略,每天开始的时间不是0点,而是第一个出现的时间点.这样无论跨不跨天都是按24小时算.(相当于画了个">
+<meta property="og:image" content="https://i.loli.net/2020/05/31/XiVyC3oUI7PmM52.png">
+<meta property="og:image" content="https://i.loli.net/2020/06/01/wFbrVy1cNMYKosQ.png">
+<meta property="og:image" content="https://i.loli.net/2020/06/01/3ermkKLcuaC1EGd.png">
+<meta property="og:image" content="https://i.loli.net/2020/06/01/CEJ86NnLeksMbPI.png">
+<meta property="og:image" content="https://i.loli.net/2020/06/01/VEmSfMcvUQLR5e1.png">
+<meta property="og:image" content="https://i.loli.net/2020/06/02/U6n4RAqtYMWc5XP.png">
+<meta property="article:published_time" content="2020-05-26T15:46:32.000Z">
+<meta property="article:modified_time" content="2020-06-09T13:49:40.770Z">
+<meta property="article:author" content="Xyfuture">
+<meta property="article:tag" content="Program">
+<meta property="article:tag" content="homework">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/31/XiVyC3oUI7PmM52.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/05/26/Program-week14-homework/"/>
+
+
+
+
+
+  <title>Program-week14-homework | Xyfuture's home</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Xyfuture's home</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/26/Program-week14-homework/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyfuture">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2020/02/28/cAKbXSfZYIC9mF8.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xyfuture's home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Program-week14-homework</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-26T23:46:32+08:00">
+                2020-05-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E6%80%9D%E7%BB%B4/" itemprop="url" rel="index">
+                    <span itemprop="name">程序设计思维</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="week14-模拟"><a href="#week14-模拟" class="headerlink" title="week14-模拟"></a>week14-模拟</h1><h2 id="A-猫睡觉问题"><a href="#A-猫睡觉问题" class="headerlink" title="A - 猫睡觉问题"></a><a href="https://vjudge.net/problem/HDU-3700" target="_blank" rel="noopener">A - 猫睡觉问题</a></h2><h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p><img src="https://i.loli.net/2020/05/31/XiVyC3oUI7PmM52.png" alt="image-20200531222815356.png"></p>
+<p>一天内有时间段必须醒着,其他时间可以睡觉也可以醒着,但是连续醒着时间有限制,连续睡觉有最短时间限制,同时这个时间可能是跨天的(一个循环),求取睡觉的策略</p>
+<h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><p>这道题的难点主要在于跨天的时间管理和题意理解(存在一种特殊情况)</p>
+<p>对于跨天的时间管理,我们采取模的策略,每天开始的时间不是0点,而是第一个出现的时间点.这样无论跨不跨天都是按24小时算.(相当于画了个圈,只不过把起始点换了一下)</p>
+<p><strong>特殊情况:</strong></p>
+<p>这个一开始没想到</p>
+<p>就是一天全部都要醒着,导致根本没有睡觉时间,应该输出个No,但是第一次的代码输出了Yes,然后没输出时间.</p>
+<h3 id="code"><a href="#code" class="headerlink" title="code"></a>code</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="comment">//使用环</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">timeSeg</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> s;<span class="comment">//存分钟数</span></span><br><span class="line">    <span class="keyword">int</span> e;</span><br><span class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (timeSeg&amp; op) <span class="keyword">const</span> <span class="comment">//优先队列</span></span><br><span class="line">    &#123;<span class="keyword">return</span> s&lt;op.s;&#125;</span><br><span class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span> &gt;(<span class="keyword">const</span> timeSeg&amp; op) <span class="keyword">const</span></span><br><span class="line">    &#123;<span class="keyword">return</span> s&gt;op.s;&#125;</span><br><span class="line">    timeSeg()</span><br><span class="line">    &#123;s=<span class="number">0</span>;e=<span class="number">0</span>;&#125;</span><br><span class="line">    timeSeg(<span class="keyword">int</span> a,<span class="keyword">int</span> b):s(a),e(b)</span><br><span class="line">    &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">priority_queue&lt;timeSeg,<span class="built_in">vector</span>&lt;timeSeg&gt;,greater&lt;timeSeg&gt; &gt; timeTable;<span class="comment">//这个存必须醒着的时间,按顺序排</span></span><br><span class="line"><span class="built_in">vector</span>&lt;timeSeg&gt; sp;<span class="comment">//存输出结果,睡觉的时间</span></span><br><span class="line"><span class="keyword">int</span> A,B,N;<span class="comment">//初始需要的三个参数</span></span><br><span class="line"><span class="keyword">int</span> weekTime;<span class="comment">//连续醒的时间</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">process</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    timeSeg firstTime = timeTable.top();<span class="comment">//循环的情况</span></span><br><span class="line">    weekTime = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(!timeTable.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        timeSeg nextTime;<span class="comment">//两个醒时间段之间</span></span><br><span class="line">        timeSeg curTime = timeTable.top();</span><br><span class="line">        timeTable.pop();</span><br><span class="line">        <span class="keyword">if</span>(!timeTable.empty())</span><br><span class="line">            nextTime=timeTable.top();</span><br><span class="line">        <span class="keyword">else</span> </span><br><span class="line">        &#123;</span><br><span class="line">            nextTime.s =firstTime.s+<span class="number">24</span>*<span class="number">60</span>;<span class="comment">//两天的交接处</span></span><br><span class="line">            nextTime.e = firstTime.e+<span class="number">24</span>*<span class="number">60</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        weekTime+=curTime.e-curTime.s+<span class="number">1</span>;<span class="comment">//醒着的时间</span></span><br><span class="line">        <span class="keyword">if</span>(weekTime&gt;B*<span class="number">60</span>)<span class="comment">//超过了限制</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span>(nextTime.s-curTime.e<span class="number">-1</span>&gt;=A*<span class="number">60</span>)<span class="comment">//看看两个之间的空隙能不能睡觉</span></span><br><span class="line">        &#123;</span><br><span class="line">            weekTime = <span class="number">0</span>;</span><br><span class="line">            sp.push_back(timeSeg(curTime.e+<span class="number">1</span>,nextTime.s<span class="number">-1</span>));<span class="comment">//睡觉时间</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            weekTime+=nextTime.s-curTime.e<span class="number">-1</span>;<span class="comment">//不能睡,继续醒着</span></span><br><span class="line">        <span class="keyword">if</span>(weekTime&gt;B*<span class="number">60</span>)<span class="comment">//超过限制</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(sp.size()==<span class="number">0</span>)<span class="comment">//这个是针对一天都要醒着,(两天连续必然不行)</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">output</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Yes\n"</span>);<span class="comment">//输出结果</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,sp.size());</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">vector</span>&lt;timeSeg&gt;::iterator it=sp.begin();it!=sp.end();it++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> s=(*it).s%(<span class="number">24</span>*<span class="number">60</span>);</span><br><span class="line">        <span class="keyword">int</span> e=(*it).e%(<span class="number">24</span>*<span class="number">60</span>);</span><br><span class="line">        <span class="keyword">int</span> a=s/<span class="number">60</span>,b=s%<span class="number">60</span>,c=e/<span class="number">60</span>,d=e%<span class="number">60</span>;<span class="comment">//时间转换</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%02d:%02d-%02d:%02d\n"</span>,a,b,c,d);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>,&amp;A,&amp;B,&amp;N)!=EOF)</span><br><span class="line">    &#123;</span><br><span class="line">        weekTime=<span class="number">0</span>;</span><br><span class="line">        sp.clear();</span><br><span class="line">        <span class="keyword">while</span> (!timeTable.empty())</span><br><span class="line">            timeTable.pop();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;N;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> a,b,c,d;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d:%d-%d:%d"</span>,&amp;a,&amp;b,&amp;c,&amp;d);</span><br><span class="line">            <span class="keyword">if</span>(a&gt;c)</span><br><span class="line">                c+=<span class="number">24</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(a==c&amp;&amp;b&gt;d)</span><br><span class="line">                c+=<span class="number">24</span>;</span><br><span class="line">            timeTable.push(timeSeg(a*<span class="number">60</span>+b,c*<span class="number">60</span>+d));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(N==<span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Yes\n1\n00:00-23:59\n"</span>);<span class="comment">//针对没有输入的情况</span></span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(process())</span><br><span class="line">            output();</span><br><span class="line">        <span class="keyword">else</span> </span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"No\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这道题难点主要在于两天之间的交接,使用模的方法比较容易解决,但是有一个比较难想的特殊情况是每天都不能睡觉,这个会导致连续的情况,进而无法满足条件.</p>
+<h1 id="week14-homework"><a href="#week14-homework" class="headerlink" title="week14-homework"></a>week14-homework</h1><h2 id="A-Q老师与石头剪刀布（必做）"><a href="#A-Q老师与石头剪刀布（必做）" class="headerlink" title="A - Q老师与石头剪刀布（必做）"></a><a href="https://vjudge.net/problem/CodeForces-1245B" target="_blank" rel="noopener">A - Q老师与石头剪刀布（必做）</a></h2><h3 id="题面-1"><a href="#题面-1" class="headerlink" title="题面"></a>题面</h3><p><img src="https://i.loli.net/2020/06/01/wFbrVy1cNMYKosQ.png" alt="image-20200601152945277"></p>
+<p>还是剪刀石头布游戏,但是规则有些变化,因为要求求出一个制胜策略</p>
+<h3 id="解法-1"><a href="#解法-1" class="headerlink" title="解法"></a>解法</h3><p>首先这个道题每次比赛只有两种情况,赢或者不赢(包括输和平局),因此采取最简单的贪心策略,每次对方出一个招式,首先采取能赢它的方法,如果不能赢,通过标记位标记,最后输出时把标记输出为没有使用的招式</p>
+<h3 id="code-1"><a href="#code-1" class="headerlink" title="code"></a>code</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="comment">//将三个字母转换为数字</span></span><br><span class="line"><span class="keyword">int</span> t;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="keyword">int</span> Q[<span class="number">3</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> data[<span class="number">200</span>];<span class="comment">//输出的数据</span></span><br><span class="line"><span class="keyword">int</span> c2i[<span class="number">200</span>];<span class="comment">//char to int</span></span><br><span class="line"><span class="keyword">char</span> i2c[<span class="number">3</span>];<span class="comment">//int to char</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">output</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> data_temp = c2i[data[i]];</span><br><span class="line">        <span class="keyword">if</span>(Q[(data_temp+<span class="number">1</span>)%<span class="number">3</span>]&gt;<span class="number">0</span>)<span class="comment">//+1就是能赢他的招式</span></span><br><span class="line">        &#123;</span><br><span class="line">            data[i] = i2c[(data_temp+<span class="number">1</span>)%<span class="number">3</span>];</span><br><span class="line">            Q[(data_temp+<span class="number">1</span>)%<span class="number">3</span>]--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            data[i] = <span class="string">'Z'</span>;<span class="comment">//标志位</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> lose = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++)</span><br><span class="line">        lose+=Q[i];<span class="comment">//计算总共输的次数</span></span><br><span class="line">    <span class="keyword">if</span>((n-lose)*<span class="number">2</span>&gt;=n)<span class="comment">//赢得次数符合规定</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"YES\n"</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">            <span class="keyword">if</span>(data[i]==<span class="string">'Z'</span>)<span class="comment">//标志位</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">3</span>;j++)</span><br><span class="line">                    <span class="keyword">if</span>(Q[j]&gt;<span class="number">0</span>)<span class="comment">//输出第一个没有被用完的</span></span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="built_in">printf</span>(<span class="string">"%c"</span>,i2c[j]);</span><br><span class="line">                        Q[j]--;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"%c"</span>,data[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"NO"</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    c2i[<span class="string">'R'</span>]=<span class="number">0</span>,c2i[<span class="string">'P'</span>]=<span class="number">1</span>,c2i[<span class="string">'S'</span>]=<span class="number">2</span>;<span class="comment">//字符转换</span></span><br><span class="line">    i2c[<span class="number">0</span>]=<span class="string">'R'</span>,i2c[<span class="number">1</span>]=<span class="string">'P'</span>,i2c[<span class="number">2</span>]=<span class="string">'S'</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;t);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;t;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++)</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,Q+i);</span><br><span class="line">        getchar();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%c"</span>,data+i);</span><br><span class="line">        output();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>这道题升级了一下，需要输出每次操作，一开始设计的有点问题，把胜负判断和出拳策略分开了，导致出拳策略会出现问题（主要还是输和平局在这里一样，我那个方法下会使得输和平局的出拳是随机的，然后不对）。</p>
+<h2 id="B-Q老师与十字叉（必做）"><a href="#B-Q老师与十字叉（必做）" class="headerlink" title="B - Q老师与十字叉（必做）"></a><a href="https://vjudge.net/problem/CodeForces-1194B" target="_blank" rel="noopener">B - Q老师与十字叉（必做）</a></h2><h3 id="题面-2"><a href="#题面-2" class="headerlink" title="题面"></a>题面</h3><p><img src="https://i.loli.net/2020/06/01/3ermkKLcuaC1EGd.png" alt="image-20200601153925213"></p>
+<p>这是一道画图的题,规则就是横竖方向上各画一条线,求一下最少需要画几个块</p>
+<h3 id="解法-2"><a href="#解法-2" class="headerlink" title="解法"></a>解法</h3><p>这道题一开始复杂度看错了,直接傻了,空间爆炸</p>
+<p><img src="https://i.loli.net/2020/06/01/CEJ86NnLeksMbPI.png" alt="image-20200601154143569"></p>
+<p>这里对总的数据量进行了控制,因此开数组还是能存下的,使用vector就没有空间的烦恼了</p>
+<p>策略还是贪心,找出一行和一列中最大黑色块的哪一行或者列(可能多个),然后遍历所有情况,减去重叠块后算出需要的最少块</p>
+<h3 id="code-2"><a href="#code-2" class="headerlink" title="code"></a>code</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> col[<span class="number">50005</span>];<span class="comment">//一列中黑色块的个数</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt; board[<span class="number">50005</span>];<span class="comment">//棋盘</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; col_index;<span class="comment">//最多黑色块的列号</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; row_index;<span class="comment">//最多黑色块的行号</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> q;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;q);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;q;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        col_index.clear();</span><br><span class="line">        row_index.clear();</span><br><span class="line">        <span class="keyword">int</span> m,n;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">        getchar();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> t=<span class="number">0</span>;t&lt;m;t++)</span><br><span class="line">            col[t] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> t=<span class="number">0</span>;t&lt;n;t++)</span><br><span class="line">            board[t].clear();</span><br><span class="line">        <span class="keyword">int</span> row_max=<span class="number">0</span>,col_max=<span class="number">0</span>;<span class="comment">//最多黑色块数</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> q=<span class="number">0</span>;q&lt;n;q++)<span class="comment">//一行一行遍历</span></span><br><span class="line">        &#123;   </span><br><span class="line">            <span class="keyword">int</span> black=<span class="number">0</span>;<span class="comment">//这一行中黑色块的个数</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> p=<span class="number">0</span>;p&lt;m;p++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">char</span> temp;</span><br><span class="line">                <span class="built_in">scanf</span>(<span class="string">"%c"</span>,&amp;temp);</span><br><span class="line">                board[q].push_back(temp);</span><br><span class="line">                <span class="keyword">if</span>(board[q][p] == <span class="string">'*'</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    black++;</span><br><span class="line">                    col[p]++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            getchar();</span><br><span class="line">            <span class="keyword">if</span>(black==row_max)<span class="comment">//记录</span></span><br><span class="line">                row_index.push_back(q);</span><br><span class="line">            <span class="keyword">if</span>(black&gt;row_max)</span><br><span class="line">            &#123;</span><br><span class="line">                row_max = black;</span><br><span class="line">                row_index.clear();<span class="comment">//发生改变后之前的就无效了</span></span><br><span class="line">                row_index.push_back(q);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> t=<span class="number">0</span>;t&lt;m;t++)<span class="comment">//一列中最多的黑色块数</span></span><br><span class="line">            <span class="keyword">if</span>(col[t] == col_max)</span><br><span class="line">                col_index.push_back(t);</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(col[t]&gt;col_max)</span><br><span class="line">            &#123;</span><br><span class="line">                col_index.clear();</span><br><span class="line">                col_max=col[t];</span><br><span class="line">                col_index.push_back(t);</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">int</span> min_time = <span class="number">10000000</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> p:col_index)</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">auto</span> q:row_index)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> cur=<span class="number">0</span>;</span><br><span class="line">                <span class="keyword">if</span>(board[q][p]==<span class="string">'.'</span>)<span class="comment">//判断重合点</span></span><br><span class="line">                    cur = (n-col_max)+(m-row_max)<span class="number">-1</span>;</span><br><span class="line">                <span class="keyword">else</span> </span><br><span class="line">                    cur = (n-col_max)+(m-row_max);</span><br><span class="line">                <span class="keyword">if</span>(min_time&gt;cur)</span><br><span class="line">                    min_time=cur;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,min_time);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="C-Q老师的考验（必做）"><a href="#C-Q老师的考验（必做）" class="headerlink" title="C - Q老师的考验（必做）"></a><a href="https://vjudge.net/problem/HDU-1757" target="_blank" rel="noopener">C - Q老师的考验（必做）</a></h2><h3 id="题面-3"><a href="#题面-3" class="headerlink" title="题面"></a>题面</h3><p><img src="https://i.loli.net/2020/06/01/VEmSfMcvUQLR5e1.png" alt="image-20200601155642813"></p>
+<p>线性递推式+快速幂</p>
+<p><img src="https://i.loli.net/2020/06/02/U6n4RAqtYMWc5XP.png" alt="8320BA217D9BBA25A60EF121D05EC4A2"></p>
+<h3 id="解法-3"><a href="#解法-3" class="headerlink" title="解法"></a>解法</h3><p>矩阵快速幂+线性递推式</p>
+<p>code</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span>  <span class="title">matrix</span>  //矩阵</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> x[<span class="number">20</span>][<span class="number">20</span>];</span><br><span class="line">    <span class="keyword">int</span> n;<span class="comment">//维数</span></span><br><span class="line">    <span class="keyword">int</span> mod;<span class="comment">//模</span></span><br><span class="line">    matrix <span class="keyword">operator</span> *(<span class="keyword">const</span> matrix&amp; t) <span class="keyword">const</span><span class="comment">//乘法</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function">matrix <span class="title">ret</span><span class="params">(n,mod)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">            &#123;</span><br><span class="line">                ret.x[i][j] = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;n;k++)</span><br><span class="line">                    ret.x[i][j]=(ret.x[i][j]+(<span class="number">1l</span>l*x[i][k]*t.x[k][j])%mod)%mod;<span class="comment">//保证取模</span></span><br><span class="line">                ret.x[i][j] = ret.x[i][j]%mod;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">    matrix(<span class="keyword">int</span> n,<span class="keyword">int</span> mod):n(n),mod(mod)</span><br><span class="line">    &#123;<span class="built_in">memset</span>(x,<span class="number">0</span>,<span class="keyword">sizeof</span>(x));&#125;</span><br><span class="line">    matrix(<span class="keyword">const</span> matrix&amp; t)&#123;<span class="built_in">memcpy</span>(x,t.x,<span class="keyword">sizeof</span>(x));n=t.n;mod=t.mod;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">matrix <span class="title">pow</span><span class="params">(matrix&amp; t,<span class="keyword">int</span> time)</span><span class="comment">//快速幂</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">matrix <span class="title">ans</span><span class="params">(t.n,t.mod)</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;ans.n;i++)</span><br><span class="line">        ans.x[i][i] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(time)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(time&amp;<span class="number">1</span>)</span><br><span class="line">            ans = ans*t;</span><br><span class="line">        t=t*t;</span><br><span class="line">        time = time&gt;&gt;<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> k,m;</span><br><span class="line">    <span class="keyword">int</span> a[<span class="number">10</span>];</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;k,&amp;m)!=EOF)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,a+i);</span><br><span class="line">        <span class="function">matrix <span class="title">temp</span><span class="params">(<span class="number">10</span>,m)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)<span class="comment">//初始化矩阵</span></span><br><span class="line">            temp.x[<span class="number">0</span>][i] = a[i];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;<span class="number">10</span>;i++)</span><br><span class="line">            temp.x[i][i<span class="number">-1</span>]=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(k&lt;<span class="number">10</span>)<span class="comment">//可以直接输出</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,k);</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        matrix t = <span class="built_in">pow</span>(temp,k<span class="number">-9</span>);<span class="comment">//使用线性递推</span></span><br><span class="line">        <span class="keyword">int</span> ans =<span class="number">0</span> ;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)</span><br><span class="line">            ans = (ans + t.x[<span class="number">0</span>][i]*(<span class="number">9</span>-i))%m;<span class="comment">//运算最后的结果</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,ans);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h3><p>这类题得先看复杂度,根据复杂度可以判断使用什么算法,快速幂的复杂度在log级别速度很快.</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Program/" rel="tag"># Program</a>
+          
+            <a href="/tags/homework/" rel="tag"># homework</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/26/Program-week13-homework/" rel="next" title="Program-week13-homework">
+                <i class="fa fa-chevron-left"></i> Program-week13-homework
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/04/Program-week16-homework/" rel="prev" title="Program-week16-homework">
+                Program-week16-homework <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://i.loli.net/2020/02/28/cAKbXSfZYIC9mF8.jpg"
+                alt="Xyfuture" />
+            
+              <p class="site-author-name" itemprop="name">Xyfuture</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#week14-模拟"><span class="nav-number">1.</span> <span class="nav-text">week14-模拟</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#A-猫睡觉问题"><span class="nav-number">1.1.</span> <span class="nav-text">A - 猫睡觉问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题面"><span class="nav-number">1.1.1.</span> <span class="nav-text">题面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法"><span class="nav-number">1.1.2.</span> <span class="nav-text">解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#code"><span class="nav-number">1.1.3.</span> <span class="nav-text">code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.1.4.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#week14-homework"><span class="nav-number">2.</span> <span class="nav-text">week14-homework</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#A-Q老师与石头剪刀布（必做）"><span class="nav-number">2.1.</span> <span class="nav-text">A - Q老师与石头剪刀布（必做）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题面-1"><span class="nav-number">2.1.1.</span> <span class="nav-text">题面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法-1"><span class="nav-number">2.1.2.</span> <span class="nav-text">解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#code-1"><span class="nav-number">2.1.3.</span> <span class="nav-text">code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结-1"><span class="nav-number">2.1.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B-Q老师与十字叉（必做）"><span class="nav-number">2.2.</span> <span class="nav-text">B - Q老师与十字叉（必做）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题面-2"><span class="nav-number">2.2.1.</span> <span class="nav-text">题面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法-2"><span class="nav-number">2.2.2.</span> <span class="nav-text">解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#code-2"><span class="nav-number">2.2.3.</span> <span class="nav-text">code</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-Q老师的考验（必做）"><span class="nav-number">2.3.</span> <span class="nav-text">C - Q老师的考验（必做）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题面-3"><span class="nav-number">2.3.1.</span> <span class="nav-text">题面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法-3"><span class="nav-number">2.3.2.</span> <span class="nav-text">解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结-2"><span class="nav-number">2.3.3.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xyfuture</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
